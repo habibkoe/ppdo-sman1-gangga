@@ -63,7 +63,7 @@ class Siswa extends Migration
 			],
 			'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
-			'deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP'
+			'deleted_at DATETIME'
 		]);
 		$this->forge->addKey('id', true);
 		$this->forge->addForeignKey('user_id', 'application_user','id');
