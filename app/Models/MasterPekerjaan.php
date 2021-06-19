@@ -14,7 +14,7 @@ class MasterPekerjaan extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id','nama'];
 
 	// Dates
 	protected $useTimestamps        = false;

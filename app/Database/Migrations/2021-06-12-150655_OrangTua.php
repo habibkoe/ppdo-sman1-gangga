@@ -53,6 +53,10 @@ class OrangTua extends Migration
 				'constraint' => 5,
 				'unsigned'       => true,
 			],
+			'status'       => [
+				'type'       => 'INT',
+				'constraint' => 5,
+			],
 			'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'deleted_at DATETIME'

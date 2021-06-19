@@ -14,7 +14,7 @@ class MasterJurusan extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id','nama'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -30,13 +30,13 @@ class MasterJurusan extends Model
 	protected $cleanValidationRules = true;
 
 	// Callbacks
-	protected $allowCallbacks       = true;
-	protected $beforeInsert         = [];
-	protected $afterInsert          = [];
-	protected $beforeUpdate         = [];
-	protected $afterUpdate          = [];
-	protected $beforeFind           = [];
-	protected $afterFind            = [];
-	protected $beforeDelete         = [];
-	protected $afterDelete          = [];
+	// protected $allowCallbacks       = true;
+	// protected $beforeInsert         = [];
+	// protected $afterInsert          = [];
+	// protected $beforeUpdate         = [];
+	// protected $afterUpdate          = [];
+	// protected $beforeFind           = [];
+	// protected $afterFind            = [];
+	// protected $beforeDelete         = [];
+	// protected $afterDelete          = [];
 }

@@ -33,6 +33,53 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/daftar', 'Register::index');
+$routes->post('/post-daftar', 'Register::save');
+
+// BACK
+$routes->get('/masuk', 'Login::index');
+$routes->post('/post-masuk', 'Login::auth');
+
+$routes->get('/keluar', 'Login::logout');
+
+$routes->group('rahasia', ['filter' => 'auth'], function($routes) {
+    $routes->get('dashboard', 'Dashboard::index');
+	$routes->get('lengkapi-pendaftaran', 'Register::lengkapiPendaftaran');
+
+	// Route master
+	$routes->get('master-pendidikan', 'Masterpendidikan::index');
+
+	// API
+	$routes->get('get-data-pendidikan', 'Masterpendidikan::getDataPendidikan');
+	$routes->get('get-form-pendidikan', 'Masterpendidikan::getFormPendidikan');
+	$routes->post('simpan-data-pendidikan', 'Masterpendidikan::simpanDataPendidikan');
+
+	$routes->get('master-pekerjaan', 'Masterpekerjaan::index');
+
+	// API
+	$routes->get('get-data-pekerjaan', 'Masterpekerjaan::getDataPekerjaan');
+
+	$routes->get('master-jurusan', 'Masterjurusan::index');
+
+	// API
+	$routes->get('get-data-jurusan', 'Masterjurusan::getDataJurusan');
+
+	$routes->get('master-jabatan', 'Masterjabatan::index');
+
+	// API
+	$routes->get('get-data-jabatan', 'Masterjabatan::getDataJabatan');
+
+	$routes->get('master-agama', 'Masteragama::index');
+
+	// API
+	$routes->get('get-data-agama', 'Masteragama::getDataAgama');
+
+	// ------------------------------------------
+	$routes->get('artikel', 'Artikel::index');
+	$routes->get('manajemen-staf', 'Manajemenstaf::index');
+
+
+});
 
 /*
  * --------------------------------------------------------------------

@@ -32,6 +32,9 @@ class ApplicationUser extends Migration
 			'is_aktif'       => [
 				'type'       => 'BOOLEAN',
 			],
+			'is_lengkap'       => [
+				'type'       => 'BOOLEAN',
+			],
 			'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'deleted_at DATETIME'
