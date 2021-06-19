@@ -53,6 +53,8 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->get('get-data-pendidikan', 'Masterpendidikan::getDataPendidikan');
 	$routes->get('get-form-pendidikan', 'Masterpendidikan::getFormPendidikan');
 	$routes->post('simpan-data-pendidikan', 'Masterpendidikan::simpanDataPendidikan');
+	$routes->get('get-form-edit-pendidikan/(:num)', 'Masterpendidikan::getFormEditPendidikan/$1');
+	$routes->post('update-data-pendidikan', 'Masterpendidikan::updateDataPendidikan');
 
 	$routes->get('master-pekerjaan', 'Masterpekerjaan::index');
 
