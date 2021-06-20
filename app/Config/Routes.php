@@ -50,34 +50,57 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->get('master-pendidikan', 'Masterpendidikan::index');
 
 	// API
-	$routes->get('get-data-pendidikan', 'Masterpendidikan::getDataPendidikan');
-	$routes->get('get-form-pendidikan', 'Masterpendidikan::getFormPendidikan');
-	$routes->post('simpan-data-pendidikan', 'Masterpendidikan::simpanDataPendidikan');
-	$routes->get('get-form-edit-pendidikan/(:num)', 'Masterpendidikan::getFormEditPendidikan/$1');
-	$routes->post('update-data-pendidikan', 'Masterpendidikan::updateDataPendidikan');
+	$routes->get('get-data-pendidikan', 'Masterpendidikan::getData');
+	$routes->get('get-form-pendidikan', 'Masterpendidikan::getForm');
+	$routes->post('simpan-data-pendidikan', 'Masterpendidikan::simpanData');
+	$routes->get('get-form-edit-pendidikan/(:num)', 'Masterpendidikan::getFormEdit/$1');
+	$routes->post('update-data-pendidikan', 'Masterpendidikan::updateData');
+
+	// -------------------------------------------------------
 
 	$routes->get('master-pekerjaan', 'Masterpekerjaan::index');
 
 	// API
-	$routes->get('get-data-pekerjaan', 'Masterpekerjaan::getDataPekerjaan');
-
+	$routes->get('get-data-pekerjaan', 'Masterpekerjaan::getData');
+	$routes->get('get-form-pekerjaan', 'Masterpekerjaan::getForm');
+	$routes->post('simpan-data-pekerjaan', 'Masterpekerjaan::simpanData');
+	$routes->get('get-form-edit-pekerjaan/(:num)', 'Masterpekerjaan::getFormEdit/$1');
+	$routes->post('update-data-pekerjaan', 'Masterpekerjaan::updateData');
+	
+	// -------------------------------------------------------------
 	$routes->get('master-jurusan', 'Masterjurusan::index');
 
 	// API
-	$routes->get('get-data-jurusan', 'Masterjurusan::getDataJurusan');
+	$routes->get('get-data-jurusan', 'Masterjurusan::getData');
+	$routes->get('get-form-jurusan', 'Masterjurusan::getForm');
+	$routes->post('simpan-data-jurusan', 'Masterjurusan::simpanData');
+	$routes->get('get-form-edit-jurusan/(:num)', 'Masterjurusan::getFormEdit/$1');
+	$routes->post('update-data-jurusan', 'Masterjurusan::updateData');
 
+	// ----------------------------------------------------
 	$routes->get('master-jabatan', 'Masterjabatan::index');
 
 	// API
-	$routes->get('get-data-jabatan', 'Masterjabatan::getDataJabatan');
+	$routes->get('get-data-jabatan', 'Masterjabatan::getData');
+	$routes->get('get-form-jabatan', 'Masterjabatan::getForm');
+	$routes->post('simpan-data-jabatan', 'Masterjabatan::simpanData');
+	$routes->get('get-form-edit-jabatan/(:num)', 'Masterjabatan::getFormEdit/$1');
+	$routes->post('update-data-jabatan', 'Masterjabatan::updateData');
 
+	// ---------------------------------------------------
 	$routes->get('master-agama', 'Masteragama::index');
 
 	// API
-	$routes->get('get-data-agama', 'Masteragama::getDataAgama');
+	$routes->get('get-data-agama', 'Masteragama::getData');
+	$routes->get('get-form-agama', 'Masteragama::getForm');
+	$routes->post('simpan-data-agama', 'Masteragama::simpanData');
+	$routes->get('get-form-edit-agama/(:num)', 'Masteragama::getFormEdit/$1');
+	$routes->post('update-data-agama', 'Masteragama::updateData');
 
 	// ------------------------------------------
 	$routes->get('artikel', 'Artikel::index');
+
+	// --------------------------------------------
 	$routes->get('manajemen-staf', 'Manajemenstaf::index');
 
 

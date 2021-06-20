@@ -19,7 +19,7 @@ class Masterpendidikan extends BaseController
 		return view('back_content/master_pendidikan/index', $data);
 	}
 
-	public function getDataPendidikan()
+	public function getData()
 	{
 		if($this->request->isAJAX()) {
 			$dataModel = new ModelsMasterPendidikan();
@@ -39,7 +39,7 @@ class Masterpendidikan extends BaseController
 		}
 	}
 
-	public function getFormPendidikan()
+	public function getForm()
 	{
 		if($this->request->isAJAX()) {
 			$element = [
@@ -52,7 +52,7 @@ class Masterpendidikan extends BaseController
 		}
 	}
 
-	public function simpanDataPendidikan()
+	public function simpanData()
 	{
 		if($this->request->isAJAX()) {
 			$validasi = Services::validation();
@@ -94,7 +94,7 @@ class Masterpendidikan extends BaseController
 		}
 	}
 
-	public function getFormEditPendidikan($id)
+	public function getFormEdit($id)
 	{
 		if($this->request->isAJAX()) {
 
@@ -117,7 +117,7 @@ class Masterpendidikan extends BaseController
 		}
 	}
 
-	public function updateDataPendidikan()
+	public function updateData()
 	{
 		if($this->request->isAJAX()) {
 			$validasi = Services::validation();
