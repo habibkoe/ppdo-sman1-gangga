@@ -14,7 +14,7 @@ class Siswa extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id','nis','nik','pas_poto','nama_awal','nama_akhir','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','user_id','agama_id','jurusan_id'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -29,14 +29,16 @@ class Siswa extends Model
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
-	// Callbacks
-	protected $allowCallbacks       = true;
-	protected $beforeInsert         = [];
-	protected $afterInsert          = [];
-	protected $beforeUpdate         = [];
-	protected $afterUpdate          = [];
-	protected $beforeFind           = [];
-	protected $afterFind            = [];
-	protected $beforeDelete         = [];
-	protected $afterDelete          = [];
+	public function getDataJoin(int $userId) : array
+	{
+		$builder = $this->table('siswa');
+		$builder->where('user_id', $userId);
+		$builder->select('siswa.*, master_jurusan.nama as nama_jurusan, master_agama.nama as nama_agama');
+		$builder->join('master_jurusan', 'master_jurusan.id = siswa.jurusan_id');
+		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
+		$query = $builder->first();
+
+		return $query;
+	}
+
 }

@@ -14,7 +14,7 @@ class MasterPendidikan extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id','nama'];
+	protected $allowedFields        = ['id','nama','singkatan'];
 
 	// Dates
 	protected $useTimestamps        = false;

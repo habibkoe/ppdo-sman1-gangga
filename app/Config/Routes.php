@@ -44,7 +44,18 @@ $routes->get('/keluar', 'Login::logout');
 
 $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
     $routes->get('dashboard', 'Dashboard::index');
+
+	// lengkapi pendaftaran
 	$routes->get('lengkapi-pendaftaran', 'Register::lengkapiPendaftaran');
+
+	// API
+	$routes->post('simpan-data-diri', 'Register::simpanDataDiri');
+	$routes->post('simpan-orang-tua-wali', 'Register::simpanOrangTuaWali');
+	$routes->post('simpan-data-sekolah', 'Register::simpanDataSekolah');
+	$routes->post('simpan-berkas-nilai', 'Register::simpanBerkasNilai');
+	$routes->post('simpan-data-pendukung', 'Register::simpanDataPendukung');
+
+	// --------------------------------------------------------------
 
 	// Route master
 	$routes->get('master-pendidikan', 'Masterpendidikan::index');

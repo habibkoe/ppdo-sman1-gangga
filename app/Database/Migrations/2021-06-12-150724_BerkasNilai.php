@@ -15,7 +15,7 @@ class BerkasNilai extends Migration
 					'unsigned'       => true,
 					'auto_increment' => true,
 			],
-			'mata_Pelajaran'       => [
+			'mata_pelajaran'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
 			],

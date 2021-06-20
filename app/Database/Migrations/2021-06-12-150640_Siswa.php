@@ -19,7 +19,8 @@ class Siswa extends Migration
 				'type'       => 'DOUBLE',
 			],
 			'nik'       => [
-				'type'       => 'DOUBLE',
+				'type'       => 'VARCHAR',
+				'constraint' => '16'
 			],
 			'pas_poto'       => [
 				'type'       => 'VARCHAR',

@@ -14,7 +14,7 @@ class OrangTua extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id','nik','nama_awal','nama_akhir','alamat','jenis_kelamin','siswa_id','agama_id','pekerjaan_id','status','pendidikan_id'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -29,14 +29,4 @@ class OrangTua extends Model
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
-	// Callbacks
-	protected $allowCallbacks       = true;
-	protected $beforeInsert         = [];
-	protected $afterInsert          = [];
-	protected $beforeUpdate         = [];
-	protected $afterUpdate          = [];
-	protected $beforeFind           = [];
-	protected $afterFind            = [];
-	protected $beforeDelete         = [];
-	protected $afterDelete          = [];
 }

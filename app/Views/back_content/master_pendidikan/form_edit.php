@@ -12,6 +12,17 @@
             <?= csrf_field() ?>
             <div class="modal-body">
                 <div class="form-group row">
+                    <label for="singkatan" class="col-sm-3 col-form-label">
+                        Singkatan
+                        <br>
+                        <small>isi singkatan master data pendidikan</small>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" id="singkatan" name="singkatan" value="<?= $singkatan ?>">
+                        <div class="invalid-feedback" id="errorSingkatan"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="nama" class="col-sm-3 col-form-label">
                         Nama
                         <br>
@@ -52,15 +63,15 @@
                 $('#btnsimpan').html('Update');
             },
             success: function (response) {
-                if(response.error) {
-                    if(response.error.nama) {
+                if (response.error) {
+                    if (response.error.nama) {
                         $('#nama').addClass('is-invalid');
                         $('#errorNama').html(response.error.nama);
-                    }else {
+                    } else {
                         $('#nama').removeClass('is-invalid');
                         $('#errorNama').html('');
                     }
-                }else {
+                } else {
                     $('#modaledit').modal('hide');
 
                     // Fungsi tambil data diambil dari dalam file index.php

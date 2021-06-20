@@ -65,18 +65,28 @@ class Masterpendidikan extends BaseController
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-				]
+					],
+					'singkatan' => [
+						'label' => 'Singkatan',
+						'rules' => 'required|is_unique[master_pendidikan.singkatan]',
+						'errors' => [
+							'required' => '{field} tidak boleh kosong',
+							'is_unique' => '{field} tidak boleh sama'
+						]
+					]
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama')
+						'nama' => $validasi->getError('nama'),
+						'singkatan' => $validasi->getError('singkatan'),
 					]
 				];	
 			}else {
 				$simpanData =[
-					'nama' => $this->request->getVar('nama')
+					'nama' => $this->request->getVar('nama'),
+					'singkatan' => $this->request->getVar('singkatan'),
 				];
 
 				$data = new ModelsMasterPendidikan();
@@ -90,7 +100,7 @@ class Masterpendidikan extends BaseController
 
 			echo json_encode($pesan);
 		}else {
-			
+			exit('Maaf tidak dapa di proses');
 		}
 	}
 
@@ -104,7 +114,8 @@ class Masterpendidikan extends BaseController
 
 			$data = [
 				'id' => $datas['id'],
-				'nama' => $datas['nama']
+				'nama' => $datas['nama'],
+				'singkatan' => $datas['singkatan'],
 			];
 
 			$element = [
@@ -129,6 +140,14 @@ class Masterpendidikan extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
+				]
+				],
+				'singkatan' => [
+					'label' => 'Singkatan',
+					'rules' => 'required|is_unique[master_pendidikan.nama]',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+						'is_unique' => '{field} tidak boleh sama'
 					]
 				]
 			]);
@@ -136,13 +155,15 @@ class Masterpendidikan extends BaseController
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama')
+						'nama' => $validasi->getError('nama'),
+						'singkatan' => $validasi->getError('singkatan')
 					]
 				];	
 			}else {
 				$id = $this->request->getVar('id');
 				$simpanData =[
-					'nama' => $this->request->getVar('nama')
+					'nama' => $this->request->getVar('nama'),
+					'singkatan' => $this->request->getVar('singkatan')
 				];
 
 				$data = new ModelsMasterPendidikan();

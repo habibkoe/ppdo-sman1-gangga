@@ -14,7 +14,7 @@ class BerkasNilai extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id','mata_pelajaran','nilai','siswa_id'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -28,15 +28,4 @@ class BerkasNilai extends Model
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
-
-	// Callbacks
-	// protected $allowCallbacks       = true;
-	// protected $beforeInsert         = [];
-	// protected $afterInsert          = [];
-	// protected $beforeUpdate         = [];
-	// protected $afterUpdate          = [];
-	// protected $beforeFind           = [];
-	// protected $afterFind            = [];
-	// protected $beforeDelete         = [];
-	// protected $afterDelete          = [];
 }

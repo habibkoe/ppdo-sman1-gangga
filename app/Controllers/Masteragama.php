@@ -43,7 +43,7 @@ class Masteragama extends BaseController
 	{
 		if($this->request->isAJAX()) {
 			$element = [
-				'data' => view('back_content/master_pendidikan/form')
+				'data' => view('back_content/master_agama/form')
 			];
 
 			echo json_encode($element);
@@ -60,7 +60,7 @@ class Masteragama extends BaseController
 			$valid = $this->validate([
 				'nama' => [
 					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
+					'rules' => 'required|is_unique[master_agama.nama]',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
@@ -108,7 +108,7 @@ class Masteragama extends BaseController
 			];
 
 			$element = [
-				'data' => view('back_content/master_pendidikan/form_edit', $data)
+				'data' => view('back_content/master_agama/form_edit', $data)
 			];
 
 			echo json_encode($element);
@@ -125,7 +125,7 @@ class Masteragama extends BaseController
 			$valid = $this->validate([
 				'nama' => [
 					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
+					'rules' => 'required|is_unique[master_agama.nama]',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
