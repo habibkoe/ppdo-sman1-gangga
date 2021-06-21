@@ -16,10 +16,12 @@ class Staf extends Migration
 					'auto_increment' => true,
 			],
 			'nip'       => [
-				'type'       => 'DOUBLE',
+				'type'       => 'VARCHAR',
+				'constraint' => '20'
 			],
 			'nik'       => [
-				'type'       => 'DOUBLE',
+				'type'       => 'VARCHAR',
+				'constraint' => '20'
 			],
 			'pas_poto'       => [
 				'type'       => 'VARCHAR',

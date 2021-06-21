@@ -10,16 +10,16 @@
                 </li>
                 <?php if($session->get('user_role') != 3): ?>
                 <li>
-                    <a href="#"><i class="mdi mdi-layers"></i>Manajemen Siswa</a>
+                    <a href="<?= base_url('rahasia/manajemen-siswa') ?>"><i class="mdi mdi-layers"></i>Manajemen Siswa</a>
                 </li>
                 <li>
-                    <a href="#"><i class="mdi mdi-gauge"></i>Manajemen Kelas</a>
+                    <a href="<?= base_url('rahasia/manajemen-kelas') ?>"><i class="mdi mdi-gauge"></i>Manajemen Kelas</a>
                 </li>
                 <li>
-                    <a href="#"><i class="mdi mdi-gauge"></i>Manajemen Staf</a>
+                    <a href="<?= base_url('rahasia/manajemen-staf') ?>"><i class="mdi mdi-gauge"></i>Manajemen Staf</a>
                 </li>
                 <li>
-                    <a href="#"><i class="mdi mdi-gauge"></i>Artikel</a>
+                    <a href="<?= base_url('rahasia/artikel') ?>"><i class="mdi mdi-gauge"></i>Artikel</a>
                 </li>
                 <li class="has-submenu">
                     <a href="#"><i class="mdi mdi-bullseye"></i>Master Data</a>

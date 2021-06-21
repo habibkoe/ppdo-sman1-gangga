@@ -100,7 +100,7 @@
 <section id="portfolio" class="portfolio wow fadeInUp">
   <div class="container">
     <div class="section-header">
-      <h2>Our Portfolio</h2>
+      <h2>Ekstra Kulikuler</h2>
       <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
     </div>
 
@@ -216,7 +216,7 @@
 <section id="testimonials">
   <div class="container">
     <div class="section-header">
-      <h2>Testimonials</h2>
+      <h2>Jurusan</h2>
       <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
     </div>
     <div class="owl-carousel testimonials-carousel">
@@ -286,7 +286,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-9 text-center text-lg-left">
-        <h3 class="cta-title">Call To Action</h3>
+        <h3 class="cta-title">Telpon Segera</h3>
         <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
       <div class="col-lg-3 cta-btn-container text-center">

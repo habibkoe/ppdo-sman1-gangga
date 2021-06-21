@@ -10,7 +10,7 @@
     <meta content="Mannatthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= base_url('theme/back/assets/images/favicon.ico') ?>">
 
     <link href="<?= base_url('theme/back/assets/plugins/morris/morris.css') ?>" rel="stylesheet">
 

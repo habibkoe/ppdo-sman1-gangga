@@ -3,11 +3,12 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Staf;
+use App\Models\Siswa;
 
-class Manajemenstaf extends BaseController
+class Manajemensiswa extends BaseController
 {
-	private string $nama_halaman = "Manajemen Staf";
+
+	private string $nama_halaman = "Manajemen Siswa";
 
 	public function index()
 	{
@@ -15,20 +16,20 @@ class Manajemenstaf extends BaseController
 
 		$data['session'] = $session;
 		$data['nama_halaman'] = $this->nama_halaman;
-		return view('back_content/manajemen_staf/index', $data);
+		return view('back_content/manajemen_siswa/index', $data);
 	}
 
 	public function getData()
 	{
 		if($this->request->isAJAX()) {
-			$dataModel = new Staf();
+			$dataModel = new Siswa();
 
 			$datas = [
 				'datas' => $dataModel->findAll()
 			];
 
 			$pesan  = [
-				'data' => view('back_content/manajemen_staf/data', $datas)
+				'data' => view('back_content/manajemen_siswa/data', $datas)
 			];
 
 			echo json_encode($pesan);

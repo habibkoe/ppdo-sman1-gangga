@@ -117,8 +117,24 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	// ------------------------------------------
 	$routes->get('artikel', 'Artikel::index');
 
+	// API
+	$routes->get('get-data-artikel', 'Artikel::getData');
+	$routes->get('get-form-artikel', 'Artikel::getForm');
+	$routes->post('simpan-data-artikel', 'Artikel::simpanData');
+	$routes->get('get-form-edit-artikel/(:num)', 'Artikel::getFormEdit/$1');
+	$routes->post('update-data-artikel', 'Artikel::updateData');
+
 	// --------------------------------------------
 	$routes->get('manajemen-staf', 'Manajemenstaf::index');
+
+	// API
+	$routes->get('get-data-staf', 'Manajemenstaf::getData');
+
+	// -------------------------------------------
+	$routes->get('manajemen-siswa', 'Manajemensiswa::index');
+
+	// API
+	$routes->get('get-data-siswa', 'Manajemensiswa::getData');
 
 
 });

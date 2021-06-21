@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Staf extends Model
+class Artikel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'staf';
+	protected $table                = 'artikel';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
-	protected $useSoftDeletes       = true;
+	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id','nip','nik','pas_poto','nama_awal','nama_akhir','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','user_id','agama_id','pendidikan_id','jabatan_id'];
+	protected $allowedFields        = ['id','judul','deskripsi','status','kategori_id','user_id'];
 
 	// Dates
 	protected $useTimestamps        = false;

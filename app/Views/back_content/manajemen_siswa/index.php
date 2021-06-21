@@ -34,7 +34,6 @@
     <div class="col-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <button class="btn btn-primary btn-lg mb-3" id="tambahdata">Buat baru</button>
                 <div id="tampildata"></div>
             </div>
         </div>
@@ -57,7 +56,7 @@
 <script>
 function tampilData() {
     $.ajax({
-        url: "<?= site_url('rahasia/get-data-pendidikan') ?>",
+        url: "<?= site_url('rahasia/get-data-siswa') ?>",
         dataType: "json",
         success: function(response) {
             $('#tampildata').html(response.data);
@@ -66,6 +65,22 @@ function tampilData() {
             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
         }
     });
+}
+
+function tambahData() {
+    $.ajax({
+        url: "<?= site_url('rahasia/get-form-pekerjaan') ?>",
+        dataType: "json",
+        success: function(response) {
+            $('#tampilmodal').html(response.data).removeClass('d-none');
+            $('#modaltambah').modal('show');
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            aler(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+        }
+
+    });
+    
 }
 
 $(document).ready(function() {

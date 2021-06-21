@@ -12,7 +12,7 @@
                 <li class="menu-active"><a href="<?= base_url() ?>">Home</a></li>
                 <li><a href="#tentang_kami">Tentang Kami</a></li>
                 <li><a href="#panduan">Panduan Pendaftaran</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#portfolio">Ekstra Kulikuler</a></li>
                 <li><a href="#hubungi_kami">Hubungi Kami</a></li>
             </ul>
         </nav><!-- #nav-menu-container -->
