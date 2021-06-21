@@ -129,6 +129,10 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 
 	// API
 	$routes->get('get-data-staf', 'Manajemenstaf::getData');
+	$routes->get('get-form-staf', 'Manajemenstaf::getForm');
+	$routes->post('simpan-data-staf', 'Manajemenstaf::simpanData');
+	$routes->get('get-form-edit-staf/(:num)', 'Manajemenstaf::getFormEdit/$1');
+	$routes->post('update-data-staf', 'Manajemenstaf::updateData');
 
 	// -------------------------------------------
 	$routes->get('manajemen-siswa', 'Manajemensiswa::index');

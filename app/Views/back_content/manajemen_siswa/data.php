@@ -18,6 +18,7 @@
             <td>
                 <button class="btn btn-sm btn-warning" onclick="terimaSiswa(<?= $data['id'] ?>)">Terima</button>
                 <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tolak</button>
+                <button class="btn btn-sm btn-secondary">Detail</button>
             </td>
         </tr>
         <?php endforeach ?>

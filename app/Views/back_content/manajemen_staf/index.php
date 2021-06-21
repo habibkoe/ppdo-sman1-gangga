@@ -13,6 +13,13 @@
 <!-- Responsive datatable examples -->
 <link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
     type="text/css" />
+
+<style>
+    .modal-lg,
+    .modal-xl {
+        max-width: 1200px;
+    }
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -70,7 +77,7 @@ function tampilData() {
 
 function tambahData() {
     $.ajax({
-        url: "<?= site_url('rahasia/get-form-pendidikan') ?>",
+        url: "<?= site_url('rahasia/get-form-staf') ?>",
         dataType: "json",
         success: function(response) {
             $('#tampilmodal').html(response.data).removeClass('d-none');
