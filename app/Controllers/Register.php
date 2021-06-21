@@ -82,15 +82,29 @@ class Register extends BaseController
 
 		// CEK DATA
 		$modelSiswa = new Siswa();
-		$idSiswa = $modelSiswa->select('id')->where('user_id', session()->get('user_id'))->first();
-		$modeOrangTua = new OrangTua();
-		$modeSekolahAsal = new SekolahAsal();
-		$modeBerkasNilai = new BerkasNilai();
+		$dataSiswa = $modelSiswa->getDataJoin(session()->get('user_id'));
+		
 
-		$data['data_siswa'] = $modelSiswa->getDataJoin(session()->get('user_id'));
-		$data['data_orang_tua'] = $modeOrangTua->where('siswa_id', $idSiswa['id'])->findAll();
-		$data['sekolah_asal'] = $modeSekolahAsal->where('siswa_id', $idSiswa['id'])->findAll();
-		$data['berkas_nilai'] = $modeBerkasNilai->where('siswa_id', $idSiswa['id'])->findAll();
+		// DEKLARASI VARIABLE ARRAY UNTUK DATA
+		$dataOrangTua = [];
+		$dataSekolah = [];
+		$dataNilai = [];
+
+		// CEK APAKAH DATA SISWA SUDAH DIISI, JIKA SUDAH MAKA AMBIL DATA BERIKUT
+		if(count($dataSiswa) > 0) {
+			$modeOrangTua = new OrangTua();
+			$modeSekolahAsal = new SekolahAsal();
+			$modeBerkasNilai = new BerkasNilai();
+
+			$dataOrangTua = $modeOrangTua->where('siswa_id', $dataSiswa['id'])->findAll();
+			$dataSekolah = $modeSekolahAsal->where('siswa_id', $dataSiswa['id'])->findAll();
+			$dataNilai = $modeBerkasNilai->where('siswa_id', $dataSiswa['id'])->findAll();
+		}
+
+		$data['data_siswa'] = $dataSiswa;
+		$data['data_orang_tua'] = $dataOrangTua;
+		$data['sekolah_asal'] = $dataSekolah;
+		$data['berkas_nilai'] = $dataNilai;
 
 		$data['session'] = session();
         return view('back_content/register/lengkapi_pendaftaran', $data);
@@ -159,7 +173,8 @@ class Register extends BaseController
 				$data->insert($simpanData);
 
 				$pesan = [
-					'berhasil' => 'Data berhasil disimpan'
+					'berhasil' => 'Data berhasil disimpan',
+					'user_id' => session()->get('user_id')
 				];
 			}
 
@@ -168,6 +183,17 @@ class Register extends BaseController
 
         }
     }
+
+	public function getDataDiri($userId) 
+    {
+		// CEK DATA
+		$modelSiswa = new Siswa();
+		$data['data_siswa'] = $modelSiswa->getDataJoin($userId);
+        return view('back_content/register/identitas_utama', $data);
+    }
+
+
+	// --------------------------------------------
 
     public function simpanOrangTuaWali() 
     {
@@ -224,7 +250,8 @@ class Register extends BaseController
 				$data->insert($simpanData);
 
 				$pesan = [
-					'berhasil' => 'Data berhasil disimpan'
+					'berhasil' => 'Data berhasil disimpan',
+					'siswa_id' => $getDataSiswa['id']
 				];
 			}
 
@@ -233,6 +260,16 @@ class Register extends BaseController
             
         }
     }
+
+	public function getDataOrtu($siswaId) 
+    {
+		$modeOrangTua = new OrangTua();
+		$data['data_orang_tua'] = $modeOrangTua->where('siswa_id', $siswaId)->findAll();
+
+        return view('back_content/register/identitas_orang_tua', $data);
+    }
+
+	// ---------------------------------
 
     public function simpanDataSekolah()
     {
@@ -283,7 +320,8 @@ class Register extends BaseController
 				$data->insert($simpanData);
 
 				$pesan = [
-					'berhasil' => 'Data berhasil disimpan'
+					'berhasil' => 'Data berhasil disimpan',
+					'siswa_id' => $getDataSiswa['id']
 				];
 			}
 
@@ -292,6 +330,16 @@ class Register extends BaseController
             
         }
     }
+
+	public function getDataSekolahAsal($siswaId) 
+    {
+		$modeSekolahAsal = new SekolahAsal();
+		$data['sekolah_asal'] = $modeSekolahAsal->where('siswa_id', $siswaId)->findAll();
+
+        return view('back_content/register/data_sekolah_asal', $data);
+    }
+
+	// ----------------------------------------
 
     public function simpanBerkasNilai()
     {
@@ -340,7 +388,8 @@ class Register extends BaseController
 				$data->insert($simpanData);
 
 				$pesan = [
-					'berhasil' => 'Data berhasil disimpan'
+					'berhasil' => 'Data berhasil disimpan',
+					'siswa_id' => $getDataSiswa['id']
 				];
 			}
 
@@ -349,6 +398,15 @@ class Register extends BaseController
             
         }
     }
+
+	public function getDataNilai($siswaId) 
+    {
+		$modeBerkasNilai = new BerkasNilai();
+		$data['berkas_nilai'] = $modeBerkasNilai->where('siswa_id', $siswaId)->findAll();
+
+        return view('back_content/register/data_nilai', $data);
+    }
+	// ----------------------------------
 
     public function simpanDataPendukung()
     {

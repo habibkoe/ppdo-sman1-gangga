@@ -35,7 +35,9 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           </button>
           <span id="isi_pesan_berhasil"></span>
         </div>
-        <?= $this->include('back_content/register/identitas_utama') ?>
+        <div id="content_identitas_utama">
+          <?= $this->include('back_content/register/identitas_utama') ?>
+        </div>
       </div>
     </div>
 
@@ -48,7 +50,9 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           </button>
           <span id="isi_pesan_berhasil_ortu"></span>
         </div>
-        <?= $this->include('back_content/register/identitas_orang_tua') ?>
+        <div id="content_identitas_ortu">
+          <?= $this->include('back_content/register/identitas_orang_tua') ?>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +67,9 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           </button>
           <span id="isi_pesan_data_sekolah"></span>
         </div>
-        <?= $this->include('back_content/register/data_sekolah_asal') ?>
+        <div id="content_sekolah_asal">
+          <?= $this->include('back_content/register/data_sekolah_asal') ?>
+        </div>
       </div>
     </div>
 
@@ -76,7 +82,9 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           </button>
           <span id="isi_pesan_nilai_mapel"></span>
         </div>
-        <?= $this->include('back_content/register/data_nilai') ?>
+        <div id="content_data_nilai">
+          <?= $this->include('back_content/register/data_nilai') ?>
+        </div>
       </div>
     </div>
     <div class="card m-b-30">
@@ -92,6 +100,21 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 <?= $this->section('javascript') ?>
 <script src="<?= base_url('theme/back/assets/plugins/select2/select2.min.js') ?>" type="text/javascript"></script>
 <script>
+  // Ajax Load Data secara dinamis tanpa refresh
+  function ajaxLoad(_url, content) {
+    content = typeof content !== 'undefined' ? content : 'content';
+    $.ajax({
+      type: "GET",
+      url: _url,
+      contentType: false,
+      success: function (data) {
+        $("#" + content).html(data);
+      },
+      error: function (xhr, status, error) {
+        bootbox.alert(xhr.responseText);
+      }
+    });
+  }
 
   //SIMPAN DATA PRIBADI 
   $('#simpan_data_diri').submit(function (e) {
@@ -141,6 +164,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           // tampilData();
           $('#notifikasi_data_diri').removeClass('d-none');
           $('#isi_pesan_berhasil').html(response.berhasil);
+
+          let urlLoad = "<?= site_url('rahasia/get-element-data-diri/') ?>" + response.user_id;
+
+          // Load element lokal
+          ajaxLoad(urlLoad, "content_identitas_utama");
         }
       },
       error: function (xhr, ajaxOptins, thrownError) {
@@ -189,6 +217,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           // tampilData();
           $('#notifikasi_ortu').removeClass('d-none');
           $('#isi_pesan_berhasil_ortu').html(response.berhasil);
+
+          let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + response.siswa_id;
+
+          // Load element lokal
+          ajaxLoad(urlLoad, "content_identitas_ortu");
         }
       },
       error: function (xhr, ajaxOptins, thrownError) {
@@ -237,6 +270,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           // tampilData();
           $('#notifikasi_data_sekolah').removeClass('d-none');
           $('#isi_pesan_data_sekolah').html(response.berhasil);
+
+          let urlLoad = "<?= site_url('rahasia/get-element-data-sekolah-asal/') ?>" + response.siswa_id;
+
+          // Load element lokal
+          ajaxLoad(urlLoad, "content_sekolah_asal");
         }
       },
       error: function (xhr, ajaxOptins, thrownError) {
@@ -285,6 +323,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           // tampilData();
           $('#notifikasi_nilai_mapel').removeClass('d-none');
           $('#isi_pesan_nilai_mapel').html(response.berhasil);
+
+          let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id;
+
+          // Load element lokal
+          ajaxLoad(urlLoad, "content_data_nilai");
         }
       },
       error: function (xhr, ajaxOptins, thrownError) {

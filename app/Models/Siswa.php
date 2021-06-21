@@ -31,6 +31,7 @@ class Siswa extends Model
 
 	public function getDataJoin(int $userId) : array
 	{
+		$data = [];
 		$builder = $this->table('siswa');
 		$builder->where('user_id', $userId);
 		$builder->select('siswa.*, master_jurusan.nama as nama_jurusan, master_agama.nama as nama_agama');
@@ -38,7 +39,11 @@ class Siswa extends Model
 		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
 		$query = $builder->first();
 
-		return $query;
+		if(isset($query)) {
+			$data = $query;
+		}
+
+		return $data;
 	}
 
 }

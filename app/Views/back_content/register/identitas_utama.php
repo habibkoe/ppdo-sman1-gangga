@@ -1,4 +1,4 @@
-<?php if(isset($data_siswa)): ?>
+<?php if(count($data_siswa) > 0): ?>
 <div class="table-responsive">
     <table class="table table-bordered">
         <tr>

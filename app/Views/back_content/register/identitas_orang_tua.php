@@ -4,7 +4,7 @@
         <?php foreach($data_orang_tua as $data_ortu): ?>
         <tr>
             <td>
-                <?= $data_ortu['nama_awal'] ?>
+                <?= $data_ortu['nama_awal'] . " " . $data_ortu['nama_akhir'] ?>
             </td>
             <td>
                 <?= $data_ortu['status'] ?>
