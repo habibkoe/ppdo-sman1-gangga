@@ -1,4 +1,4 @@
-<table id="datatable" class="table table-bordered">
+<table id="datatable" class="table table-hover">
     <thead>
         <tr>
             <th>NIP</th>
