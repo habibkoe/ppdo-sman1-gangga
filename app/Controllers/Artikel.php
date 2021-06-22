@@ -25,8 +25,14 @@ class Artikel extends BaseController
 		if($this->request->isAJAX()) {
 			$dataModel = new ModelsArtikel();
 
+			$status = [1 => 'Posting', 'Draft'];
+			$kategori = [1 => 'Tentang', 'Cara Daftar', 'Jurusan', 'Ekstara Kulikuler'];
+
+
 			$datas = [
-				'datas' => $dataModel->findAll()
+				'datas' => $dataModel->findAll(),
+				'status' => $status,
+				'kategori' => $kategori
 			];
 
 			$pesan  = [
@@ -60,20 +66,26 @@ class Artikel extends BaseController
 
 			$valid = $this->validate([
 				'judul' => [
-					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
+					'label' => 'Judul',
+					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
 					]
-					],
-					'kategori_id' => [
-						'label' => 'Kategori',
-						'rules' => 'required',
-						'errors' => [
-							'required' => '{field} tidak boleh kosong',
-						]
+				],
+				'kategori_id' => [
+					'label' => 'Kategori',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
 					]
+				],
+				'status' => [
+					'label' => 'Status',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
 			]);
 
 			if(!$valid) {
@@ -81,6 +93,7 @@ class Artikel extends BaseController
 					'error' => [
 						'judul' => $validasi->getError('judul'),
 						'kategori_id' => $validasi->getError('kategori_id'),
+						'status' => $validasi->getError('status'),
 					]
 				];	
 			}else {
@@ -111,18 +124,20 @@ class Artikel extends BaseController
 	{
 		if($this->request->isAJAX()) {
 
-			$dataModel = new ModelsMasterPendidikan();
+			$dataModel = new ModelsArtikel();
 
 			$datas = $dataModel->find($id);
 
 			$data = [
 				'id' => $datas['id'],
-				'nama' => $datas['nama'],
-				'singkatan' => $datas['singkatan'],
+				'judul' => $datas['judul'],
+				'deskripsi' => $datas['deskripsi'],
+				'status' => $datas['status'],
+				'kategori_id' => $datas['kategori_id']
 			];
 
 			$element = [
-				'data' => view('back_content/master_pendidikan/form_edit', $data)
+				'data' => view('back_content/artikel/form_edit', $data)
 			];
 
 			echo json_encode($element);
@@ -137,39 +152,48 @@ class Artikel extends BaseController
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
-				'nama' => [
-					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
+				'judul' => [
+					'label' => 'Judul',
+					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
-				]
-				],
-				'singkatan' => [
-					'label' => 'Singkatan',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
-					'errors' => [
-						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
 					]
-				]
+				],
+				'kategori_id' => [
+					'label' => 'Kategori',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'status' => [
+					'label' => 'Status',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama'),
-						'singkatan' => $validasi->getError('singkatan')
+						'judul' => $validasi->getError('judul'),
+						'kategori_id' => $validasi->getError('kategori_id'),
+						'status' => $validasi->getError('status'),
 					]
 				];	
 			}else {
 				$id = $this->request->getVar('id');
 				$simpanData =[
-					'nama' => $this->request->getVar('nama'),
-					'singkatan' => $this->request->getVar('singkatan')
+					'judul' => $this->request->getVar('judul'),
+					'deskripsi' => $this->request->getVar('deskripsi'),
+					'kategori_id' => $this->request->getVar('kategori_id'),
+					'status' => $this->request->getVar('status'),
+					'user_id' => session()->get('user_id'),
 				];
 
-				$data = new ModelsMasterPendidikan();
+				$data = new ModelsArtikel();
 
 				$data->update($id, $simpanData);
 

@@ -1,36 +1,64 @@
 <div class="modal fade bs-example-modal-center" id="modaledit" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Artikel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open("rahasia/update-data-pendidikan", ['id' => 'updatedata']) ?>
+            <?= form_open('rahasia/update-data-artikel', ['id' => 'updatedata']) ?>
             <?= csrf_field() ?>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label for="singkatan" class="col-sm-3 col-form-label">
-                        Singkatan
-                        <br>
-                        <small>isi singkatan master data pendidikan</small>
-                    </label>
-                    <div class="col-sm-9">
-                        <input class="form-control" type="text" id="singkatan" name="singkatan" value="<?= $singkatan ?>">
-                        <div class="invalid-feedback" id="errorSingkatan"></div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="judul">
+                                Judul
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" id="judul" name="judul" value="<?= $judul ?>">
+                                <div class="invalid-feedback" id="errorJudul"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deskripsi">
+                                Deskripsi
+                            </label>
+                            <div>
+                                <textarea name="deskripsi" id="elm1"><?= $deskripsi ?></textarea>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nama" class="col-sm-3 col-form-label">
-                        Nama
-                        <br>
-                        <small>isi nama master data pendidikan</small>
-                    </label>
-                    <div class="col-sm-9">
-                        <input class="form-control" type="text" id="nama" name="nama" value="<?= $nama ?>">
-                        <div class="invalid-feedback" id="errorNama"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Kategori
+                            </label>
+                            <div>
+                                <select name="kategori_id" id="kategori_id" class="form-control">
+                                    <option value=""></option>
+                                    <option value="1" <?= $kategori_id == 1 ? 'selected' : '' ?>>Tentang</option>
+                                    <option value="2" <?= $kategori_id == 2 ? 'selected' : '' ?>>cara daftar</option>
+                                    <option value="3" <?= $kategori_id == 3 ? 'selected' : '' ?>>Jurusan</option>
+                                    <option value="4" <?= $kategori_id == 4 ? 'selected' : '' ?>>Ekstra Kulikuler</option>
+                                </select>
+                                <div class="invalid-feedback" id="errorKategori"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <div>
+                                <select name="status" id="status_post" class="form-control">
+                                    <option value=""></option>
+                                    <option value="1" <?= $status == 1 ? 'selected' : '' ?>>Posting</option>
+                                    <option value="2" <?= $status == 2 ? 'selected' : '' ?>>Draft</option>
+                                </select>
+                                <div class="invalid-feedback" id="errorStatus"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,12 +92,28 @@
             },
             success: function (response) {
                 if (response.error) {
-                    if (response.error.nama) {
-                        $('#nama').addClass('is-invalid');
-                        $('#errorNama').html(response.error.nama);
+                    if (response.error.judul) {
+                        $('#judul').addClass('is-invalid');
+                        $('#errorJudul').html(response.error.judul);
                     } else {
-                        $('#nama').removeClass('is-invalid');
-                        $('#errorNama').html('');
+                        $('#judul').removeClass('is-invalid');
+                        $('#errorJudul').html('');
+                    }
+
+                    if (response.error.kategori_id) {
+                        $('#kategori_id').addClass('is-invalid');
+                        $('#errorKategori').html(response.error.kategori_id);
+                    } else {
+                        $('#kategori_id').removeClass('is-invalid');
+                        $('#errorKategori').html('');
+                    }
+
+                    if (response.error.status) {
+                        $('#status_post').addClass('is-invalid');
+                        $('#errorStatus').html(response.error.status);
+                    } else {
+                        $('#status_post').removeClass('is-invalid');
+                        $('#errorStatus').html('');
                     }
                 } else {
                     $('#modaledit').modal('hide');
@@ -83,5 +127,64 @@
             }
 
         })
-    })
+    });
+
+    $(document).ready(function () {
+
+        if ($("#elm1").length > 0) {
+            tinymce.init({
+                selector: "textarea#elm1",
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        tinymce.triggerSave();
+                    });
+                },
+                theme: "modern",
+                height: 300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                style_formats: [{
+                        title: 'Bold text',
+                        inline: 'b'
+                    },
+                    {
+                        title: 'Red text',
+                        inline: 'span',
+                        styles: {
+                            color: '#ff0000'
+                        }
+                    },
+                    {
+                        title: 'Red header',
+                        block: 'h1',
+                        styles: {
+                            color: '#ff0000'
+                        }
+                    },
+                    {
+                        title: 'Example 1',
+                        inline: 'span',
+                        classes: 'example1'
+                    },
+                    {
+                        title: 'Example 2',
+                        inline: 'span',
+                        classes: 'example2'
+                    },
+                    {
+                        title: 'Table styles'
+                    },
+                    {
+                        title: 'Table row 1',
+                        selector: 'tr',
+                        classes: 'tablerow1'
+                    }
+                ]
+            });
+        }
+    });
 </script>

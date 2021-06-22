@@ -12,8 +12,8 @@
         <?php foreach($datas as $data): ?>
         <tr>
             <td><?= $data['judul'] ?></td>
-            <td><?= $data['kategori_id'] ?></td>
-            <td><?= $data['status'] ?></td>
+            <td><?= $kategori[$data['kategori_id']] ?></td>
+            <td><?= $status[$data['status']] ?></td>
             <td><?= $data['user_id'] ?></td>
             <td>
                 <button class="btn btn-sm btn-warning" onclick="editData(<?= $data['id'] ?>)">Edit</button>
@@ -28,7 +28,7 @@
     function editData(id) {
         $.ajax({
             type: "get",
-            url: "<?= site_url('rahasia/get-form-edit-pekerjaan/') ?>" + id,
+            url: "<?= site_url('rahasia/get-form-edit-artikel/') ?>" + id,
             dataType: "json",
             success: function (response) {
                 $('#tampilmodal').html(response.data).removeClass('d-none');

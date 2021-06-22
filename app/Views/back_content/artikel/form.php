@@ -14,21 +14,21 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-group">
-                            <label for="singkatan">
+                            <label for="judul">
                                 Judul
                             </label>
                             <div>
-                                <input class="form-control" type="text" id="singkatan" name="singkatan">
-                                <div class="invalid-feedback" id="errorSingkatan"></div>
+                                <input class="form-control" type="text" id="judul" name="judul">
+                                <div class="invalid-feedback" id="errorJudul"></div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nama">
+                            <label for="deskripsi">
                                 Deskripsi
                             </label>
                             <div>
-                                <textarea id="elm1" name="area"></textarea>
+                                <textarea name="deskripsi" id="elm1"></textarea>
                             </div>
                         </div>
                     </div>
@@ -45,6 +45,7 @@
                                     <option value="3">Jurusan</option>
                                     <option value="4">Ekstra Kulikuler</option>
                                 </select>
+                                <div class="invalid-feedback" id="errorKategori"></div>
                             </div>
                         </div>
 
@@ -56,6 +57,7 @@
                                     <option value="1">Posting</option>
                                     <option value="2">Draft</option>
                                 </select>
+                                <div class="invalid-feedback" id="errorStatus"></div>
                             </div>
                         </div>
                     </div>
@@ -90,12 +92,28 @@
             },
             success: function (response) {
                 if (response.error) {
-                    if (response.error.nama) {
-                        $('#nama').addClass('is-invalid');
-                        $('#errorNama').html(response.error.nama);
+                    if (response.error.judul) {
+                        $('#judul').addClass('is-invalid');
+                        $('#errorJudul').html(response.error.judul);
                     } else {
-                        $('#nama').removeClass('is-invalid');
-                        $('#errorNama').html('');
+                        $('#judul').removeClass('is-invalid');
+                        $('#errorJudul').html('');
+                    }
+
+                    if (response.error.kategori_id) {
+                        $('#kategori_id').addClass('is-invalid');
+                        $('#errorKategori').html(response.error.kategori_id);
+                    } else {
+                        $('#kategori_id').removeClass('is-invalid');
+                        $('#errorKategori').html('');
+                    }
+
+                    if (response.error.status) {
+                        $('#status_post').addClass('is-invalid');
+                        $('#errorStatus').html(response.error.status);
+                    } else {
+                        $('#status_post').removeClass('is-invalid');
+                        $('#errorStatus').html('');
                     }
                 } else {
                     $('#modaltambah').modal('hide');
@@ -116,6 +134,11 @@
         if ($("#elm1").length > 0) {
             tinymce.init({
                 selector: "textarea#elm1",
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        tinymce.triggerSave();
+                    });
+                },
                 theme: "modern",
                 height: 300,
                 plugins: [
