@@ -13,7 +13,7 @@
 <!-- Responsive datatable examples -->
 <link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
     type="text/css" />
-
+    <link href="<?= base_url('theme/back/assets/plugins/select2/select2.min.css') ?>" rel="stylesheet" type="text/css" />
 <style>
     .modal-lg,
     .modal-xl {
@@ -59,7 +59,7 @@
 <!-- Responsive examples -->
 <script src="<?= base_url('theme/back/assets/plugins/datatables/dataTables.responsive.min.js') ?>"></script>
 <script src="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.js') ?>"></script>
-
+<script src="<?= base_url('theme/back/assets/plugins/select2/select2.min.js') ?>" type="text/javascript"></script>
 <!-- Datatable init js -->
 <script>
 function tampilData() {

@@ -14,5 +14,6 @@ class AllSeeder extends Seeder
         $this->call('PekerjaanSeeder');
         $this->call('PendidikanSeeder');
         $this->call('RoleSeeder');
+        $this->call('UserSeeder');
     }
 }

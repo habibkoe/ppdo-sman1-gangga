@@ -33,6 +33,7 @@ class Siswa extends Migration
 			'nama_akhir'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '50',
+				'null'           => true,
 			],
 			'tempat_lahir'       => [
 				'type'       => 'TEXT',

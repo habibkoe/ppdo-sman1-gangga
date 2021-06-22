@@ -3,68 +3,187 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Staf</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Staf</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('rahasia/simpan-data-staf', ['id' => 'simpandata']) ?>
-            <?= csrf_field() ?>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4">
+                        <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
+                            id="notifikasi_register">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span id="isi_notifikasi_register"></span>
+                        </div>
+                        <?= form_open('rahasia/daftar-login-staf', ['id' => 'simpanregister']) ?>
+                        <?= csrf_field() ?>
+                        <h6>Setting user login</h6>
+                        <small>Jika staf diperkenankan bisa login ke aplikasi, maka setting user login terlebih dahulu
+                            kemudian setting data staf</small>
                         <div class="form-group">
-                            <label for="singkatan">
-                                Judul
-                            </label>
-                            <div>
-                                <input class="form-control" type="text" id="singkatan" name="singkatan">
-                                <div class="invalid-feedback" id="errorSingkatan"></div>
-                            </div>
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                aria-describedby="username">
+                            <div class="invalid-feedback" id="errorUsername"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <div class="invalid-feedback" id="errorPassword"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmpassword">Ulangi Password</label>
+                            <input type="password" name="confpassword" class="form-control" id="confpassword">
+                            <div class="invalid-feedback" id="errorConfirmPassword"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select name="role" id="role" class="form-control select2">
+                                <option value="">-- pilih role --</option>
+                                <?php foreach($role as $r): ?>
+                                <option value="<?= $r['id'] ?>"><?= $r['nama'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <div class="invalid-feedback" id="errorRole"></div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="nama">
-                                Deskripsi
-                            </label>
-                            <div>
-                                <textarea id="elm1" name="area"></textarea>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-primary" id="submit_user_login">Daftar</button>
+                        <?= form_close() ?>
                     </div>
                     <div class="col-md-8">
+                        <div class="alert alert-success alert-dismissible fade show d-none" role="alert"
+                            id="notifikasi_daftar_staf">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span id="isi_notifikasi_daftar_staf"></span>
+                        </div>
+                        <?= form_open('rahasia/simpan-data-staf', ['id' => 'simpandata']) ?>
+                        <?= csrf_field() ?>
+                        <h6>Setting data staf</h6>
+                        <small>Bagian ini untuk memasukkan info seluruh staf di sekolah, baik guru maupun yang lain,
+                            jika user dikehendaki dapat login di aplikasi ini, maka wajib mengisi form di samping kiri
+                            terlebih dahulu</small>
                         <div class="form-group">
                             <label for="kategori_id">
-                                Kategori
+                                NIP:
                             </label>
-                            <div>
-                                <select name="kategori_id" id="kategori_id" class="form-control">
-                                    <option value=""></option>
-                                    <option value="1">Tentang</option>
-                                    <option value="2">cara daftar</option>
-                                    <option value="3">Jurusan</option>
-                                    <option value="4">Ekstra Kulikuler</option>
-                                </select>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="nip" name="nip">
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="status">Status</label>
-                            <div>
-                                <select name="status" id="status_post" class="form-control">
-                                    <option value=""></option>
-                                    <option value="1">Posting</option>
-                                    <option value="2">Draft</option>
-                                </select>
+                            <label for="kategori_id">
+                                NIK:
+                            </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="nik" name="nik">
+                                <div class="invalid-feedback" id="errorNik"></div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Nama Awal:
+                            </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="nama_awal" name="nama_awal">
+                                <div class="invalid-feedback" id="errorNamaAwal"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Nama Akhir:
+                            </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="nama_akhir" name="nama_akhir">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Tempat Lahir:
+                            </label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Tanggal Lahir:
+                            </label>
+                            <div class="col-md-5">
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                                <div class="invalid-feedback" id="errorTanggalLahir"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori_id">
+                                Alamat:
+                            </label>
+                            <div class="col-md-7">
+                                <textarea name="alamat" id="alamat" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Jenis Kelamin</label>
+                            <div class="col-md-5">
+                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                    <option value="">-- pilih jenis kelamin --</option>
+                                    <option value="1">Laki - Laki</option>
+                                    <option value="2">Perempuan</option>
+                                </select>
+                                <div class="invalid-feedback" id="errorJenisKelamin"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Agama</label>
+                            <div class="col-md-5">
+                                <select name="agama_id" id="agama_id" class="form-control select2">
+                                    <option value="">-- pilih agama --</option>
+                                    <?php foreach($agama as $ag): ?>
+                                    <option value="<?= $ag['id'] ?>"><?= $ag['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="invalid-feedback" id="errorAgama"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Pendidikan</label>
+                            <div class="col-md-5">
+                                <select name="pendidikan_id" id="pendidikan_id" class="form-control select2">
+                                    <option value="">-- pilih pendidikan --</option>
+                                    <?php foreach($pendidikan as $pend): ?>
+                                    <option value="<?= $pend['id'] ?>"><?= $pend['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="invalid-feedback" id="errorPendidikan"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Jabatan</label>
+                            <div class="col-md-5">
+                                <select name="jabatan_id" id="jabatan_id" class="form-control select2">
+                                    <option value="">-- pilih jabatan --</option>
+                                    <?php foreach($jabatan as $jab): ?>
+                                    <option value="<?= $jab['id'] ?>"><?= $jab['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="invalid-feedback" id="errorJabatan"></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light"
+                            id="btnsimpan">Simpan</button>
+                        <?= form_close() ?>
                     </div>
+
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary waves-effect waves-light" id="btnsimpan">Simpan</button>
-                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" onclick="tutupModal()">Close</button>
             </div>
 
             <?= form_close() ?>
@@ -73,6 +192,68 @@
 </div><!-- /.modal -->
 
 <script>
+    //REGISTER LOGIN 
+    $("#simpanregister").submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#submit_user_login').attr('disable', 'disabled');
+                $('#submit_user_login').html('<i class="fa fa-spin fa-spinner"></i>');
+            },
+            complete: function () {
+                $('#submit_user_login').removeAttr('disable');
+                $('#submit_user_login').html('Daftar');
+            },
+            success: function (response) {
+                if (response.error) {
+                    if (response.error.username) {
+                        $('#username').addClass('is-invalid');
+                        $('#errorUsername').html(response.error.username);
+                    } else {
+                        $('#username').removeClass('is-invalid');
+                        $('#errorUsername').html('');
+                    }
+
+                    if (response.error.password) {
+                        $('#password').addClass('is-invalid');
+                        $('#errorPassword').html(response.error.password);
+                    } else {
+                        $('#password').removeClass('is-invalid');
+                        $('#errorPassword').html('');
+                    }
+
+                    if (response.error.confpassword) {
+                        $('#confpassword').addClass('is-invalid');
+                        $('#errorConfirmPassword').html(response.error.confpassword);
+                    } else {
+                        $('#confpassword').removeClass('is-invalid');
+                        $('#errorConfirmPassword').html('');
+                    }
+
+                    if (response.error.role) {
+                        $('#role').addClass('is-invalid');
+                        $('#errorRole').html(response.error.role);
+                    } else {
+                        $('#role').removeClass('is-invalid');
+                        $('#errorRole').html('');
+                    }
+                } else {
+                    $('#notifikasi_register').removeClass('d-none');
+                    $('#isi_notifikasi_register').html(response.berhasil);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+
+        })
+    });
+
+    // SIMAPAN DATA STAF
     $("#simpandata").submit(function (event) {
         event.preventDefault();
         $.ajax({
@@ -90,18 +271,64 @@
             },
             success: function (response) {
                 if (response.error) {
-                    if (response.error.nama) {
-                        $('#nama').addClass('is-invalid');
-                        $('#errorNama').html(response.error.nama);
+                    if (response.error.nik) {
+                        $('#nik').addClass('is-invalid');
+                        $('#errorNik').html(response.error.nik);
                     } else {
-                        $('#nama').removeClass('is-invalid');
-                        $('#errorNama').html('');
+                        $('#nik').removeClass('is-invalid');
+                        $('#errorNik').html('');
+                    }
+
+                    if (response.error.nama_awal) {
+                        $('#nama_awal').addClass('is-invalid');
+                        $('#errorNamaAwal').html(response.error.nama_awal);
+                    } else {
+                        $('#nama_awal').removeClass('is-invalid');
+                        $('#errorNamaAwal').html('');
+                    }
+
+                    if (response.error.tanggal_lahir) {
+                        $('#tanggal_lahir').addClass('is-invalid');
+                        $('#errorTanggalLahir').html(response.error.tanggal_lahir);
+                    } else {
+                        $('#tanggal_lahir').removeClass('is-invalid');
+                        $('#errorTanggalLahir').html('');
+                    }
+
+                    if (response.error.jenis_kelamin) {
+                        $('#jenis_kelamin').addClass('is-invalid');
+                        $('#errorJenisKelamin').html(response.error.jenis_kelamin);
+                    } else {
+                        $('#jenis_kelamin').removeClass('is-invalid');
+                        $('#errorJenisKelamin').html('');
+                    }
+
+                    if (response.error.agama_id) {
+                        $('#agama_id').addClass('is-invalid');
+                        $('#errorAgama').html(response.error.agama_id);
+                    } else {
+                        $('#agama_id').removeClass('is-invalid');
+                        $('#errorAgama').html('');
+                    }
+
+                    if (response.error.pendidikan_id) {
+                        $('#pendidikan_id').addClass('is-invalid');
+                        $('#errorPendidikan').html(response.error.pendidikan_id);
+                    } else {
+                        $('#pendidikan_id').removeClass('is-invalid');
+                        $('#errorPendidikan').html('');
+                    }
+
+                    if (response.error.jabatan_id) {
+                        $('#jabatan_id').addClass('is-invalid');
+                        $('#errorJabatan').html(response.error.jabatan_id);
+                    } else {
+                        $('#jabatan_id').removeClass('is-invalid');
+                        $('#errorJabatan').html('');
                     }
                 } else {
-                    $('#modaltambah').modal('hide');
-
-                    // Fungsi tambil data diambil dari dalam file index.php
-                    tampilData();
+                    $('#notifikasi_daftar_staf').removeClass('d-none');
+                    $('#isi_notifikasi_daftar_staf').html(response.berhasil);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -111,57 +338,15 @@
         })
     });
 
-    $(document).ready(function () {
+    function tutupModal() {
+        $('#modaltambah').modal('hide');
+        tampilData();
+    }
 
-        if ($("#elm1").length > 0) {
-            tinymce.init({
-                selector: "textarea#elm1",
-                theme: "modern",
-                height: 300,
-                plugins: [
-                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "save table contextmenu directionality emoticons template paste textcolor"
-                ],
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
-                style_formats: [{
-                        title: 'Bold text',
-                        inline: 'b'
-                    },
-                    {
-                        title: 'Red text',
-                        inline: 'span',
-                        styles: {
-                            color: '#ff0000'
-                        }
-                    },
-                    {
-                        title: 'Red header',
-                        block: 'h1',
-                        styles: {
-                            color: '#ff0000'
-                        }
-                    },
-                    {
-                        title: 'Example 1',
-                        inline: 'span',
-                        classes: 'example1'
-                    },
-                    {
-                        title: 'Example 2',
-                        inline: 'span',
-                        classes: 'example2'
-                    },
-                    {
-                        title: 'Table styles'
-                    },
-                    {
-                        title: 'Table row 1',
-                        selector: 'tr',
-                        classes: 'tablerow1'
-                    }
-                ]
-            });
-        }
+    $(document).ready(function () {
+        // Select2
+        $(".select2").select2({
+            width: '100%'
+        });
     });
 </script>

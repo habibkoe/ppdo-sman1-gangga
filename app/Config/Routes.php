@@ -134,6 +134,8 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->get('get-form-edit-staf/(:num)', 'Manajemenstaf::getFormEdit/$1');
 	$routes->post('update-data-staf', 'Manajemenstaf::updateData');
 
+	$routes->post('daftar-login-staf', 'Manajemenstaf::daftarLoginStaf');
+
 	// -------------------------------------------
 	$routes->get('manajemen-siswa', 'Manajemensiswa::index');
 

@@ -25,8 +25,6 @@ class Register extends BaseController
 
 	public function save()
 	{
-		//include helper form
-        helper(['form']);
         //set rules validation form
         $rules = [
             'username'          => 'required|min_length[3]|max_length[20]|is_unique[application_user.username]',

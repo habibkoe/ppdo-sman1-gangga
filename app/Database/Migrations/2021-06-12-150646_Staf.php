@@ -17,7 +17,8 @@ class Staf extends Migration
 			],
 			'nip'       => [
 				'type'       => 'VARCHAR',
-				'constraint' => '20'
+				'constraint' => '20',
+				'null'       => true,
 			],
 			'nik'       => [
 				'type'       => 'VARCHAR',
@@ -34,6 +35,7 @@ class Staf extends Migration
 			'nama_akhir'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '50',
+				'null'       => true,
 			],
 			'tempat_lahir'       => [
 				'type'       => 'TEXT',
@@ -51,7 +53,8 @@ class Staf extends Migration
 			'user_id'       => [
 				'type'       => 'INT',
 				'constraint' => 5,
-				'unsigned'       => true,
+				'unsigned'   => true,
+				'null'       => true,
 			],
 			'agama_id'       => [
 				'type'       => 'INT',

@@ -17,6 +17,7 @@ class OrangTua extends Migration
 			],
 			'nik'       => [
 				'type'       => 'DOUBLE',
+				'null'       => true,
 			],
 			'nama_awal'       => [
 				'type'       => 'VARCHAR',
@@ -25,6 +26,7 @@ class OrangTua extends Migration
 			'nama_akhir'       => [
 				'type'       => 'VARCHAR',
 				'constraint' => '50',
+				'null'       => true,
 			],
 			'alamat'       => [
 				'type'       => 'TEXT',

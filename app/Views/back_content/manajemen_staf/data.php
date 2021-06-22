@@ -14,7 +14,7 @@
             <td><?= $data['nip'] ?></td>
             <td><?= $data['nik'] ?></td>
             <td><?= $data['nama_awal'] ?> <?= $data['nama_akhir'] ?></td>
-            <td><?= $data['jenis_kelamin'] = 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
+            <td><?= $data['jenis_kelamin'] == 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
             <td>
                 <button class="btn btn-sm btn-warning" onclick="editData(<?= $data['id'] ?>)">Edit</button>
                 <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Hapus</button>
