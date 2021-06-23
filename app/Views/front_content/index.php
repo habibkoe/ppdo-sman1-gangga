@@ -54,7 +54,7 @@
   <div class="container">
     <div class="section-header">
       <h2>Panduan Pendaftaran</h2>
-      <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+      <p>Berikut beberapa panduan dan cara dalam melakukan pendaftaran dan seleksi secara online atau PPDB Online di SMAN 1 Gangga</p>
     </div>
 
     <div class="row">
@@ -62,32 +62,32 @@
       <div class="col-lg-6">
         <div class="box wow fadeInLeft">
           <div class="icon"><i class="fa fa-bar-chart"></i></div>
-          <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-          <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+          <h4 class="title"><a href="">Siapkan berkas</a></h4>
+          <p class="description">Berkas yang disiapkan berupa pas poto 3 x 4 nanti di upload ke sistem, kemudian poto copy ijazah + nilai / keterangan lulus, poto copy KK.</p>
         </div>
       </div>
 
       <div class="col-lg-6">
         <div class="box wow fadeInRight">
           <div class="icon"><i class="fa fa-picture-o"></i></div>
-          <h4 class="title"><a href="">Dolor Sitema</a></h4>
-          <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
+          <h4 class="title"><a href="">Siapkan jaringan internet</a></h4>
+          <p class="description">Karena kami menggunakan sistem pendaftaran online, maka untuk adik -adik silahkan siapkan paket internet / kuota internet kalian.</p>
         </div>
       </div>
 
       <div class="col-lg-6">
         <div class="box wow fadeInLeft" data-wow-delay="0.2s">
           <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-          <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-          <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
+          <h4 class="title"><a href="">Akses ke pendaftaran</a></h4>
+          <p class="description">Untuk memulai pendaftaran bagi kalian yang baru mengakses halaman ini, kalian harus klik tombol daftar diatas, atau pada link http://localhost:8080/daftar, .</p>
         </div>
       </div>
 
       <div class="col-lg-6">
         <div class="box wow fadeInRight" data-wow-delay="0.2s">
           <div class="icon"><i class="fa fa-map"></i></div>
-          <h4 class="title"><a href="">Magni Dolores</a></h4>
-          <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
+          <h4 class="title"><a href="">Akses Login</a></h4>
+          <p class="description">Jika kalian sudah melakukan pendaftaran dan belum sempat mengisi formulir di dalamnya, jangan khawatir, kalian bisa login kembali tanpa melakukan daftar lagi</p>
         </div>
       </div>
 
@@ -101,16 +101,16 @@
   <div class="container">
     <div class="section-header">
       <h2>Ekstra Kulikuler</h2>
-      <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+      <p>Untuk para calon siswa SMAN 1 Gangga, kalian disini tidak hanya belajar pelajaran resmi dan formal, tapi kalian juga dapat melatih dan mengembangkan kreatifitas dan bakat kalian melalui beberapa program EKstra Kulikuler yang kami sediakan untuk kalian</p>
     </div>
 
     <div class="row">
       <div class="col-lg-12 d-flex justify-content-center">
         <ul id="portfolio-flters">
-          <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-app">App</li>
-          <li data-filter=".filter-card">Card</li>
-          <li data-filter=".filter-web">Web</li>
+          <li data-filter="*" class="filter-active">Semua</li>
+          <li data-filter=".filter-app">OLahraga</li>
+          <li data-filter=".filter-card">Seni</li>
+          <li data-filter=".filter-web">IT</li>
         </ul>
       </div>
     </div>
@@ -120,8 +120,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-1.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>App 1</h4>
-          <p>App</p>
+          <h4>Ekskul Basket</h4>
+          <p>Basket keren</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-1.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -130,8 +130,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-web">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-2.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Web 3</h4>
-          <p>Web</p>
+          <h4>Ekskul Programming</h4>
+          <p>Developer</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-2.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -140,8 +140,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-3.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>App 2</h4>
-          <p>App</p>
+          <h4>Ekskul Futsal</h4>
+          <p>Futsal</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-3.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -150,8 +150,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-card">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-4.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Card 2</h4>
-          <p>Card</p>
+          <h4>Ekskul Drum Band</h4>
+          <p>Drum Band</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-4.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -160,8 +160,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-web">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-5.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Web 2</h4>
-          <p>Web</p>
+          <h4>Ekskul Disain</h4>
+          <p>Disain</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-5.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -170,8 +170,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-6.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>App 3</h4>
-          <p>App</p>
+          <h4>Ekskul Volley</h4>
+          <p>Volley</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-6.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -180,8 +180,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-card">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-7.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Card 1</h4>
-          <p>Card</p>
+          <h4>Ekskul Paduan Suara</h4>
+          <p>Padus</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-7.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -190,8 +190,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-card">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-8.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Card 3</h4>
-          <p>Card</p>
+          <h4>Ekskul Kejarinan Tanah</h4>
+          <p>Kerajinan Tanah</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-8.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -200,8 +200,8 @@
       <div class="col-lg-4 col-md-6 portfolio-item filter-web">
         <img src="<?= base_url('theme/front/assets/img/portfolio/portfolio-9.jpg'); ?>" class="img-fluid" alt="">
         <div class="portfolio-info">
-          <h4>Web 3</h4>
-          <p>Web</p>
+          <h4>Ekskul Bisnis Digital</h4>
+          <p>Digital bisnis</p>
           <a href="<?= base_url('theme/front/assets/img/portfolio/portfolio-9.jpg'); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
           <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
         </div>
@@ -217,7 +217,7 @@
   <div class="container">
     <div class="section-header">
       <h2>Jurusan</h2>
-      <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+      <p>Untuk pada calon siswa baru, kalian dapat memilih jurusan sesuai dengan minat dan kemampuan kalian, terdapat beberapa jurusan yang dapat dipilih nanti pada proses pendaftaran</p>
     </div>
     <div class="owl-carousel testimonials-carousel">
 
@@ -228,7 +228,7 @@
           <img src="assets/img/quote-sign-right.png" class="quote-sign-right" alt="">
         </p>
         <img src="<?= base_url('theme/front/assets/img/testimonial-1.jpg'); ?>" class="testimonial-img" alt="">
-        <h3>Saul Goodman</h3>
+        <h3>Jurusan IPA</h3>
         <h4>Ceo &amp; Founder</h4>
       </div>
 
@@ -239,7 +239,7 @@
           <img src="assets/img/quote-sign-right.png" class="quote-sign-right" alt="">
         </p>
         <img src="<?= base_url('theme/front/assets/img/testimonial-2.jpg'); ?>" class="testimonial-img" alt="">
-        <h3>Sara Wilsson</h3>
+        <h3>Jurusan Bahasa</h3>
         <h4>Designer</h4>
       </div>
 
@@ -250,32 +250,9 @@
           <img src="assets/img/quote-sign-right.png" class="quote-sign-right" alt="">
         </p>
         <img src="<?= base_url('theme/front/assets/img/testimonial-3.jpg'); ?>" class="testimonial-img" alt="">
-        <h3>Jena Karlis</h3>
+        <h3>Jurusan IPS</h3>
         <h4>Store Owner</h4>
       </div>
-
-      <div class="testimonial-item">
-        <p>
-          <img src="<?= base_url('theme/front/assets/img/quote-sign-left.png'); ?>" class="quote-sign-left" alt="">
-          Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-          <img src="assets/img/quote-sign-right.png" class="quote-sign-right" alt="">
-        </p>
-        <img src="<?= base_url('theme/front/assets/img/testimonial-4.jpg'); ?>" class="testimonial-img" alt="">
-        <h3>Matt Brandon</h3>
-        <h4>Freelancer</h4>
-      </div>
-
-      <div class="testimonial-item">
-        <p>
-          <img src="<?= base_url('theme/front/assets/img/quote-sign-left.png'); ?>" class="quote-sign-left" alt="">
-          Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-          <img src="assets/img/quote-sign-right.png" class="quote-sign-right" alt="">
-        </p>
-        <img src="<?= base_url('theme/front/assets/img/testimonial-5.jpg'); ?>" class="testimonial-img" alt="">
-        <h3>John Larson</h3>
-        <h4>Entrepreneur</h4>
-      </div>
-
     </div>
 
   </div>
@@ -286,11 +263,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-9 text-center text-lg-left">
-        <h3 class="cta-title">Telpon Segera</h3>
-        <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h3 class="cta-title">Daftar Segera</h3>
+        <p class="cta-text"> Jika kalian sudah siap dan yakin ingin meraih masa depan bersama kami, jangan ragu, segera daftarkan diri anda, kami tunggu.</p>
       </div>
       <div class="col-lg-3 cta-btn-container text-center">
-        <a class="cta-btn align-middle" href="#">Call To Action</a>
+        <a class="cta-btn align-middle" href="<?= base_url('daftar') ?>">DAFTAR</a>
       </div>
     </div>
 
@@ -302,7 +279,7 @@
   <div class="container">
     <div class="section-header">
       <h2>Hubungi Kami</h2>
-      <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+      <p>Jika anda masih bingung mengenai proses pendaftara, silahkan hubungi kami melalui saluran telepon atau datang langsung ke SMAN 1 Gangga, silahkan, tentu dengan menggunakan prokes standart Covid ya, memakai masker, menjaga jarak, dan rajin mencuci tangan</p>
     </div>
 
     <div class="row contact-info">
