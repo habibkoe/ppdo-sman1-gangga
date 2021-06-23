@@ -114,6 +114,16 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->get('get-form-edit-agama/(:num)', 'Masteragama::getFormEdit/$1');
 	$routes->post('update-data-agama', 'Masteragama::updateData');
 
+	// ---------------------------------------------------
+	$routes->get('master-kelas', 'Masterkelas::index');
+
+	// API
+	$routes->get('get-data-kelas', 'Masterkelas::getData');
+	$routes->get('get-form-kelas', 'Masterkelas::getForm');
+	$routes->post('simpan-data-kelas', 'Masterkelas::simpanData');
+	$routes->get('get-form-edit-kelas/(:num)', 'Masterkelas::getFormEdit/$1');
+	$routes->post('update-data-kelas', 'Masterkelas::updateData');
+
 	// ------------------------------------------
 	$routes->get('artikel', 'Artikel::index');
 

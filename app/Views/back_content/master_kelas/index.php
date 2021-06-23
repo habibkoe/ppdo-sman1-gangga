@@ -13,6 +13,8 @@
 <!-- Responsive datatable examples -->
 <link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
     type="text/css" />
+
+<link href="<?= base_url('theme/back/assets/plugins/select2/select2.min.css') ?>" rel="stylesheet" type="text/css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -34,7 +36,7 @@
     <div class="col-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <button class="btn btn-primary btn-lg mb-3" id="tambahdata">Buat baru</button>
+                <button class="btn btn-primary btn-lg mb-3" id="tambahdata" onclick="tambahData()">Buat baru</button>
                 <div id="tampildata"></div>
             </div>
         </div>
@@ -52,12 +54,12 @@
 <!-- Responsive examples -->
 <script src="<?= base_url('theme/back/assets/plugins/datatables/dataTables.responsive.min.js') ?>"></script>
 <script src="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.js') ?>"></script>
-
+<script src="<?= base_url('theme/back/assets/plugins/select2/select2.min.js') ?>" type="text/javascript"></script>
 <!-- Datatable init js -->
 <script>
 function tampilData() {
     $.ajax({
-        url: "<?= site_url('rahasia/get-data-pendidikan') ?>",
+        url: "<?= site_url('rahasia/get-data-kelas') ?>",
         dataType: "json",
         success: function(response) {
             $('#tampildata').html(response.data);
@@ -66,6 +68,22 @@ function tampilData() {
             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
         }
     });
+}
+
+function tambahData() {
+    $.ajax({
+        url: "<?= site_url('rahasia/get-form-kelas') ?>",
+        dataType: "json",
+        success: function(response) {
+            $('#tampilmodal').html(response.data).removeClass('d-none');
+            $('#modaltambah').modal('show');
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+        }
+
+    });
+    
 }
 
 $(document).ready(function() {
