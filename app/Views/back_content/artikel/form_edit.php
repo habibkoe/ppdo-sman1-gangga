@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('rahasia/update-data-artikel', ['id' => 'updatedata']) ?>
+            <?= form_open('rahasia/update-data-artikel', ['id' => 'updatedata', 'enctype' => 'multipart/form-data']) ?>
             <?= csrf_field() ?>
             <div class="modal-body">
                 <div class="row">
@@ -113,7 +113,7 @@
     $("#updatedata").submit(function(event) {
         event.preventDefault();
 
-        var formData = new FormData(this);
+        let formData = new FormData(this);
 
         $.ajax({
             type: 'POST',

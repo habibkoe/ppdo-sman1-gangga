@@ -57,7 +57,7 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 
 	// API Load Element
 	$routes->get('get-element-data-diri/(:num)', 'Register::getDataDiri/$1');
-	$routes->get('get-element-data-ortu/(:num)', 'Register::getDataOrtu/$1');
+	$routes->get('get-element-data-ortu/(:num)/(:num)', 'Register::getDataOrtu/$1/$1');
 	$routes->get('get-element-data-sekolah-asal/(:num)', 'Register::getDataSekolahAsal/$1');
 	$routes->get('get-element-data-nilai/(:num)', 'Register::getDataNilai/$1');
 

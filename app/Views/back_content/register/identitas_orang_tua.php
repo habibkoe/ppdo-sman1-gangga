@@ -1,4 +1,6 @@
 <?php if(count($data_orang_tua) > 0): ?>
+<button class="btn btn-primary btn-sm" onclick="tambahDataOrangTua(<?= $siswaId ?>)">Tambah data</button>
+<hr>
 <div class="table-responsive">
     <table class="table table-bordered">
         <?php foreach($data_orang_tua as $data_ortu): ?>

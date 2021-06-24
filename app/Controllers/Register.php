@@ -113,7 +113,6 @@ class Register extends BaseController
     {
         if($this->request->isAJAX()) {
             $validasi = Services::validation();
-
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
@@ -137,7 +136,10 @@ class Register extends BaseController
 						'required' => '{field} tidak boleh kosong'
 					]
                 ],
-                
+				"pas_poto" => [
+					"rules" => "uploaded[pas_poto]|max_size[pas_poto,1024]|is_image[pas_poto]|mime_in[pas_poto,image/jpg,image/jpeg,image/gif,image/png]",
+					"label" => "Pas poto",
+				]
 			]);
 
 			if(!$valid) {
@@ -146,11 +148,28 @@ class Register extends BaseController
 						'nik' => $validasi->getError('nik'),
 						'nama_awal' => $validasi->getError('nama_awal'),
 						'tanggal_lahir' => $validasi->getError('tanggal_lahir'),
+						'pas_poto' => $validasi->getError('pas_poto'),
 					]
 				];	
 			}else {
                 $generateNis = strtotime(date('Y/m/d H:i:s'));
 
+				$file = $this->request->getFile('pas_poto');
+
+				$profile_image = $file->getName();
+				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+
+				if($profile_image != "") {
+					// Renaming file before upload
+					$temp = explode(".",$profile_image);
+					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
+
+					$file->move("uploads/siswa/", $newfilename);
+
+					$imageWithDir = "uploads/siswa/" . $newfilename;
+				}else {
+					$imageWithDir = null;
+				}
 
 				$simpanData =[
 					'nik' => $this->request->getVar('nik'),
@@ -163,7 +182,8 @@ class Register extends BaseController
 					'user_id' => session()->get('user_id'),
 					'agama_id' => $this->request->getVar('agama'),
 					'alamat' => $this->request->getVar('alamat'),
-					'jurusan_id' => $this->request->getVar('jurusan')
+					'jurusan_id' => $this->request->getVar('jurusan'),
+					'pas_poto' => $imageWithDir,
 				];
 
 				$data = new Siswa();
@@ -259,11 +279,12 @@ class Register extends BaseController
         }
     }
 
-	public function getDataOrtu($siswaId) 
+	public function getDataOrtu($siswaId, $addData = null)
     {
 		$modeOrangTua = new OrangTua();
 		$data['data_orang_tua'] = $modeOrangTua->where('siswa_id', $siswaId)->findAll();
-
+		$data['siswaId'] = $siswaId;
+		$data['addData'] = $addData;
         return view('back_content/register/identitas_orang_tua', $data);
     }
 

@@ -114,7 +114,7 @@
     $("#simpandata").submit(function(event) {
         event.preventDefault();
 
-        var formData = new FormData(this);
+        let formData = new FormData(this);
 
         $.ajax({
             type: 'POST',

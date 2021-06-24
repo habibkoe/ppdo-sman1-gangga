@@ -6,6 +6,12 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 
 <?= $this->section('css') ?>
 <link href="<?= base_url('theme/back/assets/plugins/select2/select2.min.css') ?>" rel="stylesheet" type="text/css" />
+
+<style>
+  #ajaxImgUpload {
+        width: 100%;
+    }
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -20,6 +26,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
         </ol>
       </div>
       <h4 class="page-title">Lengkapi pendaftaran</h4>
+      <span>Usahakan mengisi data dengan urut sesuai Langkah di bawah:</span>
     </div>
   </div>
 </div>
@@ -28,7 +35,8 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
   <div class="col-md-12 col-lg-12 col-xl-6">
     <div class="card m-b-30">
       <div class="card-body">
-        <h5>Identitas Utama:</h5>
+        <h5>1] Identitas Utama:</h5>
+        <span>Pastikan semua form terisi untuk memudahkan verifikasi data</span>
         <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_diri">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -43,7 +51,8 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 
     <div class="card m-b-30">
       <div class="card-body">
-        <h5>Identitas Orang Tua / Wali:</h5>
+        <h5>2] Identitas Orang Tua / Wali:</h5>
+        <span>Data orang tua dapat diisi lebih dari 1, misal, ayah dan ibu, om dan tante, kakek dan nenek</span>
         <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_ortu">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -60,7 +69,8 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
   <div class="col-md-12 col-lg-12 col-xl-6">
     <div class="card m-b-30">
       <div class="card-body">
-        <h5>Data Sekolah Asal:</h5>
+        <h5>3] Data Sekolah Asal:</h5>
+        <span>Data sekolah asal merupakan sekolah 1 level dibawah SMA, seperti SMP, MTs atau sederajat</span>
         <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_sekolah">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -75,7 +85,8 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 
     <div class="card m-b-30">
       <div class="card-body">
-        <h5>Data Nilai:</h5>
+        <h5>4] Data Nilai:</h5>
+        <span>Data nilai diisi sesuai dengan mata pelajaran wajib yang di UN kan, seperti matematika, bahasa indonesia, bahasa inggris, IPA</span>
         <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_nilai_mapel">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -89,7 +100,8 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     </div>
     <div class="card m-b-30">
       <div class="card-body">
-        <h5>Berkas Pendukung:</h5>
+        <h5>5] Berkas Pendukung:</h5>
+        <span>Berkas pendukung berisi Poto kopi KK, poto kopi Ijazah / Surat keterangan lulus, Transkrip nilai</span>
         <?= $this->include('back_content/register/data_pendukung') ?>
       </div>
     </div>
@@ -107,34 +119,51 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       type: "GET",
       url: _url,
       contentType: false,
-      success: function (data) {
+      success: function(data) {
         $("#" + content).html(data);
       },
-      error: function (xhr, status, error) {
+      error: function(xhr, status, error) {
         bootbox.alert(xhr.responseText);
       }
     });
   }
 
+  function onFileUpload(input, id) {
+    id = id || '#ajaxImgUpload';
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $(id).attr('src', e.target.result)
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   //SIMPAN DATA PRIBADI 
-  $('#simpan_data_diri').submit(function (e) {
+  $('#simpan_data_diri').submit(function(e) {
     e.preventDefault();
+
+    let formData = new FormData(this);
 
     $.ajax({
       type: "post",
       url: $(this).attr('action'),
-      data: $(this).serialize(),
+      data: formData,
       dataType: "json",
-      beforeSend: function () {
+      processData: false,
+      contentType: false,
+      beforeSend: function() {
         $('#tombol_simpan_data_diri').attr('disable', 'disabled');
         $('#tombol_simpan_data_diri').html('<i class="fa fa-spin fa-spinner"></i>');
       },
 
-      complete: function () {
+      complete: function() {
         $('#tombol_simpan_data_diri').removeAttr('disable');
         $('#tombol_simpan_data_diri').html('Simpan');
       },
-      success: function (response) {
+      success: function(response) {
         if (response.error) {
           if (response.error.nik) {
             $('#nik').addClass('is-invalid');
@@ -159,6 +188,14 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
             $('#tanggal_lahir').removeClass('is-invalid');
             $('#errorTanggalLahir').html('');
           }
+
+          if (response.error.pas_poto) {
+            $('#pas_poto').addClass('is-invalid');
+            $('#errorPasPoto').html(response.error.pas_poto);
+          } else {
+            $('#pas_poto').removeClass('is-invalid');
+            $('#errorPasPoto').html('');
+          }
         } else {
           // Fungsi tambil data diambil dari dalam file index.php
           // tampilData();
@@ -171,14 +208,14 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           ajaxLoad(urlLoad, "content_identitas_utama");
         }
       },
-      error: function (xhr, ajaxOptins, thrownError) {
+      error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
       }
     });
   });
 
   // SIMPAN DATA ORANG TUA
-  $('#orang_tua_wali').submit(function (e) {
+  $('#orang_tua_wali').submit(function(e) {
     e.preventDefault();
 
     $.ajax({
@@ -186,16 +223,16 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       url: $(this).attr('action'),
       data: $(this).serialize(),
       dataType: "json",
-      beforeSend: function () {
+      beforeSend: function() {
         $('#tombol_simpan_ortu').attr('disable', 'disabled');
         $('#tombol_simpan_ortu').html('<i class="fa fa-spin fa-spinner"></i>');
       },
 
-      complete: function () {
+      complete: function() {
         $('#tombol_simpan_ortu').removeAttr('disable');
         $('#tombol_simpan_ortu').html('Simpan');
       },
-      success: function (response) {
+      success: function(response) {
         if (response.error) {
           if (response.error.nik_orang_tua) {
             $('#nik_ortu').addClass('is-invalid');
@@ -224,14 +261,14 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           ajaxLoad(urlLoad, "content_identitas_ortu");
         }
       },
-      error: function (xhr, ajaxOptins, thrownError) {
+      error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
       }
     });
   });
 
   // SIMPAN DATA SEKOLAH
-  $('#data_sekolah').submit(function (e) {
+  $('#data_sekolah').submit(function(e) {
     e.preventDefault();
 
     $.ajax({
@@ -239,16 +276,16 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       url: $(this).attr('action'),
       data: $(this).serialize(),
       dataType: "json",
-      beforeSend: function () {
+      beforeSend: function() {
         $('#tombol_simpan_data_sekolah').attr('disable', 'disabled');
         $('#tombol_simpan_data_sekolah').html('<i class="fa fa-spin fa-spinner"></i>');
       },
 
-      complete: function () {
+      complete: function() {
         $('#tombol_simpan_data_sekolah').removeAttr('disable');
         $('#tombol_simpan_data_sekolah').html('Simpan');
       },
-      success: function (response) {
+      success: function(response) {
         if (response.error) {
           if (response.error.no_ijazah) {
             $('#no_ijazah_asal').addClass('is-invalid');
@@ -277,14 +314,14 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           ajaxLoad(urlLoad, "content_sekolah_asal");
         }
       },
-      error: function (xhr, ajaxOptins, thrownError) {
+      error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
       }
     });
   });
 
   // SIMPAN DATA NILAI
-  $('#berkas_nilai').submit(function (e) {
+  $('#berkas_nilai').submit(function(e) {
     e.preventDefault();
 
     $.ajax({
@@ -292,16 +329,16 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       url: $(this).attr('action'),
       data: $(this).serialize(),
       dataType: "json",
-      beforeSend: function () {
+      beforeSend: function() {
         $('#tombol_simpan_berkas').attr('disable', 'disabled');
         $('#tombol_simpan_berkas').html('<i class="fa fa-spin fa-spinner"></i>');
       },
 
-      complete: function () {
+      complete: function() {
         $('#tombol_simpan_berkas').removeAttr('disable');
         $('#tombol_simpan_berkas').html('Simpan');
       },
-      success: function (response) {
+      success: function(response) {
         if (response.error) {
           if (response.error.mata_pelajaran) {
             $('#nama_mata_pelajaran').addClass('is-invalid');
@@ -330,13 +367,13 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           ajaxLoad(urlLoad, "content_data_nilai");
         }
       },
-      error: function (xhr, ajaxOptins, thrownError) {
+      error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
       }
     });
   });
 
-  $('#data_pendukung').submit(function (e) {
+  $('#data_pendukung').submit(function(e) {
     e.preventDefault();
 
     $.ajax({
@@ -344,23 +381,28 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       url: $(this).attr('action'),
       data: $(this).serialize(),
       dataType: "json",
-      beforeSend: function () {
+      beforeSend: function() {
 
       },
 
-      complete: function () {
+      complete: function() {
 
       },
-      success: function (response) {
+      success: function(response) {
 
       },
-      error: function (xhr, ajaxOptins, thrownError) {
+      error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
       }
     });
   });
 
-  $(document).ready(function () {
+  function tambahDataOrangTua(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_identitas_ortu");
+  }
+
+  $(document).ready(function() {
     // Select2
     $(".select2").select2({
       width: '100%'
