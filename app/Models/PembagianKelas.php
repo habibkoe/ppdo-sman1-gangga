@@ -14,7 +14,7 @@ class PembagianKelas extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id', 'kelas_id','siswa_id'];
 
 	// Dates
 	protected $useTimestamps        = false;

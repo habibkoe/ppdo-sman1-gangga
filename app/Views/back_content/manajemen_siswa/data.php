@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Calon NIS</th>
+            <th>Poto</th>
             <th>NIK</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
@@ -12,11 +13,11 @@
         <?php foreach($datas as $data): ?>
         <tr>
             <td><?= $data['nis'] ?></td>
+            <td><img src="<?= base_url($data['pas_poto']) ?>" width="50"></td>
             <td><?= $data['nik'] ?></td>
             <td><?= $data['nama_awal'] ?> <?= $data['nama_akhir'] ?></td>
             <td><?= $data['jenis_kelamin'] = 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
             <td>
-                <button class="btn btn-sm btn-warning" onclick="terimaSiswa(<?= $data['id'] ?>)">Terima</button>
                 <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tolak</button>
                 <button class="btn btn-sm btn-secondary">Detail</button>
             </td>
