@@ -350,7 +350,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           $('#notifikasi_ortu').removeClass('d-none');
           $('#isi_pesan_berhasil_ortu').html(response.berhasil);
 
-          let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + response.siswa_id;
+          let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + response.siswa_id + '/1';
 
           // Load element lokal
           ajaxLoad(urlLoad, "content_identitas_ortu");
@@ -361,6 +361,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       }
     });
   });
+
+  function tambahDataOrangTua(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_identitas_ortu");
+  }
 
   // SIMPAN DATA SEKOLAH
   $('#data_sekolah').submit(function(e) {
@@ -456,7 +461,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           $('#notifikasi_nilai_mapel').removeClass('d-none');
           $('#isi_pesan_nilai_mapel').html(response.berhasil);
 
-          let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id;
+          let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id + "/1";
 
           // Load element lokal
           ajaxLoad(urlLoad, "content_data_nilai");
@@ -467,6 +472,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       }
     });
   });
+
+  function tambahDataNilai(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_data_nilai");
+  }
 
   $('#data_pendukung').submit(function(e) {
     e.preventDefault();
@@ -512,7 +522,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           $('#notifikasi_data_pendukung').removeClass('d-none');
           $('#isi_pesan_nilai_data_pendukung').html(response.berhasil);
 
-          let urlLoad = "<?= site_url('rahasia/get-element-data-penduking/') ?>" + response.siswa_id;
+          let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + response.siswa_id + "/1";
 
           // Load element lokal
           ajaxLoad(urlLoad, "content_data_berkas");
@@ -524,19 +534,9 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     });
   });
 
-  function tambahDataOrangTua(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
-    ajaxLoad(urlLoad, "content_identitas_ortu");
-  }
-
   function tambahDataPendukung(siswaId, addData) {
     let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + siswaId + '/' + addData;
-    ajaxLoad(urlLoad, "content_identitas_ortu");
-  }
-
-  function tambahDataNilai(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
-    ajaxLoad(urlLoad, "content_identitas_ortu");
+    ajaxLoad(urlLoad, "content_data_berkas");
   }
 
   $(document).ready(function() {
