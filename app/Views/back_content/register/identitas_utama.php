@@ -135,45 +135,50 @@
     <div class="form-group row">
         <label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin</label>
         <div class="col-sm-4">
-            <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" name="jenis_kelamin">
-                <option></option>
+            <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="jenis_kelamin" name="jenis_kelamin">
+                <option value="">-- Pilih Jenis Kelamin --</option>
                 <option value="1">Laki - Laki</option>
                 <option value="2">Perempuan</option>
             </select>
+            <div class="invalid-feedback" id="errorJenisKelamin"></div>
         </div>
     </div>
     <div class="form-group row">
         <label for="agama" class="col-sm-3 col-form-label">Agama</label>
         <div class="col-sm-4">
-            <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" name="agama">
-                <option value=""></option>
+            <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="agama" name="agama">
+                <option value="">-- Pilih Agama --</option>
                 <?php foreach ($master_agama as $agama) : ?>
                     <option value="<?= $agama['id'] ?>"><?= $agama['nama'] ?></option>
                 <?php endforeach ?>
             </select>
+            <div class="invalid-feedback" id="errorAgama"></div>
         </div>
     </div>
     <div class="form-group row">
         <label for="tempat_lahir" class="col-sm-3 col-form-label">Tempat Lahir</label>
         <div class="col-sm-9">
             <textarea name="tempat_lahir" id="tempat_lahir" rows="3" class="form-control"></textarea>
+            <div class="invalid-feedback" id="errorTempatLahir"></div>
         </div>
     </div>
     <div class="form-group row">
         <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
         <div class="col-sm-9">
             <textarea name="alamat" id="alamat" rows="3" class="form-control"></textarea>
+            <div class="invalid-feedback" id="errorAlamat"></div>
         </div>
     </div>
     <div class="form-group row">
         <label for="jurusant" class="col-sm-3 col-form-label">Jurusan yang di pilih</label>
         <div class="col-sm-6">
             <select name="jurusan" id="jurusan" class="select2 form-control custom-select" style="width: 100%; height:36px !important;">
-                <option value=""></option>
+                <option value="">-- Pilih Jurusan --</option>
                 <?php foreach ($master_jurusan as $jurusan) : ?>
                     <option value="<?= $jurusan['id'] ?>"><?= $jurusan['nama'] ?></option>
                 <?php endforeach ?>
             </select>
+            <div class="invalid-feedback" id="errorJurusan"></div>
         </div>
     </div>
     <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_data_diri">Simpan</button>

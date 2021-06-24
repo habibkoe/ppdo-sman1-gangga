@@ -102,7 +102,15 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>5] Berkas Pendukung:</h5>
         <span>Berkas pendukung berisi Poto kopi KK, poto kopi Ijazah / Surat keterangan lulus, Transkrip nilai</span>
-        <?= $this->include('back_content/register/data_pendukung') ?>
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_pendukung">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <span id="isi_pesan_nilai_data_pendukung"></span>
+        </div>
+        <div id="content_data_berkas">
+          <?= $this->include('back_content/register/data_pendukung') ?>
+        </div>
       </div>
     </div>
   </div>
@@ -196,6 +204,45 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
             $('#pas_poto').removeClass('is-invalid');
             $('#errorPasPoto').html('');
           }
+
+          if (response.error.agama) {
+            $('#agama').addClass('is-invalid');
+            $('#errorAgama').html(response.error.agama);
+          } else {
+            $('#agama').removeClass('is-invalid');
+            $('#errorAgama').html('');
+          }
+
+          if (response.error.tempat_lahir) {
+            $('#tempat_lahir').addClass('is-invalid');
+            $('#errorTempatLahir').html(response.error.tempat_lahir);
+          } else {
+            $('#tempat_lahir').removeClass('is-invalid');
+            $('#errorTempatLahir').html('');
+          }
+
+          if (response.error.alamat) {
+            $('#alamat').addClass('is-invalid');
+            $('#errorAlamat').html(response.error.alamat);
+          } else {
+            $('#alamat').removeClass('is-invalid');
+            $('#errorAlamat').html('');
+          }
+
+          if (response.error.jurusan) {
+            $('#jurusan').addClass('is-invalid');
+            $('#errorJurusan').html(response.error.jurusan);
+          } else {
+            $('#jurusan').removeClass('is-invalid');
+            $('#errorJurusan').html('');
+          }
+          if (response.error.jenis_kelamin) {
+            $('#jenis_kelamin').addClass('is-invalid');
+            $('#errorJenisKelamin').html(response.error.jenis_kelamin);
+          } else {
+            $('#jenis_kelamin').removeClass('is-invalid');
+            $('#errorJenisKelamin').html('');
+          }
         } else {
           // Fungsi tambil data diambil dari dalam file index.php
           // tampilData();
@@ -234,7 +281,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       },
       success: function(response) {
         if (response.error) {
-          if (response.error.nik_orang_tua) {
+          if (response.error.nik_ortu) {
             $('#nik_ortu').addClass('is-invalid');
             $('#errorNikOrtu').html(response.error.nik_ortu);
           } else {
@@ -248,6 +295,54 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
           } else {
             $('#nama_awal_ortu').removeClass('is-invalid');
             $('#errorNamaAwalOrtu').html('');
+          }
+
+          if (response.error.status_ortu) {
+            $('#status_ortu').addClass('is-invalid');
+            $('#errorStatusOrtu').html(response.error.status_ortu);
+          } else {
+            $('#status_ortu').removeClass('is-invalid');
+            $('#errorStatusOrtu').html('');
+          }
+
+          if (response.error.pekerjaan_ortu) {
+            $('#pekerjaan_ortu').addClass('is-invalid');
+            $('#errorPekerjaanOrtu').html(response.error.pekerjaan_ortu);
+          } else {
+            $('#pekerjaan_ortu').removeClass('is-invalid');
+            $('#errorPekerjaanOrtu').html('');
+          }
+
+          if (response.error.pendidikan_ortu) {
+            $('#pendidikan_ortu').addClass('is-invalid');
+            $('#errorPendidikanOrtu').html(response.error.pendidikan_ortu);
+          } else {
+            $('#pendidikan_ortu').removeClass('is-invalid');
+            $('#errorPendidikanOrtu').html('');
+          }
+
+          if (response.error.alamat_ortu) {
+            $('#alamat_ortu').addClass('is-invalid');
+            $('#errorAlamatOrtu').html(response.error.alamat_ortu);
+          } else {
+            $('#alamat_ortu').removeClass('is-invalid');
+            $('#errorAlamatOrtu').html('');
+          }
+
+          if (response.error.agama_ortu) {
+            $('#agama_ortu').addClass('is-invalid');
+            $('#errorAgamaOrtu').html(response.error.agama_ortu);
+          } else {
+            $('#agama_ortu').removeClass('is-invalid');
+            $('#errorAgamaOrtu').html('');
+          }
+
+          if (response.error.jenis_kelamin_ortu) {
+            $('#jenis_kelamin_ortu').addClass('is-invalid');
+            $('#errorJenisKelaminOrtu').html(response.error.jenis_kelamin_ortu);
+          } else {
+            $('#jenis_kelamin_ortu').removeClass('is-invalid');
+            $('#errorJenisKelaminOrtu').html('');
           }
         } else {
           // Fungsi tambil data diambil dari dalam file index.php
@@ -376,20 +471,52 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
   $('#data_pendukung').submit(function(e) {
     e.preventDefault();
 
+    let formData = new FormData(this);
+
     $.ajax({
       type: "post",
       url: $(this).attr('action'),
-      data: $(this).serialize(),
+      data: formData,
+      processData: false,
+      contentType: false,
       dataType: "json",
       beforeSend: function() {
-
+        $('#tombol_simpan_berkas').attr('disable', 'disabled');
+        $('#tombol_simpan_berkas').html('<i class="fa fa-spin fa-spinner"></i>');
       },
 
       complete: function() {
-
+        $('#tombol_simpan_berkas').removeAttr('disable');
+        $('#tombol_simpan_berkas').html('Simpan');
       },
       success: function(response) {
+        if (response.error) {
+          if (response.error.nama_berkas) {
+            $('#nama_berkas').addClass('is-invalid');
+            $('#errorNamaBerkas').html(response.error.nama_berkas);
+          } else {
+            $('#nama_berkas').removeClass('is-invalid');
+            $('#errorNamaBerkas').html('');
+          }
 
+          if (response.error.upload_berkas) {
+            $('#upload_berkas').addClass('is-invalid');
+            $('#errorUploadBerkas').html(response.error.upload_berkas);
+          } else {
+            $('#upload_berkas').removeClass('is-invalid');
+            $('#errorUploadBerkas').html('');
+          }
+        } else {
+          // Fungsi tambil data diambil dari dalam file index.php
+          // tampilData();
+          $('#notifikasi_data_pendukung').removeClass('d-none');
+          $('#isi_pesan_nilai_data_pendukung').html(response.berhasil);
+
+          let urlLoad = "<?= site_url('rahasia/get-element-data-penduking/') ?>" + response.siswa_id;
+
+          // Load element lokal
+          ajaxLoad(urlLoad, "content_data_berkas");
+        }
       },
       error: function(xhr, ajaxOptins, thrownError) {
         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
@@ -399,6 +526,16 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 
   function tambahDataOrangTua(siswaId, addData) {
     let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_identitas_ortu");
+  }
+
+  function tambahDataPendukung(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_identitas_ortu");
+  }
+
+  function tambahDataNilai(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
     ajaxLoad(urlLoad, "content_identitas_ortu");
   }
 

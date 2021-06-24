@@ -42,41 +42,45 @@
     <label for="jenis_kelamin_ortu" class="col-sm-3 col-form-label">Jenis Kelamin</label>
     <div class="col-sm-4">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
-            name="jenis_kelamin_ortu">
-            <option></option>
+            id="jenis_kelamin_ortu" name="jenis_kelamin_ortu">
+            <option value="">-- Pilih Jenis Kelamin --</option>
             <option value="1">Laki - Laki</option>
             <option value="2">Perempuan</option>
         </select>
+        <div class="invalid-feedback" id="errorJenisKelaminOrtu"></div>
     </div>
 </div>
 <div class="form-group row">
     <label for="agama_ortu" class="col-sm-3 col-form-label">Agama</label>
     <div class="col-sm-4">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
-            name="agama_ortu">
-            <option value=""></option>
+            id="agama_ortu" name="agama_ortu">
+            <option value="">-- Pilih agama --</option>
             <?php foreach($master_agama as $agama): ?>
             <option value="<?= $agama['id'] ?>"><?= $agama['nama'] ?></option>
             <?php endforeach ?>
         </select>
+        <div class="invalid-feedback" id="errorAgamaOrtu"></div>
     </div>
 </div>
 <div class="form-group row">
     <label for="alamat_ortu" class="col-sm-3 col-form-label">Alamat</label>
     <div class="col-sm-9">
-        <textarea name="alamat_ortu" id="alamat" rows="3" class="form-control"></textarea>
+        <textarea name="alamat_ortu" id="alamat_ortu" rows="3" class="form-control"></textarea>
+        <div class="invalid-feedback" id="errorAlamatOrtu"></div>
     </div>
 </div>
 <div class="form-group row">
     <label for="pendidikan_ortu" class="col-sm-3 col-form-label">Pendidikan</label>
     <div class="col-sm-5">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
-            name="pendidikan_ortu">
-            <option value=""></option>
+            id="pendidikan_ortu" name="pendidikan_ortu">
+            <option value="">-- Pilih pendidikan --</option>
             <?php foreach($master_pendidikan as $pendidikan): ?>
             <option value="<?= $pendidikan['id'] ?>"><?= $pendidikan['nama'] ?></option>
             <?php endforeach ?>
         </select>
+        <div class="invalid-feedback" id="errorPendidikanOrtu"></div>
     </div>
 </div>
 
@@ -84,12 +88,13 @@
     <label for="pekerjaan_ortu" class="col-sm-3 col-form-label">Pekerjaan</label>
     <div class="col-sm-5">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
-            name="pekerjaan_ortu">
-            <option value=""></option>
+            id="pekerjaan_ortu" name="pekerjaan_ortu">
+            <option value="">-- Pilih pekerjaan --</option>
             <?php foreach($master_pekerjaan as $pekerjaan): ?>
             <option value="<?= $pekerjaan['id'] ?>"><?= $pekerjaan['nama'] ?></option>
             <?php endforeach ?>
         </select>
+        <div class="invalid-feedback" id="errorPekerjaanOrtu"></div>
     </div>
 </div>
 
@@ -97,8 +102,8 @@
     <label for="status_ortu" class="col-sm-3 col-form-label">Status</label>
     <div class="col-sm-5">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
-            name="status_ortu">
-            <option></option>
+            id="status_ortu" name="status_ortu">
+            <option>-- Pilih status --</option>
             <option value="1">Bapak / Ayah</option>
             <option value="2">Ibu / Mama</option>
             <option value="3">Kakek</option>
@@ -106,6 +111,7 @@
             <option value="5">Paman / Om / Pak de</option>
             <option value="6">Bibi / Tante / Buk de</option>
         </select>
+        <div class="invalid-feedback" id="errorStatusOrtu"></div>
     </div>
 </div>
 <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_ortu">Simpan</button>

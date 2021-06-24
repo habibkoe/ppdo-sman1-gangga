@@ -29,7 +29,7 @@
     <div class="col-sm-9">
         <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;"
             name="nama_mata_pelajaran" id="nama_mata_pelajaran">
-            <option></option>
+            <option value="">-- Pilih Mata Pelajaran --</option>
             <option value="Matematika">Matematika</option>
             <option value="Bahasa Indonesia">Bahasa Indonesia</option>
             <option value="Bahasa Inggris">Bahasa Inggris</option>

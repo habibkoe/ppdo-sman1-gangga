@@ -139,6 +139,41 @@ class Register extends BaseController
 				"pas_poto" => [
 					"rules" => "uploaded[pas_poto]|max_size[pas_poto,1024]|is_image[pas_poto]|mime_in[pas_poto,image/jpg,image/jpeg,image/gif,image/png]",
 					"label" => "Pas poto",
+				],
+				"agama" => [
+					'label' => 'Agama',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				"jenis_kelamin" => [
+					'label' => 'Jenis kelamin',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				"alamat" => [
+					'label' => 'Alamat',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				"jurusan" => [
+					'label' => 'Jurusan',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				"tempat_lahir" => [
+					'label' => 'Tempat lahir',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
 				]
 			]);
 
@@ -149,6 +184,11 @@ class Register extends BaseController
 						'nama_awal' => $validasi->getError('nama_awal'),
 						'tanggal_lahir' => $validasi->getError('tanggal_lahir'),
 						'pas_poto' => $validasi->getError('pas_poto'),
+						'jenis_kelamin' => $validasi->getError('jenis_kelamin'),
+						'alamat' => $validasi->getError('alamat'),
+						'tempat_lahir' => $validasi->getError('tempat_lahir'),
+						'jurusan' => $validasi->getError('jurusan'),
+						'agama' => $validasi->getError('agama'),
 					]
 				];	
 			}else {
@@ -233,15 +273,62 @@ class Register extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ]
-                
+				],
+				'status_ortu' => [
+					'label' => 'Status orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'pekerjaan_ortu' => [
+					'label' => 'Pekerjaan orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'pendidikan_ortu' => [
+					'label' => 'Pendidikan orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'alamat_ortu' => [
+					'label' => 'Alamat orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'agama_ortu' => [
+					'label' => 'Agama orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'jenis_kelamin_ortu' => [
+					'label' => 'Jenis kelamin orang tua',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				]
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
 						'nik_ortu' => $validasi->getError('nik_ortu'),
-						'nama_awal_ortu' => $validasi->getError('nama_awal_ortu')
+						'nama_awal_ortu' => $validasi->getError('nama_awal_ortu'),
+						'status_ortu' => $validasi->getError('status_ortu'),
+						'pekerjaan_ortu' => $validasi->getError('pekerjaan_ortu'),
+						'pendidikan_ortu' => $validasi->getError('pendidikan_ortu'),
+						'alamat_ortu' => $validasi->getError('alamat_ortu'),
+						'agama_ortu' => $validasi->getError('agama_ortu'),
+						'jenis_kelamin_ortu' => $validasi->getError('jenis_kelamin_ortu')
 					]
 				];	
 			}else {
