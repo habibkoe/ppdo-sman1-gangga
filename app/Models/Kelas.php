@@ -14,7 +14,7 @@ class Kelas extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id','nama','lokasi','daya_tampung','inventaris','wali_kelas_id'];
+	protected $allowedFields        = ['id','nama','lokasi','daya_tampung','inventaris','wali_kelas_id', 'jurusan_id'];
 
 	// Dates
 	protected $useTimestamps        = false;

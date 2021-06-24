@@ -7,9 +7,9 @@
                 <li>
                     <a href="<?= base_url('/') ?>"><i class="mdi mdi-airplay"></i>Home</a>
                 </li>
-                <li>
-                    <a href="<?= base_url('rahasia/dashboard') ?>"><i class="mdi mdi-airplay"></i>Dashboard</a>
-                </li>
+                <!-- <li>
+                    <a href="<?php // base_url('rahasia/dashboard') ?>"><i class="mdi mdi-airplay"></i>Dashboard</a>
+                </li> -->
 
                 <?php if($session->get('user_role') ==  3): ?>
                 <li>

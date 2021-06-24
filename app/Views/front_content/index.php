@@ -9,7 +9,7 @@
   <h2>Penerimaan <span>Peserta Didik Baru</span><br> SMAN 1 Gangga</h2>
   <div>
   <?php if($session->get('logged_in')): ?>
-    <a href="<?= base_url('dashboard') ?>" class="btn-get-started scrollto">Dasboard</a>
+    <a href="<?= $session->get('user_role') < 3 ? base_url('manajemen-siswa') : base_url('lengkapi-pendaftaran') ?>" class="btn-get-started scrollto">Dasboard</a>
   <?php else: ?>
     <a href="<?= base_url('masuk') ?>" class="btn-get-started scrollto">Masuk</a>
     <a href="<?= base_url('daftar') ?>" class="btn-projects scrollto">Daftar</a>

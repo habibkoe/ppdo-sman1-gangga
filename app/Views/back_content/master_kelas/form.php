@@ -1,6 +1,6 @@
 <div class="modal fade bs-example-modal-center" id="modaltambah" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah data</h5>
@@ -70,6 +70,23 @@
                         <div class="invalid-feedback" id="errorWaliKelas"></div>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="jurusan_id" class="col-sm-3 col-form-label">
+                        Jurusan
+                        <br>
+                        <small>isi jurusan kelas</small>
+                    </label>
+                    <div class="col-sm-9">
+                        <select name="jurusan_id" id="jurusan_id" class="form-control select2">
+                            <option value="">-- pilih jurusan kelas --</option>
+                            <?php foreach($jurusan as $jurus): ?>
+                                <option value="<?= $jurus['id'] ?>"><?= $jurus['nama'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <div class="invalid-feedback" id="errorJurusanKelas"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -130,6 +147,14 @@
                     } else {
                         $('#wali_kelas_id').removeClass('is-invalid');
                         $('#errorWaliKelas').html('');
+                    }
+
+                    if (response.error.jurusan_id) {
+                        $('#jurusan_id').addClass('is-invalid');
+                        $('#errorJurusanKelas').html(response.error.jurusan_id);
+                    } else {
+                        $('#jurusan_id').removeClass('is-invalid');
+                        $('#errorJurusanKelas').html('');
                     }
                 } else {
                     $('#modaltambah').modal('hide');

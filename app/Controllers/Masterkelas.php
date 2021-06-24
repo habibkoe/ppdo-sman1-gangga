@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Kelas as ModelsKelas;
 use App\Models\MasterJabatan;
+use App\Models\MasterJurusan;
 use App\Models\Staf;
 use Config\Services;
 
@@ -46,8 +47,10 @@ class Masterkelas extends BaseController
 		if($this->request->isAJAX()) {
 
 			$dataStaf = new Staf();
+			$dataJurusan = new MasterJurusan();
 
 			$data['wali_kelas'] = $dataStaf->where('jabatan_id', MasterJabatan::GURU_WALI_KELAS)->findAll();
+			$data['jurusan'] = $dataJurusan->findAll();
 
 			$element = [
 				'data' => view('back_content/master_kelas/form', $data)
@@ -94,6 +97,13 @@ class Masterkelas extends BaseController
 						'required' => '{field} tidak boleh kosong'
 					]
 				],
+				'jurusan_id' => [
+					'label' => 'Jurusan Kelas',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
 			]);
 
 			if(!$valid) {
@@ -103,6 +113,7 @@ class Masterkelas extends BaseController
 						'lokasi' => $validasi->getError('lokasi'),
 						'daya_tampung' => $validasi->getError('daya_tampung'),
 						'wali_kelas_id' => $validasi->getError('wali_kelas_id'),
+						'jurusan_id' => $validasi->getError('jurusan_id'),
 					]
 				];	
 			}else {
@@ -112,6 +123,7 @@ class Masterkelas extends BaseController
 					'daya_tampung' => $this->request->getVar('daya_tampung'),
 					'inventaris' => $this->request->getVar('inventaris'),
 					'wali_kelas_id' => $this->request->getVar('wali_kelas_id'),
+					'jurusan_id' => $this->request->getVar('jurusan_id'),
 				];
 
 				$data = new ModelsKelas();
@@ -133,6 +145,12 @@ class Masterkelas extends BaseController
 	{
 		if($this->request->isAJAX()) {
 
+			$dataStaf = new Staf();
+			$dataJurusan = new MasterJurusan();
+
+			$data['wali_kelas'] = $dataStaf->where('jabatan_id', MasterJabatan::GURU_WALI_KELAS)->findAll();
+			$data['jurusan'] = $dataJurusan->findAll();
+			
 			$dataModel = new ModelsKelas();
 
 			$datas = $dataModel->find($id);
@@ -144,6 +162,7 @@ class Masterkelas extends BaseController
 				'daya_tampung' => $datas['daya_tampung'],
 				'inventaris' => $datas['inventaris'],
 				'wali_kelas_id' => $datas['wali_kelas_id'],
+				'jurusan_id' => $datas['jurusan_id']
 			];
 
 			$element = [
@@ -191,6 +210,13 @@ class Masterkelas extends BaseController
 						'required' => '{field} tidak boleh kosong'
 					]
 				],
+				'jurusan_id' => [
+					'label' => 'Jurusan Kelas',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
 			]);
 
 			if(!$valid) {
@@ -200,6 +226,7 @@ class Masterkelas extends BaseController
 						'lokasi' => $validasi->getError('lokasi'),
 						'daya_tampung' => $validasi->getError('daya_tampung'),
 						'wali_kelas_id' => $validasi->getError('wali_kelas_id'),
+						'jurusan_id' => $validasi->getError('jurusan_id'),
 					]
 				];	
 			}else {
@@ -210,6 +237,7 @@ class Masterkelas extends BaseController
 					'daya_tampung' => $this->request->getVar('daya_tampung'),
 					'inventaris' => $this->request->getVar('inventaris'),
 					'wali_Kelas_id' => $this->request->getVar('wali_kelas_id'),
+					'jurusan_id' => $this->request->getVar('jurusan_id'),
 				];
 
 				$data = new ModelsKelas();

@@ -37,7 +37,8 @@ class Login extends BaseController
 
                 // Jika siswa telah mengisi semua data maka masuk ke halaman dashboard
                 if($data['is_lengkap'] || $data['role_id'] != 3) {
-                    return redirect()->to('/rahasia/dashboard');
+                    // return redirect()->to('/rahasia/dashboard');
+                    return redirect()->to('/rahasia/manajemen-siswa');
 
                 // jika belum lengkap masuk ke halaman lengkapi data
                 }else {
