@@ -6,13 +6,11 @@
 
 <?= $this->section('css') ?>
 <!-- DataTables -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
-<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?= base_url('theme/back/assets/css/kelas.css') ?>" rel="stylesheet" type="text/css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -34,26 +32,21 @@
     <div class="col-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <button class="btn btn-primary">Buat baru</button>
-                <table id="datatable" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;">ID</th>
-                            <th>Nama</th>
-                            <th style="width: 20%;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($datas as $data): ?>
-                        <tr>
-                            <td><?= $data['id'] ?></td>
-                            <td><?= $data['nama'] ?></td>
-                            <td></td>
-                        </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-
+                <a class="btn btn-primary" href="<?= base_url('rahasia/master-kelas') ?>">Master Kelas</a>
+                <p>
+                <small>Untuk melakukan registri siswa ke kelas yang ditentukan, silahkan klik list kelas dibawah</small>
+                </p>
+                <div class="row" id="panduan">
+                    <?php foreach($master_kelas as $kelas): ?>
+                        <div class="col-lg-3">
+                            <div class="box wow fadeInLeft">
+                                <div class="icon"><i class="fa fa-bar-chart"></i></div>
+                                <h4 class="title"><a href=""><?= $kelas['nama'] ?></a></h4>
+                                <p class="description">Daya tampung: <?= $kelas['daya_tampung'] ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div> <!-- end col -->

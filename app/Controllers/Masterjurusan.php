@@ -65,18 +65,29 @@ class Masterjurusan extends BaseController
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-				]
+				],
+
+				'singkatan' => [
+					'label' => 'Singkatan',
+					'rules' => 'required|is_unique[master_jurusan.singkatan]',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+						'is_unique' => '{field} tidak boleh sama'
+					]
+				],
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama')
+						'nama' => $validasi->getError('nama'),
+						'singkatan' => $validasi->getError('singkatan'),
 					]
 				];	
 			}else {
 				$simpanData =[
-					'nama' => $this->request->getVar('nama')
+					'nama' => $this->request->getVar('nama'),
+					'singkatan' => $this->request->getVar('singkatan'),
 				];
 
 				$data = new ModelsMasterJurusan();
@@ -104,7 +115,8 @@ class Masterjurusan extends BaseController
 
 			$data = [
 				'id' => $datas['id'],
-				'nama' => $datas['nama']
+				'nama' => $datas['nama'],
+				'singkatan' => $datas['singkatan'],
 			];
 
 			$element = [
@@ -130,19 +142,30 @@ class Masterjurusan extends BaseController
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-				]
+				],
+
+				'singkatan' => [
+					'label' => 'Singkatan',
+					'rules' => 'required|is_unique[master_jurusan.singkatan]',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+						'is_unique' => '{field} tidak boleh sama'
+					]
+				],
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama')
+						'nama' => $validasi->getError('nama'),
+						'singkatan' => $validasi->getError('singkatan'),
 					]
 				];	
 			}else {
 				$id = $this->request->getVar('id');
 				$simpanData =[
-					'nama' => $this->request->getVar('nama')
+					'nama' => $this->request->getVar('nama'),
+					'singkatan' => $this->request->getVar('singkatan'),
 				];
 
 				$data = new ModelsMasterJurusan();

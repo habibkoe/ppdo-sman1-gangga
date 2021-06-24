@@ -86,6 +86,10 @@ class Artikel extends BaseController
 						'required' => '{field} tidak boleh kosong',
 					]
 				],
+				// "image_path" => [
+				// 	"rules" => "uploaded[image_path]|max_size[image_path,1024]|is_image[image_path]|mime_in[image_path,image/jpg,image/jpeg,image/gif,image/png]",
+				// 	"label" => "Gambar Primary",
+				// ],
 			]);
 
 			if(!$valid) {
@@ -94,15 +98,34 @@ class Artikel extends BaseController
 						'judul' => $validasi->getError('judul'),
 						'kategori_id' => $validasi->getError('kategori_id'),
 						'status' => $validasi->getError('status'),
+						// 'image_path' => $validasi->getError('image_path'),
 					]
 				];	
 			}else {
+				$file = $this->request->getFile('image_path');
+
+				$profile_image = $file->getName();
+
+				if($profile_image != "") {
+					// Renaming file before upload
+					$temp = explode(".",$profile_image);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$file->move("uploads", $newfilename);
+
+					$imageWithDir = "uploads/" . $newfilename;
+				}else {
+					$imageWithDir = null;
+				}
+
 				$simpanData =[
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
 					'status' => $this->request->getVar('status'),
 					'user_id' => session()->get('user_id'),
+					'preview_deskripsi' => $this->request->getVar('preview_deskripsi'),
+					'image_path' => $imageWithDir,
 				];
 
 				$data = new ModelsArtikel();
@@ -133,7 +156,9 @@ class Artikel extends BaseController
 				'judul' => $datas['judul'],
 				'deskripsi' => $datas['deskripsi'],
 				'status' => $datas['status'],
-				'kategori_id' => $datas['kategori_id']
+				'kategori_id' => $datas['kategori_id'],
+				'preview_deskripsi' => $datas['preview_deskripsi'],
+				'image_path' => $datas['image_path'],
 			];
 
 			$element = [
@@ -185,16 +210,36 @@ class Artikel extends BaseController
 				];	
 			}else {
 				$id = $this->request->getVar('id');
+
+				$file = $this->request->getFile('image_path');
+
+				$profile_image = $file->getName();
+
+				$data = new ModelsArtikel();
+
+				if($profile_image != "") {
+					// Renaming file before upload
+					$temp = explode(".",$profile_image);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$file->move("uploads", $newfilename);
+
+					$imageWithDir = "uploads/" . $newfilename;
+				}else {
+					$dataArtikel = $data->find($id);
+					$imageWithDir = $dataArtikel['image_path'];
+				}
+				
+
 				$simpanData =[
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
 					'status' => $this->request->getVar('status'),
 					'user_id' => session()->get('user_id'),
+					'preview_deskripsi' => $this->request->getVar('preview_deskripsi'),
+					'image_path' => $imageWithDir,
 				];
-
-				$data = new ModelsArtikel();
-
 				$data->update($id, $simpanData);
 
 				$pesan = [

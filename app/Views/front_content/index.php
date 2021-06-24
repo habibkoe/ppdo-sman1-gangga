@@ -8,8 +8,13 @@
 <div class="intro-content">
   <h2>Penerimaan <span>Peserta Didik Baru</span><br> SMAN 1 Gangga</h2>
   <div>
+  <?php if($session->get('logged_in')): ?>
+    <a href="<?= base_url('dashboard') ?>" class="btn-get-started scrollto">Dasboard</a>
+  <?php else: ?>
     <a href="<?= base_url('masuk') ?>" class="btn-get-started scrollto">Masuk</a>
     <a href="<?= base_url('daftar') ?>" class="btn-projects scrollto">Daftar</a>
+  <?php endif; ?>
+    
   </div>
 </div>
 
@@ -58,39 +63,15 @@
     </div>
 
     <div class="row">
-
+    <?php foreach($panduans as $panduan): ?>
       <div class="col-lg-6">
         <div class="box wow fadeInLeft">
           <div class="icon"><i class="fa fa-bar-chart"></i></div>
-          <h4 class="title"><a href="">Siapkan berkas</a></h4>
-          <p class="description">Berkas yang disiapkan berupa pas poto 3 x 4 nanti di upload ke sistem, kemudian poto copy ijazah + nilai / keterangan lulus, poto copy KK.</p>
+          <h4 class="title"><a href=""><?= $panduan['judul'] ?></a></h4>
+          <p class="description"><?= substr($panduan['preview_deskripsi'], 0, 100) ?></p>
         </div>
       </div>
-
-      <div class="col-lg-6">
-        <div class="box wow fadeInRight">
-          <div class="icon"><i class="fa fa-picture-o"></i></div>
-          <h4 class="title"><a href="">Siapkan jaringan internet</a></h4>
-          <p class="description">Karena kami menggunakan sistem pendaftaran online, maka untuk adik -adik silahkan siapkan paket internet / kuota internet kalian.</p>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="box wow fadeInLeft" data-wow-delay="0.2s">
-          <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-          <h4 class="title"><a href="">Akses ke pendaftaran</a></h4>
-          <p class="description">Untuk memulai pendaftaran bagi kalian yang baru mengakses halaman ini, kalian harus klik tombol daftar diatas, atau pada link http://localhost:8080/daftar, .</p>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="box wow fadeInRight" data-wow-delay="0.2s">
-          <div class="icon"><i class="fa fa-map"></i></div>
-          <h4 class="title"><a href="">Akses Login</a></h4>
-          <p class="description">Jika kalian sudah melakukan pendaftaran dan belum sempat mengisi formulir di dalamnya, jangan khawatir, kalian bisa login kembali tanpa melakukan daftar lagi</p>
-        </div>
-      </div>
-
+      <?php endforeach; ?>
     </div>
 
   </div>

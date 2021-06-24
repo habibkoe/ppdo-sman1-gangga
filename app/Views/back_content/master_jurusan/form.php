@@ -1,5 +1,4 @@
-<div class="modal fade bs-example-modal-center" id="modaltambah" tabindex="-1" role="dialog"
-    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,6 +10,17 @@
             <?= form_open('rahasia/simpan-data-jurusan', ['id' => 'simpandata']) ?>
             <?= csrf_field() ?>
             <div class="modal-body">
+                <div class="form-group row">
+                    <label for="singkatan" class="col-sm-3 col-form-label">
+                        Singkatan
+                        <br>
+                        <small>isi singkatan master data jurusan</small>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" id="singkatan" name="singkatan">
+                        <div class="invalid-feedback" id="errorSingkatan"></div>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="nama" class="col-sm-3 col-form-label">
                         Nama
@@ -35,38 +45,45 @@
 </div><!-- /.modal -->
 
 <script>
-    $("#simpandata").submit(function (event) {
+    $("#simpandata").submit(function(event) {
         event.preventDefault();
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
                 $('#btnsimpan').attr('disable', 'disabled');
                 $('#btnsimpan').html('<i class="fa fa-spin fa-spinner"></i>');
             },
-            complete: function () {
+            complete: function() {
                 $('#btnsimpan').removeAttr('disable');
                 $('#btnsimpan').html('Simpan');
             },
-            success: function (response) {
-                if(response.error) {
-                    if(response.error.nama) {
+            success: function(response) {
+                if (response.error) {
+                    if (response.error.singkatan) {
+                        $('#singkatan').addClass('is-invalid');
+                        $('#errorSingkatan').html(response.error.singkatan);
+                    } else {
+                        $('#singkatan').removeClass('is-invalid');
+                        $('#errorSingkatan').html('');
+                    }
+                    if (response.error.nama) {
                         $('#nama').addClass('is-invalid');
                         $('#errorNama').html(response.error.nama);
-                    }else {
+                    } else {
                         $('#nama').removeClass('is-invalid');
                         $('#errorNama').html('');
                     }
-                }else {
+                } else {
                     $('#modaltambah').modal('hide');
 
                     // Fungsi tambil data diambil dari dalam file index.php
                     tampilData();
                 }
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
 

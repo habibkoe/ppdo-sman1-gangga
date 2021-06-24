@@ -35,12 +35,18 @@ class Kelas extends Migration
 				'constraint' => 5,
 				'unsigned'       => true,
 			],
+			'jurusan_id'       => [
+				'type'       => 'INT',
+				'constraint' => 5,
+				'unsigned'       => true,
+			],
 			'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP',
 			'deleted_at DATETIME'
 		]);
 		$this->forge->addKey('id', true);
 		$this->forge->addForeignKey('wali_kelas_id', 'staf','id');
+		$this->forge->addForeignKey('jurusan_id', 'master_jurusan','id');
 		$this->forge->createTable('kelas');
 	}
 

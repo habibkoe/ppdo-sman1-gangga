@@ -1,5 +1,4 @@
-<div class="modal fade bs-example-modal-center" id="modaledit" tabindex="-1" role="dialog"
-    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,6 +28,15 @@
                             </label>
                             <div>
                                 <textarea name="deskripsi" id="elm1"><?= $deskripsi ?></textarea>
+                                <p>
+                                <h6>Catatan:</h6>
+                                <ul>
+                                    <li>Gambar yang diupload boleh extensi: jpg, png, jpeg</li>
+                                    <li>Ukuran gambar maksimal 1MB</li>
+                                    <li>Wajib mengisi judul, kategori, dan status</li>
+                                    <li>Preview deskripi penting jika dibuat sebagai highlight postingan di halaman depan</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -59,6 +67,20 @@
                                 <div class="invalid-feedback" id="errorStatus"></div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="preview_deskripsi">Preview Deskripsi</label>
+                            <div>
+                                <textarea name="preview_deskripsi" id="preview_deskripsi" class="form-control" rows="4"><?= $preview_deskripsi ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_path">Gambar Primary</label>
+                            <div>
+                                <input type="file" class="form-control" accept="image/*" name="image_path" id="image_path" multiple="true" onchange="onFileUpload(this);">
+                                <div class="invalid-feedback" id="errorGambar"></div>
+                            </div>
+                        </div>
+                        <img class="mt-3" id="ajaxImgUpload" alt="Preview Image" src="<?= isset($image_path) ? base_url($image_path) : 'https://via.placeholder.com/300' ?>" />
                     </div>
                 </div>
             </div>
@@ -66,31 +88,49 @@
             <div class="modal-footer">
                 <input type="hidden" name="id" value="<?= $id ?>">
                 <button type="submit" class="btn btn-primary waves-effect waves-light" id="btnsimpan">Update</button>
-                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Tutup</button>
             </div>
 
             <?= form_close() ?>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<script src="<?= base_url('theme/back/assets/plugins/tinymce/tinymce.min.js') ?>"></script>
 <script>
-    $("#updatedata").submit(function (event) {
+    function onFileUpload(input, id) {
+        id = id || '#ajaxImgUpload';
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $(id).attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#updatedata").submit(function(event) {
         event.preventDefault();
+
+        var formData = new FormData(this);
+
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
-            data: $(this).serialize(),
+            data: formData,
+            processData: false,
+            contentType: false,
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
                 $('#btnsimpan').attr('disable', 'disabled');
                 $('#btnsimpan').html('<i class="fa fa-spin fa-spinner"></i>');
             },
-            complete: function () {
+            complete: function() {
                 $('#btnsimpan').removeAttr('disable');
                 $('#btnsimpan').html('Update');
             },
-            success: function (response) {
+            success: function(response) {
                 if (response.error) {
                     if (response.error.judul) {
                         $('#judul').addClass('is-invalid');
@@ -115,6 +155,7 @@
                         $('#status_post').removeClass('is-invalid');
                         $('#errorStatus').html('');
                     }
+
                 } else {
                     $('#modaledit').modal('hide');
 
@@ -122,25 +163,25 @@
                     tampilData();
                 }
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
 
         })
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         if ($("#elm1").length > 0) {
             tinymce.init({
                 selector: "textarea#elm1",
-                setup: function (editor) {
-                    editor.on('change', function () {
+                setup: function(editor) {
+                    editor.on('change', function() {
                         tinymce.triggerSave();
                     });
                 },
                 theme: "modern",
-                height: 300,
+                height: 400,
                 plugins: [
                     "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",

@@ -18,6 +18,10 @@
     .modal-xl {
         max-width: 1200px;
     }
+
+    #ajaxImgUpload {
+        width: 100%;
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -59,8 +63,7 @@
 <script src="<?= base_url('theme/back/assets/plugins/datatables/dataTables.responsive.min.js') ?>"></script>
 <script src="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.js') ?>"></script>
 
-<!--Wysiwig js-->
-<script src="<?= base_url('theme/back/assets/plugins/tinymce/tinymce.min.js') ?>"></script>
+
 <!-- Datatable init js -->
 <script>
     function tampilData() {

@@ -9,7 +9,8 @@ class Login extends BaseController
 {
 	public function index()
 	{
-		return view('back_content/masuk');
+        $data['session'] = session();
+		return view('back_content/masuk', $data);
 	}
 
 	public function auth()
@@ -43,11 +44,11 @@ class Login extends BaseController
                     return redirect()->to('/rahasia/lengkapi-pendaftaran');
                 }
             }else{
-                $session->setFlashdata('msg', 'Wrong Password');
+                $session->setFlashdata('msg_password', 'Wrong Password');
                 return redirect()->to('/masuk');
             }
         }else{
-            $session->setFlashdata('msg', 'User tidak ditemukan');
+            $session->setFlashdata('msg_user', 'User tidak ditemukan');
             return redirect()->to('/masuk');
         }
     }

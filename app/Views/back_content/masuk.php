@@ -20,13 +20,19 @@
 
           <div class="form-group row">
             <div class="col-12">
-              <input class="form-control" type="text" required="" name="username" placeholder="Username">
+              <input class="form-control <?= $session->getFlashdata('msg_user') != null ? 'is-invalid' : '' ?>" type="text" required="" name="username" placeholder="Username">
+              <div class="invalid-feedback" id="errorSingkatan">
+                <?= $session->getFlashdata('msg_user') ?>
+              </div>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-12">
-              <input class="form-control" type="password" required="" name="password" placeholder="Password">
+              <input class="form-control <?= $session->getFlashdata('msg_password') != null ? 'is-invalid' : '' ?>" type="password" required="" name="password" placeholder="Password">
+              <div class="invalid-feedback" id="errorSingkatan">
+                <?= $session->getFlashdata('msg_password') ?>
+              </div>
             </div>
           </div>
 

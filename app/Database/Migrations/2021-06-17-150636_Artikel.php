@@ -19,6 +19,15 @@ class Artikel extends Migration
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
 			],
+			'image_path' => [
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null' => true
+			],
+			'preview_deskripsi' => [
+				'type'       => 'TEXT',
+				'null' => true
+			],
 			'deskripsi'       => [
 				'type'       => 'TEXT',
 			],

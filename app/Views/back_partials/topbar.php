@@ -3,12 +3,7 @@
 
         <!-- Logo container-->
         <div class="logo">
-            <!-- Text Logo -->
-            <!--<a href="index.html" class="logo">-->
-            <!--Annex-->
-            <!--</a>-->
-            <!-- Image Logo -->
-            <a href="index.html">
+            <a href="<?= base_url('dashboard') ?>">
                 SMAN 1 Gangga
             </a>
 

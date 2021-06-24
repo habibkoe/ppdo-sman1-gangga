@@ -14,7 +14,7 @@ class Artikel extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id','judul','deskripsi','status','kategori_id','user_id'];
+	protected $allowedFields        = ['id','judul','deskripsi','status','kategori_id','user_id','image_path','preview_deskripsi'];
 
 	// Dates
 	protected $useTimestamps        = false;

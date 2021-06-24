@@ -37,6 +37,7 @@
         <div class="card m-b-30">
             <div class="card-body">
                 <button class="btn btn-primary btn-lg mb-3" id="tambahdata" onclick="tambahData()">Buat baru</button>
+                <a class="btn btn-primary btn-lg mb-3" href="<?= base_url('rahasia/manajemen-kelas') ?>">Manajemen Kelas</a>
                 <div id="tampildata"></div>
             </div>
         </div>
