@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open("rahasia/update-data-jabatan", ['id' => 'updatedata']) ?>
+            <?= form_open("rahasia/update-data-jabatan", ['id' => 'updatedata', 'onsubmit' => 'updateData(this)']) ?>
             <?= csrf_field() ?>
             <div class="modal-body">
                 <div class="form-group row">
@@ -62,7 +62,6 @@
                     }
                 }else {
                     $('#modaledit').modal('hide');
-
                     // Fungsi tambil data diambil dari dalam file index.php
                     tampilData();
                 }
@@ -70,7 +69,6 @@
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
-
         })
-    })
+    });
 </script>

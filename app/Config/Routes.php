@@ -104,6 +104,7 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->post('simpan-data-jabatan', 'Masterjabatan::simpanData');
 	$routes->get('get-form-edit-jabatan/(:num)', 'Masterjabatan::getFormEdit/$1');
 	$routes->post('update-data-jabatan', 'Masterjabatan::updateData');
+	$routes->delete('hapus-jabatan', 'Masterjabatan::hapusData');
 
 	// ---------------------------------------------------
 	$routes->get('master-agama', 'Masteragama::index');

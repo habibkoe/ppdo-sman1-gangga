@@ -1,3 +1,10 @@
+<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_diri">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <span id="isi_pesan_berhasil"></span>
+</div>
+
 <?php if (count($data_siswa) > 0) : ?>
     <br>
     <div class="table-responsive">
@@ -181,6 +188,6 @@
             <div class="invalid-feedback" id="errorJurusan"></div>
         </div>
     </div>
-    <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_data_diri">Simpan</button>
+    <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_data_diri" onclick="simpanDataDiri()">Simpan</button>
     <?= form_close() ?>
 <?php endif; ?>

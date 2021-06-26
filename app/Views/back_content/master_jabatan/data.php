@@ -3,7 +3,7 @@
         <tr>
             <th style="width: 5%;">ID</th>
             <th>Nama</th>
-            <th style="width: 20%;">Action</th>
+            <th style="width: 10%;">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -19,23 +19,3 @@
         <?php endforeach ?>
     </tbody>
 </table>
-
-<script>
-
-function editData(id) {
-    $.ajax({
-        type: "get",
-        url: "<?= site_url('rahasia/get-form-edit-jabatan/') ?>" + id,
-        dataType: "json",
-        success: function (response) {
-            $('#tampilmodal').html(response.data).removeClass('d-none');
-            $('#modaledit').modal('show');
-        }
-    });
-}
-
-$(document).ready(function() {
-    $('#datatable').DataTable();
-} );
-
-</script>

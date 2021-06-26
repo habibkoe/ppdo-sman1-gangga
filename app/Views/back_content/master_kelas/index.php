@@ -6,19 +6,16 @@
 
 <?= $this->section('css') ?>
 <!-- DataTables -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
-<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 
 <link href="<?= base_url('theme/back/assets/plugins/select2/select2.min.css') ?>" rel="stylesheet" type="text/css" />
 
 <style>
-/* Select 2 custom */
-.select2-container--default .select2-selection--single {
+    /* Select 2 custom */
+    .select2-container--default .select2-selection--single {
         background-color: #fff;
         border: 1px solid #ced4da;
         border-radius: 4px;
@@ -98,37 +95,67 @@
 <script src="<?= base_url('theme/back/assets/plugins/select2/select2.min.js') ?>" type="text/javascript"></script>
 <!-- Datatable init js -->
 <script>
-function tampilData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-data-kelas') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampildata').html(response.data);
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
+    function tampilData() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-data-kelas') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampildata').html(response.data);
+                $('#datatable').DataTable();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function tambahData() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-form-kelas') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampilmodal').html(response.data).removeClass('d-none');
+                $('#modaltambah').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+
+        });
+
+    }
+
+    function editData(id) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('rahasia/get-form-edit-kelas/') ?>" + id,
+            dataType: "json",
+            success: function(response) {
+                $('#tampilmodal').html(response.data).removeClass('d-none');
+                $('#modaledit').modal('show');
+            }
+        });
+    }
+
+    function hapusData(id) {
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('rahasia/hapus-kelas') ?>",
+            data: {
+                _method: "DELETE",
+                jabatan_id: id
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.berhasil) {
+                    tampilData();
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        tampilData();
     });
-}
-
-function tambahData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-form-kelas') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampilmodal').html(response.data).removeClass('d-none');
-            $('#modaltambah').modal('show');
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
-
-    });
-    
-}
-
-$(document).ready(function() {
-    tampilData();
-});
 </script>
 <?= $this->endSection() ?>

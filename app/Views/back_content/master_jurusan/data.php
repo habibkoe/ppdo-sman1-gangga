@@ -21,23 +21,3 @@
         <?php endforeach ?>
     </tbody>
 </table>
-
-<script>
-
-function editData(id) {
-    $.ajax({
-        type: "get",
-        url: "<?= site_url('rahasia/get-form-edit-jurusan/') ?>" + id,
-        dataType: "json",
-        success: function (response) {
-            $('#tampilmodal').html(response.data).removeClass('d-none');
-            $('#modaledit').modal('show');
-        }
-    });
-}
-
-$(document).ready(function() {
-    $('#datatable').DataTable();
-} );
-
-</script>

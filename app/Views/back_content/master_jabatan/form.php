@@ -61,7 +61,6 @@
                     }
                 }else {
                     $('#modaltambah').modal('hide');
-
                     // Fungsi tambil data diambil dari dalam file index.php
                     tampilData();
                 }

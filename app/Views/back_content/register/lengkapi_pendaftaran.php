@@ -9,46 +9,46 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 
 <style>
   #ajaxImgUpload {
-        width: 100%;
-    }
+    width: 100%;
+  }
 
-    /* Select 2 custom */
-.select2-container--default .select2-selection--single {
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-    }
+  /* Select 2 custom */
+  .select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #444;
-        line-height: 36px;
-    }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 36px;
+  }
 
-    .select2-container .select2-selection--single {
-        box-sizing: border-box;
-        cursor: pointer;
-        display: block;
-        height: 38px;
-        user-select: none;
-        -webkit-user-select: none;
-    }
+  .select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 38px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
 
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 36px;
-        position: absolute;
-        top: 1px;
-        right: 1px;
-        width: 20px;
-    }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+  }
 
-    .select2-container .select2-selection--single .select2-selection__rendered {
-        display: block;
-        padding-left: 15px;
-        padding-right: 20px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+  .select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    padding-left: 15px;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 </style>
 <?= $this->endSection() ?>
 
@@ -75,12 +75,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>1] Identitas Utama:</h5>
         <span>Pastikan semua form terisi untuk memudahkan verifikasi data</span>
-        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_diri">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span id="isi_pesan_berhasil"></span>
-        </div>
         <div id="content_identitas_utama">
           <?= $this->include('back_content/register/identitas_utama') ?>
         </div>
@@ -91,12 +85,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>2] Identitas Orang Tua / Wali:</h5>
         <span>Data orang tua dapat diisi lebih dari 1, misal, ayah dan ibu, om dan tante, kakek dan nenek</span>
-        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_ortu">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span id="isi_pesan_berhasil_ortu"></span>
-        </div>
         <div id="content_identitas_ortu">
           <?= $this->include('back_content/register/identitas_orang_tua') ?>
         </div>
@@ -109,12 +97,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>3] Data Sekolah Asal:</h5>
         <span>Data sekolah asal merupakan sekolah 1 level dibawah SMA, seperti SMP, MTs atau sederajat</span>
-        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_sekolah">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span id="isi_pesan_data_sekolah"></span>
-        </div>
         <div id="content_sekolah_asal">
           <?= $this->include('back_content/register/data_sekolah_asal') ?>
         </div>
@@ -125,12 +107,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>4] Data Nilai:</h5>
         <span>Data nilai diisi sesuai dengan mata pelajaran wajib yang di UN kan, seperti matematika, bahasa indonesia, bahasa inggris, IPA</span>
-        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_nilai_mapel">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span id="isi_pesan_nilai_mapel"></span>
-        </div>
         <div id="content_data_nilai">
           <?= $this->include('back_content/register/data_nilai') ?>
         </div>
@@ -140,12 +116,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       <div class="card-body">
         <h5>5] Berkas Pendukung:</h5>
         <span>Berkas pendukung berisi Poto kopi KK, poto kopi Ijazah / Surat keterangan lulus, Transkrip nilai</span>
-        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_pendukung">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span id="isi_pesan_nilai_data_pendukung"></span>
-        </div>
         <div id="content_data_berkas">
           <?= $this->include('back_content/register/data_pendukung') ?>
         </div>
@@ -158,36 +128,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
 <?= $this->section('javascript') ?>
 <script src="<?= base_url('theme/back/assets/plugins/select2/select2.min.js') ?>" type="text/javascript"></script>
 <script>
-  // Ajax Load Data secara dinamis tanpa refresh
-  function ajaxLoad(_url, content) {
-    content = typeof content !== 'undefined' ? content : 'content';
-    $.ajax({
-      type: "GET",
-      url: _url,
-      contentType: false,
-      success: function(data) {
-        $("#" + content).html(data);
-      },
-      error: function(xhr, status, error) {
-        bootbox.alert(xhr.responseText);
-      }
-    });
-  }
-
-  function onFileUpload(input, id) {
-    id = id || '#ajaxImgUpload';
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        $(id).attr('src', e.target.result)
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  //SIMPAN DATA PRIBADI 
+  //SIMPAN DATA DIRI 
   $('#simpan_data_diri').submit(function(e) {
     e.preventDefault();
 
@@ -400,11 +341,6 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     });
   });
 
-  function tambahDataOrangTua(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
-    ajaxLoad(urlLoad, "content_identitas_ortu");
-  }
-
   // SIMPAN DATA SEKOLAH
   $('#data_sekolah').submit(function(e) {
     e.preventDefault();
@@ -458,64 +394,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     });
   });
 
-  // SIMPAN DATA NILAI
-  $('#berkas_nilai').submit(function(e) {
-    e.preventDefault();
-
-    $.ajax({
-      type: "post",
-      url: $(this).attr('action'),
-      data: $(this).serialize(),
-      dataType: "json",
-      beforeSend: function() {
-        $('#tombol_simpan_berkas').attr('disable', 'disabled');
-        $('#tombol_simpan_berkas').html('<i class="fa fa-spin fa-spinner"></i>');
-      },
-
-      complete: function() {
-        $('#tombol_simpan_berkas').removeAttr('disable');
-        $('#tombol_simpan_berkas').html('Simpan');
-      },
-      success: function(response) {
-        if (response.error) {
-          if (response.error.mata_pelajaran) {
-            $('#nama_mata_pelajaran').addClass('is-invalid');
-            $('#errorMapel').html(response.error.mata_pelajaran);
-          } else {
-            $('#nama_mata_pelajaran').removeClass('is-invalid');
-            $('#errorMapel').html('');
-          }
-
-          if (response.error.nilai) {
-            $('#nilai_mapel').addClass('is-invalid');
-            $('#errorNilaiMapel').html(response.error.nilai);
-          } else {
-            $('#nilai_mapel').removeClass('is-invalid');
-            $('#errorNilaiMapel').html('');
-          }
-        } else {
-          // Fungsi tambil data diambil dari dalam file index.php
-          // tampilData();
-          $('#notifikasi_nilai_mapel').removeClass('d-none');
-          $('#isi_pesan_nilai_mapel').html(response.berhasil);
-
-          let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id + "/1";
-
-          // Load element lokal
-          ajaxLoad(urlLoad, "content_data_nilai");
-        }
-      },
-      error: function(xhr, ajaxOptins, thrownError) {
-        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
-      }
-    });
-  });
-
-  function tambahDataNilai(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
-    ajaxLoad(urlLoad, "content_data_nilai");
-  }
-
+  // SIMPAN PENDUKUNG
   $('#data_pendukung').submit(function(e) {
     e.preventDefault();
 
@@ -571,6 +450,98 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
       }
     });
   });
+
+  // SIMPAN DATA NILAI
+  $('#berkas_nilai').submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "post",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                $('#tombol_simpan_berkas').attr('disable', 'disabled');
+                $('#tombol_simpan_berkas').html('<i class="fa fa-spin fa-spinner"></i>');
+            },
+
+            complete: function() {
+                $('#tombol_simpan_berkas').removeAttr('disable');
+                $('#tombol_simpan_berkas').html('Simpan');
+            },
+            success: function(response) {
+                if (response.error) {
+                    if (response.error.mata_pelajaran) {
+                        $('#nama_mata_pelajaran').addClass('is-invalid');
+                        $('#errorMapel').html(response.error.mata_pelajaran);
+                    } else {
+                        $('#nama_mata_pelajaran').removeClass('is-invalid');
+                        $('#errorMapel').html('');
+                    }
+
+                    if (response.error.nilai) {
+                        $('#nilai_mapel').addClass('is-invalid');
+                        $('#errorNilaiMapel').html(response.error.nilai);
+                    } else {
+                        $('#nilai_mapel').removeClass('is-invalid');
+                        $('#errorNilaiMapel').html('');
+                    }
+                } else {
+                    // Fungsi tambil data diambil dari dalam file index.php
+                    // tampilData();
+                    $('#notifikasi_nilai_mapel').removeClass('d-none');
+                    $('#isi_pesan_nilai_mapel').html(response.berhasil);
+
+                    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id + "/1";
+
+                    // Load element lokal
+                    ajaxLoad(urlLoad, "content_data_nilai");
+                }
+            },
+            error: function(xhr, ajaxOptins, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
+            }
+        });
+    });
+
+  // Ajax Load Data secara dinamis tanpa refresh
+  function ajaxLoad(_url, content) {
+    content = typeof content !== 'undefined' ? content : 'content';
+    $.ajax({
+      type: "GET",
+      url: _url,
+      contentType: false,
+      success: function(data) {
+        $("#" + content).html(data);
+      },
+      error: function(xhr, status, error) {
+        bootbox.alert(xhr.responseText);
+      }
+    });
+  }
+
+  function onFileUpload(input, id) {
+    id = id || '#ajaxImgUpload';
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $(id).attr('src', e.target.result)
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function tambahDataOrangTua(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_identitas_ortu");
+  }
+
+  function tambahDataNilai(siswaId, addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
+    ajaxLoad(urlLoad, "content_data_nilai");
+  }
 
   function tambahDataPendukung(siswaId, addData) {
     let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + siswaId + '/' + addData;

@@ -29,4 +29,6 @@ class OrangTua extends Model
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
+	public array $status = [1 => "Bapak / Ayah", "Ibu / Mama", "Kakek", "Nenek", "Paman / Om / Pak de", "Bibi / Tante / Buk de"];
+
 }

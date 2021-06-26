@@ -6,13 +6,10 @@
 
 <?= $this->section('css') ?>
 <!-- DataTables -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
-<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -55,37 +52,67 @@
 
 <!-- Datatable init js -->
 <script>
-function tampilData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-data-jurusan') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampildata').html(response.data);
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
+    function tampilData() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-data-jurusan') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampildata').html(response.data);
+                $('#datatable').DataTable();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function tambahData() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-form-jurusan') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampilmodal').html(response.data).removeClass('d-none');
+                $('#modaltambah').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                aler(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+
+        });
+
+    }
+
+    function editData(id) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('rahasia/get-form-edit-jurusan/') ?>" + id,
+            dataType: "json",
+            success: function(response) {
+                $('#tampilmodal').html(response.data).removeClass('d-none');
+                $('#modaledit').modal('show');
+            }
+        });
+    }
+
+    function hapusData(id) {
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('rahasia/hapus-jurusan') ?>",
+            data: {
+                _method: "DELETE",
+                jabatan_id: id
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.berhasil) {
+                    tampilData();
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        tampilData();
     });
-}
-
-function tambahData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-form-jurusan') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampilmodal').html(response.data).removeClass('d-none');
-            $('#modaltambah').modal('show');
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            aler(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
-
-    });
-    
-}
-
-$(document).ready(function() {
-    tampilData();
-});
 </script>
 <?= $this->endSection() ?>

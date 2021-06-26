@@ -159,4 +159,21 @@ class Masterjabatan extends BaseController
 			
 		}
 	}
+
+	public function hapusData()
+	{
+		if($this->request->isAJAX()) {
+			$id = $this->request->getVar('jabatan_id');
+
+			$data = new ModelsMasterJabatan();
+
+			$data->delete($id);
+
+			$pesan = [
+				'berhasil' => 'Data berhasil diupdate'
+			];
+
+			echo json_encode($pesan);
+		}
+	}
 }

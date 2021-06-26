@@ -16,7 +16,8 @@ class OrangTua extends Migration
 					'auto_increment' => true,
 			],
 			'nik'       => [
-				'type'       => 'DOUBLE',
+				'type'       => 'VARCHAR',
+				'constraint' => '16',
 				'null'       => true,
 			],
 			'nama_awal'       => [

@@ -17,12 +17,12 @@ class Staf extends Migration
 			],
 			'nip'       => [
 				'type'       => 'VARCHAR',
-				'constraint' => '20',
+				'constraint' => '18',
 				'null'       => true,
 			],
 			'nik'       => [
 				'type'       => 'VARCHAR',
-				'constraint' => '20'
+				'constraint' => '16'
 			],
 			'pas_poto'       => [
 				'type'       => 'VARCHAR',

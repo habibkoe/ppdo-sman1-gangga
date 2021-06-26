@@ -107,6 +107,7 @@ class Register extends BaseController
 		$data['data_orang_tua'] = $dataOrangTua;
 		$data['sekolah_asal'] = $dataSekolah;
 		$data['berkas_nilai'] = $dataNilai;
+		$data['status'] = $modeOrangTua->status;
 		$data['berkas_pendukung'] = $dataBerkasPendukung;
 
 		$data['session'] = session();
@@ -121,11 +122,12 @@ class Register extends BaseController
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
-					'rules' => 'required|is_unique[siswa.nik]|matches[16]|numeric',
+					'rules' => 'required|is_unique[siswa.nik]|min_length[16]|max_length[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama',
-						'matches' => '{field} harus sesuai',
+						'min_length' => '{field} masih kurang, harus 16 karakter',
+						'max_length' => '{field} terlalu banyak, harus 16 karakter',
 						'numeric' => '{field} harus angka',
 					]
                 ],
@@ -268,9 +270,11 @@ class Register extends BaseController
 			$valid = $this->validate([
 				'nik_ortu' => [
 					'label' => 'Nik orang tua',
-					'rules' => 'required|is_unique[orang_tua.nik]|matches[16]|numeric',
+					'rules' => 'required|is_unique[orang_tua.nik]|min_length[16]|max_length[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
+						'min_length' => '{field} masih kurang, harus 16 karakter',
+						'max_length' => '{field} terlalu banyak, harus 16 karakter',
 						'is_unique' => '{field} tidak boleh sama'
 					]
                 ],
@@ -379,10 +383,10 @@ class Register extends BaseController
 		$data['data_orang_tua'] = $modeOrangTua->where('siswa_id', $siswaId)->findAll();
 		$data['siswaId'] = $siswaId;
 		$data['addData'] = $addData;
+		$data['status'] = $modeOrangTua->status;
 
 		if($addData == 2) {
 			// LOAD DATA MASTER
-			$dataJurusan = new MasterJurusan();
 			$dataAgama = new MasterAgama();
 			$dataPekerjaan = new MasterPekerjaan();
 			$dataPendidikan = new MasterPendidikan();
