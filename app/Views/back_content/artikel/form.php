@@ -35,6 +35,7 @@
                                         <li>Ukuran gambar maksimal 1MB</li>
                                         <li>Wajib mengisi judul, kategori, dan status</li>
                                         <li>Preview deskripi penting jika dibuat sebagai highlight postingan di halaman depan</li>
+                                        <li>Sub kategori diperuntukkan untuk postingan ekstrakulikuler</li>
                                     </ul>
                                 </p>
                             </div>
@@ -46,10 +47,10 @@
                                 Kategori
                             </label>
                             <div>
-                                <select name="kategori_id" id="kategori_id" class="form-control">
-                                    <option value=""></option>
+                                <select name="kategori_id" id="kategori_id" class="form-control" onchange="pilihSubKategori(this)">
+                                    <option value="">-- Pilih Kategori</option>
                                     <option value="1">Tentang</option>
-                                    <option value="2">cara daftar</option>
+                                    <option value="2">Cara Daftar</option>
                                     <option value="3">Jurusan</option>
                                     <option value="4">Ekstra Kulikuler</option>
                                 </select>
@@ -57,11 +58,26 @@
                             </div>
                         </div>
 
+                        <div class="form-group d-none" id="elementSubKategori">
+                            <label for="sub_kategori_id">
+                               Sub Kategori
+                            </label>
+                            <div>
+                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control">
+                                    <option value="">-- Pilih Sub Kategori --</option>
+                                    <option value="1">Olah Raga</option>
+                                    <option value="2">Seni dan Musik</option>
+                                    <option value="3">IT</option>
+                                    <option value="4">Religi</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="status">Status</label>
                             <div>
                                 <select name="status" id="status_post" class="form-control">
-                                    <option value=""></option>
+                                    <option value="">-- Status Postingan --</option>
                                     <option value="1">Posting</option>
                                     <option value="2">Draft</option>
                                 </select>
@@ -98,6 +114,16 @@
 <!--Wysiwig js-->
 <script src="<?= base_url('theme/back/assets/plugins/tinymce/tinymce.min.js') ?>"></script>
 <script>
+
+    function pilihSubKategori(_this) {
+
+        if(_this.value == 4) {
+            $("#elementSubKategori").removeClass('d-none');
+        }else {
+            $("#elementSubKategori").addClass('d-none');
+        }
+    }
+
     function onFileUpload(input, id) {
         id = id || '#ajaxImgUpload';
         if (input.files && input.files[0]) {
@@ -189,7 +215,7 @@
                     });
                 },
                 theme: "modern",
-                height: 400,
+                height: 450,
                 plugins: [
                     "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",

@@ -121,10 +121,12 @@ class Register extends BaseController
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
-					'rules' => 'required|is_unique[siswa.nik]',
+					'rules' => 'required|is_unique[siswa.nik]|matches[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
+						'is_unique' => '{field} tidak boleh sama',
+						'matches' => '{field} harus sesuai',
+						'numeric' => '{field} harus angka',
 					]
                 ],
                 'nama_awal' => [
@@ -266,7 +268,7 @@ class Register extends BaseController
 			$valid = $this->validate([
 				'nik_ortu' => [
 					'label' => 'Nik orang tua',
-					'rules' => 'required|is_unique[orang_tua.nik]',
+					'rules' => 'required|is_unique[orang_tua.nik]|matches[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'

@@ -30,7 +30,7 @@ class Manajemenstaf extends BaseController
 			$dataModel = new Staf();
 
 			$datas = [
-				'datas' => $dataModel->findAll()
+				'datas' => $dataModel->getDataStafWithJoin()
 			];
 
 			$pesan  = [
@@ -72,13 +72,18 @@ class Manajemenstaf extends BaseController
 		if($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
+			
+
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
-					'rules' => 'required|is_unique[staf.nik]',
+					'rules' => 'required|is_unique[staf.nik]|min_length[16]|max_length[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
+						'is_unique' => '{field} tidak boleh sama',
+						'min_length' => '{field} masih kurang, harus 16 karakter',
+						'max_length' => '{field} terlalu banyak, harus 16 karakter',
+						'numeric' => '{field} harus berupa angka'
 					]
 				],
 				'nama_awal' => [
@@ -138,6 +143,24 @@ class Manajemenstaf extends BaseController
 					]
 				];	
 			}else {
+
+				$file = $this->request->getFile('pas_poto');
+
+				$profile_image = $file->getName();
+				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+
+				if($profile_image != "") {
+					// Renaming file before upload
+					$temp = explode(".",$profile_image);
+					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
+
+					$file->move("uploads/staf/", $newfilename);
+
+					$imageWithDir = "uploads/staf/" . $newfilename;
+				}else {
+					$imageWithDir = null;
+				}
+
 				$simpanData =[
 					'nip' => $this->request->getVar('nip'),
 					'nik' => $this->request->getVar('nik'),
@@ -151,6 +174,7 @@ class Manajemenstaf extends BaseController
 					'pendidikan_id' => $this->request->getVar('pendidikan_id'),
 					'jabatan_id' => $this->request->getVar('jabatan_id'),
 					'user_id' => session()->get('user_id_daftar'),
+					'pas_Poto' => $imageWithDir
 				];
 
 				$data = new Staf();
@@ -198,36 +222,107 @@ class Manajemenstaf extends BaseController
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
-				'nama' => [
-					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
+				'nik' => [
+					'label' => 'Nik',
+					'rules' => 'required|is_unique[staf.nik]|min_length[16]|max_length[16]|numeric',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
-				]
-				],
-				'singkatan' => [
-					'label' => 'Singkatan',
-					'rules' => 'required|is_unique[master_pendidikan.nama]',
-					'errors' => [
-						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
+						'is_unique' => '{field} tidak boleh sama',
+						'min_length' => '{field} masih kurang, harus 16 karakter',
+						'max_length' => '{field} terlalu banyak, harus 16 karakter',
+						'numeric' => '{field} harus berupa angka'
 					]
-				]
+				],
+				'nama_awal' => [
+					'label' => 'Nama awal',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'tanggal_lahir' => [
+					'label' => 'Tanggal lahir',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'jenis_kelamin' => [
+					'label' => 'Jenis kelamin',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'agama_id' => [
+					'label' => 'Agama',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'pendidikan_id' => [
+					'label' => 'Pendidikan',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],
+				'jabatan_id' => [
+					'label' => 'Jabatan',
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+					]
+				],			
 			]);
 
 			if(!$valid) {
 				$pesan = [
 					'error' => [
-						'nama' => $validasi->getError('nama'),
-						'singkatan' => $validasi->getError('singkatan')
+						'nik' => $validasi->getError('nik'),
+						'nama_awal' => $validasi->getError('nama_awal'),
+						'tanggal_lahir' => $validasi->getError('tanggal_lahir'),
+						'jenis_kelamin' => $validasi->getError('jenis_kelamin'),
+						'agama_id' => $validasi->getError('agama_id'),
+						'pendidikan_id' => $validasi->getError('pendidikan_id'),
+						'jabatan_id' => $validasi->getError('jabatan_id'),
 					]
 				];	
 			}else {
 				$id = $this->request->getVar('id');
+
+				$file = $this->request->getFile('pas_poto');
+
+				$profile_image = $file->getName();
+				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+
+				if($profile_image != "") {
+					// Renaming file before upload
+					$temp = explode(".",$profile_image);
+					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
+
+					$file->move("uploads/staf/", $newfilename);
+
+					$imageWithDir = "uploads/staf/" . $newfilename;
+				}else {
+					$imageWithDir = null;
+				}
+
 				$simpanData =[
-					'nama' => $this->request->getVar('nama'),
-					'singkatan' => $this->request->getVar('singkatan')
+					'nip' => $this->request->getVar('nip'),
+					'nik' => $this->request->getVar('nik'),
+					'nama_awal' => $this->request->getVar('nama_awal'),
+					'nama_akhir' => $this->request->getVar('nama_akhir'),
+					'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+					'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+					'alamat' => $this->request->getVar('alamat'),
+					'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+					'agama_id' => $this->request->getVar('agama_id'),
+					'pendidikan_id' => $this->request->getVar('pendidikan_id'),
+					'jabatan_id' => $this->request->getVar('jabatan_id'),
+					'user_id' => session()->get('user_id_daftar'),
+					'pas_Poto' => $imageWithDir
 				];
 
 				$data = new Staf();

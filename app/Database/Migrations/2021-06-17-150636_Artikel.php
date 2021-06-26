@@ -39,6 +39,11 @@ class Artikel extends Migration
 				'type'       => 'INT',
 				'constraint' => 2,
 			],
+			'sub_kategori_id'       => [
+				'type'       => 'INT',
+				'constraint' => 2,
+				'null' => true
+			],
 			'user_id'       => [
 				'type'       => 'INT',
 				'constraint' => 5,

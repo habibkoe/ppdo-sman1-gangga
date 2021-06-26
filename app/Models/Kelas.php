@@ -28,4 +28,21 @@ class Kelas extends Model
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
+
+	public function getKelasWithJoin() : array
+	{
+		$data = [];
+		$builder = $this->table('kelas');
+		$builder->select('kelas.*, staf.nama_awal as nama_awal_wali, staf.nama_akhir as nama_akhir_wali, master_jurusan.nama as nama_group');
+		$builder->join('staf', 'staf.id=kelas.wali_kelas_id', 'left');
+		$builder->join('master_jurusan', 'master_jurusan.id=kelas.jurusan_id', 'left');
+		$query = $builder->findAll();
+
+		if(isset($query)) {
+			$data = $query;
+		}
+
+		return $data;
+
+	}
 }

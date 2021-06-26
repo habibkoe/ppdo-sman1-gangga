@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-center" id="modaltambah" tabindex="-1" role="dialog"
+<div class="modal fade bs-example-modal-center" id="modaledit" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -68,8 +68,6 @@
                             <?php endforeach ?>
                         </select>
                         <div class="invalid-feedback" id="errorWaliKelas"></div>
-                        <br>
-                        <a href="<?= base_url('rahasia/manajemen-staf') ?>">+ Tambah atau edit wali kelas</a>
                     </div>
                 </div>
 
@@ -87,8 +85,6 @@
                             <?php endforeach ?>
                         </select>
                         <div class="invalid-feedback" id="errorJurusanKelas"></div>
-                        <br>
-                        <a href="<?= base_url('rahasia/master-jurusan') ?>">+ Tambah atau edit jurusan</a>
                     </div>
                 </div>
             </div>

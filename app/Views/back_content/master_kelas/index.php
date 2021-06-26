@@ -15,6 +15,46 @@
     type="text/css" />
 
 <link href="<?= base_url('theme/back/assets/plugins/select2/select2.min.css') ?>" rel="stylesheet" type="text/css" />
+
+<style>
+/* Select 2 custom */
+.select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 36px;
+    }
+
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 38px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 20px;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        display: block;
+        padding-left: 15px;
+        padding-right: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -37,7 +77,7 @@
         <div class="card m-b-30">
             <div class="card-body">
                 <button class="btn btn-primary btn-lg mb-3" id="tambahdata" onclick="tambahData()">Buat baru</button>
-                <a class="btn btn-primary btn-lg mb-3" href="<?= base_url('rahasia/manajemen-kelas') ?>">Manajemen Kelas</a>
+                <a class="btn btn-info btn-lg mb-3" href="<?= base_url('rahasia/manajemen-kelas') ?>">Manajemen Kelas</a>
                 <div id="tampildata"></div>
             </div>
         </div>

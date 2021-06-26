@@ -28,7 +28,7 @@ class Masterkelas extends BaseController
 			$dataModel = new ModelsKelas();
 
 			$datas = [
-				'datas' => $dataModel->findAll()
+				'datas' => $dataModel->getKelasWithJoin()
 			];
 
 			$pesan  = [

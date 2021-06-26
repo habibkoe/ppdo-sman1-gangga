@@ -86,10 +86,6 @@ class Artikel extends BaseController
 						'required' => '{field} tidak boleh kosong',
 					]
 				],
-				// "image_path" => [
-				// 	"rules" => "uploaded[image_path]|max_size[image_path,1024]|is_image[image_path]|mime_in[image_path,image/jpg,image/jpeg,image/gif,image/png]",
-				// 	"label" => "Gambar Primary",
-				// ],
 			]);
 
 			if(!$valid) {
@@ -98,7 +94,6 @@ class Artikel extends BaseController
 						'judul' => $validasi->getError('judul'),
 						'kategori_id' => $validasi->getError('kategori_id'),
 						'status' => $validasi->getError('status'),
-						// 'image_path' => $validasi->getError('image_path'),
 					]
 				];	
 			}else {
@@ -118,10 +113,19 @@ class Artikel extends BaseController
 					$imageWithDir = null;
 				}
 
+				$subKategoriElement = $this->request->getVar('sub_kategori_id');
+
+				if(isset($subKategoriElement)) {
+					$sub_kategori = $this->request->getVar('sub_kategori_id');
+				}else {
+					$sub_kategori = null;
+				}
+
 				$simpanData =[
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
+					'sub_kategori_id' => $sub_kategori,
 					'status' => $this->request->getVar('status'),
 					'user_id' => session()->get('user_id'),
 					'preview_deskripsi' => $this->request->getVar('preview_deskripsi'),
@@ -157,6 +161,7 @@ class Artikel extends BaseController
 				'deskripsi' => $datas['deskripsi'],
 				'status' => $datas['status'],
 				'kategori_id' => $datas['kategori_id'],
+				'sub_kategori_id' => $datas['sub_kategori_id'],
 				'preview_deskripsi' => $datas['preview_deskripsi'],
 				'image_path' => $datas['image_path'],
 			];
@@ -229,12 +234,21 @@ class Artikel extends BaseController
 					$dataArtikel = $data->find($id);
 					$imageWithDir = $dataArtikel['image_path'];
 				}
+
+				$subKategoriElement = $this->request->getVar('sub_kategori_id');
+
+				if(isset($subKategoriElement)) {
+					$sub_kategori = $this->request->getVar('sub_kategori_id');
+				}else {
+					$sub_kategori = null;
+				}
 				
 
 				$simpanData =[
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
+					'sub_kategori_id' => $sub_kategori,
 					'status' => $this->request->getVar('status'),
 					'user_id' => session()->get('user_id'),
 					'preview_deskripsi' => $this->request->getVar('preview_deskripsi'),
