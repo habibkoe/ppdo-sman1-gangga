@@ -24,7 +24,7 @@ class Masterkelas extends BaseController
 
 	public function getData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$dataModel = new ModelsKelas();
 
 			$datas = [
@@ -36,15 +36,14 @@ class Masterkelas extends BaseController
 			];
 
 			echo json_encode($pesan);
-
-		}else {
+		} else {
 			exit('Maaf tidak dapat di proses');
 		}
 	}
 
 	public function getForm()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataStaf = new Staf();
 			$dataJurusan = new MasterJurusan();
@@ -57,14 +56,14 @@ class Masterkelas extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function simpanData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -106,7 +105,7 @@ class Masterkelas extends BaseController
 				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama'),
@@ -115,9 +114,9 @@ class Masterkelas extends BaseController
 						'wali_kelas_id' => $validasi->getError('wali_kelas_id'),
 						'jurusan_id' => $validasi->getError('jurusan_id'),
 					]
-				];	
-			}else {
-				$simpanData =[
+				];
+			} else {
+				$simpanData = [
 					'nama' => $this->request->getVar('nama'),
 					'lokasi' => $this->request->getVar('lokasi'),
 					'daya_tampung' => $this->request->getVar('daya_tampung'),
@@ -136,21 +135,21 @@ class Masterkelas extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function getFormEdit($id)
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataStaf = new Staf();
 			$dataJurusan = new MasterJurusan();
 
 			$data['wali_kelas'] = $dataStaf->where('jabatan_id', MasterJabatan::GURU_WALI_KELAS)->findAll();
 			$data['jurusan'] = $dataJurusan->findAll();
-			
+
 			$dataModel = new ModelsKelas();
 
 			$datas = $dataModel->find($id);
@@ -170,14 +169,14 @@ class Masterkelas extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function updateData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -219,7 +218,7 @@ class Masterkelas extends BaseController
 				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama'),
@@ -228,10 +227,10 @@ class Masterkelas extends BaseController
 						'wali_kelas_id' => $validasi->getError('wali_kelas_id'),
 						'jurusan_id' => $validasi->getError('jurusan_id'),
 					]
-				];	
-			}else {
+				];
+			} else {
 				$id = $this->request->getVar('id');
-				$simpanData =[
+				$simpanData = [
 					'nama' => $this->request->getVar('nama'),
 					'lokasi' => $this->request->getVar('lokasi'),
 					'daya_tampung' => $this->request->getVar('daya_tampung'),
@@ -250,8 +249,7 @@ class Masterkelas extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 }

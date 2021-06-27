@@ -21,7 +21,7 @@ class Masterpendidikan extends BaseController
 
 	public function getData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$dataModel = new ModelsMasterPendidikan();
 
 			$datas = [
@@ -33,28 +33,27 @@ class Masterpendidikan extends BaseController
 			];
 
 			echo json_encode($pesan);
-
-		}else {
+		} else {
 			exit('Maaf tidak dapat di proses');
 		}
 	}
 
 	public function getForm()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$element = [
 				'data' => view('back_content/master_pendidikan/form')
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function simpanData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -65,26 +64,26 @@ class Masterpendidikan extends BaseController
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-					],
-					'singkatan' => [
-						'label' => 'Singkatan',
-						'rules' => 'required|is_unique[master_pendidikan.singkatan]',
-						'errors' => [
-							'required' => '{field} tidak boleh kosong',
-							'is_unique' => '{field} tidak boleh sama'
-						]
+				],
+				'singkatan' => [
+					'label' => 'Singkatan',
+					'rules' => 'required|is_unique[master_pendidikan.singkatan]',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong',
+						'is_unique' => '{field} tidak boleh sama'
 					]
+				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama'),
 						'singkatan' => $validasi->getError('singkatan'),
 					]
-				];	
-			}else {
-				$simpanData =[
+				];
+			} else {
+				$simpanData = [
 					'nama' => $this->request->getVar('nama'),
 					'singkatan' => $this->request->getVar('singkatan'),
 				];
@@ -99,14 +98,14 @@ class Masterpendidikan extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function getFormEdit($id)
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataModel = new ModelsMasterPendidikan();
 
@@ -123,14 +122,14 @@ class Masterpendidikan extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function updateData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -140,7 +139,7 @@ class Masterpendidikan extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
-				]
+					]
 				],
 				'singkatan' => [
 					'label' => 'Singkatan',
@@ -152,16 +151,16 @@ class Masterpendidikan extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama'),
 						'singkatan' => $validasi->getError('singkatan')
 					]
-				];	
-			}else {
+				];
+			} else {
 				$id = $this->request->getVar('id');
-				$simpanData =[
+				$simpanData = [
 					'nama' => $this->request->getVar('nama'),
 					'singkatan' => $this->request->getVar('singkatan')
 				];
@@ -176,8 +175,7 @@ class Masterpendidikan extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 }

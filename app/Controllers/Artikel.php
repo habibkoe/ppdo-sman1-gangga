@@ -22,7 +22,7 @@ class Artikel extends BaseController
 
 	public function getData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$dataModel = new ModelsArtikel();
 
 			$status = [1 => 'Posting', 'Draft'];
@@ -40,28 +40,27 @@ class Artikel extends BaseController
 			];
 
 			echo json_encode($pesan);
-
-		}else {
+		} else {
 			exit('Maaf tidak dapat di proses');
 		}
 	}
 
 	public function getForm()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$element = [
 				'data' => view('back_content/artikel/form')
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function simpanData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -88,40 +87,40 @@ class Artikel extends BaseController
 				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'judul' => $validasi->getError('judul'),
 						'kategori_id' => $validasi->getError('kategori_id'),
 						'status' => $validasi->getError('status'),
 					]
-				];	
-			}else {
+				];
+			} else {
 				$file = $this->request->getFile('image_path');
 
 				$profile_image = $file->getName();
 
-				if($profile_image != "") {
+				if ($profile_image != "") {
 					// Renaming file before upload
-					$temp = explode(".",$profile_image);
+					$temp = explode(".", $profile_image);
 					$newfilename = round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads", $newfilename);
 
 					$imageWithDir = "uploads/" . $newfilename;
-				}else {
+				} else {
 					$imageWithDir = null;
 				}
 
 				$subKategoriElement = $this->request->getVar('sub_kategori_id');
 
-				if(isset($subKategoriElement)) {
+				if (isset($subKategoriElement)) {
 					$sub_kategori = $this->request->getVar('sub_kategori_id');
-				}else {
+				} else {
 					$sub_kategori = null;
 				}
 
-				$simpanData =[
+				$simpanData = [
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
@@ -142,14 +141,14 @@ class Artikel extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function getFormEdit($id)
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataModel = new ModelsArtikel();
 
@@ -171,14 +170,14 @@ class Artikel extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function updateData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -205,15 +204,15 @@ class Artikel extends BaseController
 				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'judul' => $validasi->getError('judul'),
 						'kategori_id' => $validasi->getError('kategori_id'),
 						'status' => $validasi->getError('status'),
 					]
-				];	
-			}else {
+				];
+			} else {
 				$id = $this->request->getVar('id');
 
 				$file = $this->request->getFile('image_path');
@@ -222,29 +221,29 @@ class Artikel extends BaseController
 
 				$data = new ModelsArtikel();
 
-				if($profile_image != "") {
+				if ($profile_image != "") {
 					// Renaming file before upload
-					$temp = explode(".",$profile_image);
+					$temp = explode(".", $profile_image);
 					$newfilename = round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads", $newfilename);
 
 					$imageWithDir = "uploads/" . $newfilename;
-				}else {
+				} else {
 					$dataArtikel = $data->find($id);
 					$imageWithDir = $dataArtikel['image_path'];
 				}
 
 				$subKategoriElement = $this->request->getVar('sub_kategori_id');
 
-				if(isset($subKategoriElement)) {
+				if (isset($subKategoriElement)) {
 					$sub_kategori = $this->request->getVar('sub_kategori_id');
-				}else {
+				} else {
 					$sub_kategori = null;
 				}
-				
 
-				$simpanData =[
+
+				$simpanData = [
 					'judul' => $this->request->getVar('judul'),
 					'deskripsi' => $this->request->getVar('deskripsi'),
 					'kategori_id' => $this->request->getVar('kategori_id'),
@@ -262,8 +261,7 @@ class Artikel extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 }
