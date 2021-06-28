@@ -21,7 +21,7 @@ class Masteragama extends BaseController
 
 	public function getData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$dataModel = new ModelsMasterAgama();
 
 			$datas = [
@@ -33,28 +33,27 @@ class Masteragama extends BaseController
 			];
 
 			echo json_encode($pesan);
-
-		}else {
+		} else {
 			exit('Maaf tidak dapat di proses');
 		}
 	}
 
 	public function getForm()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$element = [
 				'data' => view('back_content/master_agama/form')
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function simpanData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -68,14 +67,14 @@ class Masteragama extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama')
 					]
-				];	
-			}else {
-				$simpanData =[
+				];
+			} else {
+				$simpanData = [
 					'nama' => $this->request->getVar('nama')
 				];
 
@@ -89,14 +88,13 @@ class Masteragama extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 
 	public function getFormEdit($id)
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataModel = new ModelsMasterAgama();
 
@@ -112,14 +110,14 @@ class Masteragama extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function updateData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -133,15 +131,15 @@ class Masteragama extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama' => $validasi->getError('nama')
 					]
-				];	
-			}else {
+				];
+			} else {
 				$id = $this->request->getVar('id');
-				$simpanData =[
+				$simpanData = [
 					'nama' => $this->request->getVar('nama')
 				];
 
@@ -155,8 +153,7 @@ class Masteragama extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 }

@@ -26,7 +26,7 @@ class Manajemenstaf extends BaseController
 
 	public function getData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$dataModel = new Staf();
 
 			$datas = [
@@ -38,15 +38,14 @@ class Manajemenstaf extends BaseController
 			];
 
 			echo json_encode($pesan);
-
-		}else {
+		} else {
 			exit('Maaf tidak dapat di proses');
 		}
 	}
 
 	public function getForm()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$masterRole = new Role;
 			$masterAgama = new MasterAgama();
@@ -62,17 +61,17 @@ class Manajemenstaf extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function simpanData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
-			
+
 
 			$valid = $this->validate([
 				'nik' => [
@@ -127,10 +126,10 @@ class Manajemenstaf extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 					]
-				],			
+				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nik' => $validasi->getError('nik'),
@@ -141,27 +140,27 @@ class Manajemenstaf extends BaseController
 						'pendidikan_id' => $validasi->getError('pendidikan_id'),
 						'jabatan_id' => $validasi->getError('jabatan_id'),
 					]
-				];	
-			}else {
+				];
+			} else {
 
 				$file = $this->request->getFile('pas_poto');
 
 				$profile_image = $file->getName();
-				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+				$nama_siswa = strtolower(str_replace(" ", "-", $this->request->getVar('nama_awal')));
 
-				if($profile_image != "") {
+				if ($profile_image != "") {
 					// Renaming file before upload
-					$temp = explode(".",$profile_image);
+					$temp = explode(".", $profile_image);
 					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads/staf/", $newfilename);
 
 					$imageWithDir = "uploads/staf/" . $newfilename;
-				}else {
+				} else {
 					$imageWithDir = null;
 				}
 
-				$simpanData =[
+				$simpanData = [
 					'nip' => $this->request->getVar('nip'),
 					'nik' => $this->request->getVar('nik'),
 					'nama_awal' => $this->request->getVar('nama_awal'),
@@ -187,14 +186,14 @@ class Manajemenstaf extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function getFormEdit($id)
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 
 			$dataModel = new Staf();
 
@@ -211,14 +210,14 @@ class Manajemenstaf extends BaseController
 			];
 
 			echo json_encode($element);
-		}else {
+		} else {
 			exit('Maaf tidak dapa di proses');
 		}
 	}
 
 	public function updateData()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -274,10 +273,10 @@ class Manajemenstaf extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong',
 					]
-				],			
+				],
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nik' => $validasi->getError('nik'),
@@ -288,28 +287,28 @@ class Manajemenstaf extends BaseController
 						'pendidikan_id' => $validasi->getError('pendidikan_id'),
 						'jabatan_id' => $validasi->getError('jabatan_id'),
 					]
-				];	
-			}else {
+				];
+			} else {
 				$id = $this->request->getVar('id');
 
 				$file = $this->request->getFile('pas_poto');
 
 				$profile_image = $file->getName();
-				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+				$nama_siswa = strtolower(str_replace(" ", "-", $this->request->getVar('nama_awal')));
 
-				if($profile_image != "") {
+				if ($profile_image != "") {
 					// Renaming file before upload
-					$temp = explode(".",$profile_image);
+					$temp = explode(".", $profile_image);
 					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads/staf/", $newfilename);
 
 					$imageWithDir = "uploads/staf/" . $newfilename;
-				}else {
+				} else {
 					$imageWithDir = null;
 				}
 
-				$simpanData =[
+				$simpanData = [
 					'nip' => $this->request->getVar('nip'),
 					'nik' => $this->request->getVar('nik'),
 					'nama_awal' => $this->request->getVar('nama_awal'),
@@ -335,14 +334,13 @@ class Manajemenstaf extends BaseController
 			}
 
 			echo json_encode($pesan);
-		}else {
-			
+		} else {
 		}
 	}
 
 	public function daftarLoginStaf()
 	{
-		if($this->request->isAJAX()) {
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -381,7 +379,7 @@ class Manajemenstaf extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'username' => $validasi->getError('username'),
@@ -389,9 +387,9 @@ class Manajemenstaf extends BaseController
 						'confpassword' => $validasi->getError('confpassword'),
 						'role' => $validasi->getError('role'),
 					]
-				];	
-			}else {
-				$simpanData =[
+				];
+			} else {
+				$simpanData = [
 					'username' => $this->request->getVar('username'),
 					'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
 					'role_id' => $this->request->getVar('role'),
@@ -407,10 +405,10 @@ class Manajemenstaf extends BaseController
 
 				// Simpan sementara id user ke session untuk digunakan pada saat isi daftar staf
 				$ses_data = [
-                    'user_id_daftar' => $ambilData['id'],
-                ];
-                $session = session();
-                $session->set($ses_data);
+					'user_id_daftar' => $ambilData['id'],
+				];
+				$session = session();
+				$session->set($ses_data);
 
 				$pesan = [
 					'berhasil' => 'Data berhasil disimpan'
@@ -419,7 +417,6 @@ class Manajemenstaf extends BaseController
 
 			echo json_encode($pesan);
 		} else {
-
 		}
 	}
 }

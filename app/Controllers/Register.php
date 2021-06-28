@@ -690,8 +690,9 @@ class Register extends BaseController
 		return view('back_content/register/data_pendukung', $data);
 	}
 
-	public function konfirmasiPendaftaran() {
-		if($this->request->isAJAX()) {
+	public function konfirmasiPendaftaran()
+	{
+		if ($this->request->isAJAX()) {
 			$userId = $this->request->getVar('user_id');
 
 			$applicationUser = new ApplicationUser();
