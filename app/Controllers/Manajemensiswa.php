@@ -25,7 +25,7 @@ class Manajemensiswa extends BaseController
 			$dataModel = new Siswa();
 
 			$datas = [
-				'datas' => $dataModel->findAll()
+				'datas' => $dataModel->getDataJoinAll()
 			];
 
 			$pesan  = [

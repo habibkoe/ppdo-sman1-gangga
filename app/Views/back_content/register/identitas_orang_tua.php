@@ -1,15 +1,11 @@
-<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_ortu">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span id="isi_pesan_berhasil_ortu"></span>
-</div>
-
 <?php if ((count($data_orang_tua) > 0 && (isset($addData) && $addData == 2)) || count($data_orang_tua) == 0) : ?>
     <?= form_open('rahasia/simpan-orang-tua-wali', ['id' => 'orang_tua_wali']) ?>
     <?= csrf_field() ?>
     <div class="form-group row">
-        <label for="nik_ortu" class="col-sm-3 col-form-label">Nik</label>
+        <label for="nik_ortu" class="col-sm-3 col-form-label">
+            Nik
+            <small>Nik berdasarkan KK, sebanyak 16 digit</small>
+        </label>
         <div class="col-sm-5">
             <input class="form-control" type="text" id="nik_ortu" name="nik_ortu">
             <div class="invalid-feedback" id="errorNikOrtu"></div>
@@ -30,7 +26,7 @@
     </div>
     <div class="form-group row">
         <label for="jenis_kelamin_ortu" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="jenis_kelamin_ortu" name="jenis_kelamin_ortu">
                 <option value="">-- Pilih Jenis Kelamin --</option>
                 <option value="1">Laki - Laki</option>
@@ -41,7 +37,7 @@
     </div>
     <div class="form-group row">
         <label for="agama_ortu" class="col-sm-3 col-form-label">Agama</label>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="agama_ortu" name="agama_ortu">
                 <option value="">-- Pilih agama --</option>
                 <?php foreach ($master_agama as $agama) : ?>
@@ -89,12 +85,15 @@
         <div class="col-sm-5">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="status_ortu" name="status_ortu">
                 <option>-- Pilih status --</option>
-                <option value="1">Bapak / Ayah</option>
-                <option value="2">Ibu / Mama</option>
-                <option value="3">Kakek</option>
-                <option value="4">Nenek</option>
-                <option value="5">Paman / Om / Pak de</option>
-                <option value="6">Bibi / Tante / Buk de</option>
+                <?php foreach ($status as $index => $stat) : ?>
+                    <?php if (count($data_orang_tua) > 0) : ?>
+                        <?php if (!in_array($index, $ortu_terpilih)) : ?>
+                            <option value="<?= $index ?>"><?= $stat ?></option>
+                        <?php endif ?>
+                    <?php else : ?>
+                        <option value="<?= $index ?>"><?= $stat ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </select>
             <div class="invalid-feedback" id="errorStatusOrtu"></div>
         </div>
@@ -102,7 +101,7 @@
     <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_ortu">Simpan</button>
     <?= form_close() ?>
 <?php else : ?>
-    <button class="btn btn-primary btn-sm" onclick="tambahDataOrangTua(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+    <button id="tambah_data_ortu" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataOrangTua(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
     <hr>
     <div class="table-responsive">
         <table class="table table-bordered">

@@ -6,7 +6,9 @@
             <th>NIK</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
-            <th style="width: 20%;">Action</th>
+            <th>Jurusan Pilihan</th>
+            <th>Agama</th>
+            <th style="width: 15%;">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +18,9 @@
             <td><img src="<?= base_url($data['pas_poto']) ?>" width="50"></td>
             <td><?= $data['nik'] ?></td>
             <td><?= $data['nama_awal'] ?> <?= $data['nama_akhir'] ?></td>
-            <td><?= $data['jenis_kelamin'] = 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
+            <td><?= $data['jenis_kelamin'] == 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
+            <td><?= $data['nama_jurusan'] ?></td>
+            <td><?= $data['nama_agama'] ?></td>
             <td>
                 <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tolak</button>
                 <button class="btn btn-sm btn-secondary">Detail</button>

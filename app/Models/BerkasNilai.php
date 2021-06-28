@@ -28,4 +28,6 @@ class BerkasNilai extends Model
 	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
+
+	public array $mapel = [1 => "Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA"];
 }

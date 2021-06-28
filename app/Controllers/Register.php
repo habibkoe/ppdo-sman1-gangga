@@ -26,63 +26,69 @@ class Register extends BaseController
 
 	public function save()
 	{
-        //set rules validation form
-        $rules = [
-            'username'          => 'required|min_length[3]|max_length[20]|is_unique[application_user.username]',
-            'password'      => 'required|min_length[6]|max_length[200]',
-            'confpassword'  => 'matches[password]'
-        ];
-         
-        if($this->validate($rules)){
-            $model = new ApplicationUser();
-            $data = [
-                'username' => $this->request->getVar('username'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+		//set rules validation form
+		$rules = [
+			'username'          => 'required|min_length[3]|max_length[20]|is_unique[application_user.username]',
+			'password'      => 'required|min_length[6]|max_length[200]',
+			'confpassword'  => 'matches[password]'
+		];
+
+		if ($this->validate($rules)) {
+			$model = new ApplicationUser();
+			$data = [
+				'username' => $this->request->getVar('username'),
+				'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
 				'role_id' => Role::SISWA,
 				'is_aktif' => TRUE,
 				'is_lengkap' => FALSE
-            ];
-            $daftar = $model->save($data);
+			];
+			$daftar = $model->save($data);
 
-            // Ketika selesai daftar langsung masuk dashboard
-            if($daftar) {
-                $ambilData = new ApplicationUser();
-                $data = $ambilData->where('username',$this->request->getVar('username'))->first();
+			// Ketika selesai daftar langsung masuk dashboard
+			if ($daftar) {
+				$ambilData = new ApplicationUser();
+				$data = $ambilData->where('username', $this->request->getVar('username'))->first();
 
-                $ses_data = [
-                    'user_id'       => $data['id'],
-                    'user_name'     => $data['username'],
-                    'logged_in'     => TRUE,
-                    'user_role'     => $data['role_id']
-                ];
-                $session = session();
-                $session->set($ses_data);
-                return redirect()->to('/rahasia/lengkapi-pendaftaran');
-            }
-        }else{
-            $data['validation'] = $this->validator;
-            return view('front_content/daftar', $data);
-        }
+				$ses_data = [
+					'user_id'       => $data['id'],
+					'user_name'     => $data['username'],
+					'logged_in'     => TRUE,
+					'user_role'     => $data['role_id']
+				];
+				$session = session();
+				$session->set($ses_data);
+				return redirect()->to('/rahasia/lengkapi-pendaftaran');
+			}
+		} else {
+			$data['validation'] = $this->validator;
+			return view('front_content/daftar', $data);
+		}
 	}
 
-    public function lengkapiPendaftaran() 
-    {
+	public function lengkapiPendaftaran()
+	{
 		// LOAD DATA MASTER
-        $dataJurusan = new MasterJurusan();
-        $dataAgama = new MasterAgama();
-        $dataPekerjaan = new MasterPekerjaan();
-        $dataPendidikan = new MasterPendidikan();
+		$dataJurusan = new MasterJurusan();
+		$dataAgama = new MasterAgama();
+		$dataPekerjaan = new MasterPekerjaan();
+		$dataPendidikan = new MasterPendidikan();
+
+		// Ambil Data application User
+		$applicationUser = new ApplicationUser();
+		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
 
 		// PARSING DATA MASTER KE ARRAY
 		$data['master_jurusan'] = $dataJurusan->findAll();
-        $data['master_agama'] = $dataAgama->findAll();    
-        $data['master_pekerjaan'] = $dataPekerjaan->findAll();
-        $data['master_pendidikan'] = $dataPendidikan->findAll();
+		$data['master_agama'] = $dataAgama->findAll();
+		$data['master_pekerjaan'] = $dataPekerjaan->findAll();
+		$data['master_pendidikan'] = $dataPendidikan->findAll();
 
 		// CEK DATA
 		$modelSiswa = new Siswa();
+		$modelOrangTua = new OrangTua();
+		$modeBerkasNilai = new BerkasNilai();
 		$dataSiswa = $modelSiswa->getDataJoin(session()->get('user_id'));
-		
+
 
 		// DEKLARASI VARIABLE ARRAY UNTUK DATA
 		$dataOrangTua = [];
@@ -91,34 +97,35 @@ class Register extends BaseController
 		$dataBerkasPendukung = [];
 
 		// CEK APAKAH DATA SISWA SUDAH DIISI, JIKA SUDAH MAKA AMBIL DATA BERIKUT
-		if(count($dataSiswa) > 0) {
-			$modeOrangTua = new OrangTua();
+		if (count($dataSiswa) > 0) {
 			$modeSekolahAsal = new SekolahAsal();
-			$modeBerkasNilai = new BerkasNilai();
 			$modeBerkasUpload = new BerkasUpload();
 
-			$dataOrangTua = $modeOrangTua->where('siswa_id', $dataSiswa['id'])->findAll();
+			$dataOrangTua = $modelOrangTua->where('siswa_id', $dataSiswa['id'])->findAll();
 			$dataSekolah = $modeSekolahAsal->where('siswa_id', $dataSiswa['id'])->findAll();
 			$dataNilai = $modeBerkasNilai->where('siswa_id', $dataSiswa['id'])->findAll();
-			$dataBerkasPendukung= $modeBerkasUpload->where('siswa_id', $dataSiswa['id'])->findAll();
+			$dataBerkasPendukung = $modeBerkasUpload->where('siswa_id', $dataSiswa['id'])->findAll();
 		}
 
+		$data['status'] = $modelOrangTua->status;
+		$data['mapel'] = $modeBerkasNilai->mapel;
 		$data['data_siswa'] = $dataSiswa;
 		$data['data_orang_tua'] = $dataOrangTua;
 		$data['sekolah_asal'] = $dataSekolah;
 		$data['berkas_nilai'] = $dataNilai;
-		$data['status'] = $modeOrangTua->status;
 		$data['berkas_pendukung'] = $dataBerkasPendukung;
 
-		$data['session'] = session();
-        return view('back_content/register/lengkapi_pendaftaran', $data);
-    }
+		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
 
-    // API
-    public function simpanDataDiri() 
-    {
-        if($this->request->isAJAX()) {
-            $validasi = Services::validation();
+		$data['session'] = session();
+		return view('back_content/register/lengkapi_pendaftaran', $data);
+	}
+
+	// API
+	public function simpanDataDiri()
+	{
+		if ($this->request->isAJAX()) {
+			$validasi = Services::validation();
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
@@ -130,21 +137,21 @@ class Register extends BaseController
 						'max_length' => '{field} terlalu banyak, harus 16 karakter',
 						'numeric' => '{field} harus angka',
 					]
-                ],
-                'nama_awal' => [
+				],
+				'nama_awal' => [
 					'label' => 'Nama awal',
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ],
-                'tanggal_lahir' => [
+				],
+				'tanggal_lahir' => [
 					'label' => 'Tanggal lahir',
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ],
+				],
 				"pas_poto" => [
 					"rules" => "uploaded[pas_poto]|max_size[pas_poto,1024]|is_image[pas_poto]|mime_in[pas_poto,image/jpg,image/jpeg,image/gif,image/png]",
 					"label" => "Pas poto",
@@ -186,7 +193,7 @@ class Register extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nik' => $validasi->getError('nik'),
@@ -199,33 +206,33 @@ class Register extends BaseController
 						'jurusan' => $validasi->getError('jurusan'),
 						'agama' => $validasi->getError('agama'),
 					]
-				];	
-			}else {
-                $generateNis = strtotime(date('Y/m/d H:i:s'));
+				];
+			} else {
+				$generateNis = strtotime(date('Y/m/d H:i:s'));
 
 				$file = $this->request->getFile('pas_poto');
 
 				$profile_image = $file->getName();
-				$nama_siswa = strtolower(str_replace(" ","-",$this->request->getVar('nama_awal')));
+				$nama_siswa = strtolower(str_replace(" ", "-", $this->request->getVar('nama_awal')));
 
-				if($profile_image != "") {
+				if ($profile_image != "") {
 					// Renaming file before upload
-					$temp = explode(".",$profile_image);
+					$temp = explode(".", $profile_image);
 					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads/siswa/", $newfilename);
 
 					$imageWithDir = "uploads/siswa/" . $newfilename;
-				}else {
+				} else {
 					$imageWithDir = null;
 				}
 
-				$simpanData =[
+				$simpanData = [
 					'nik' => $this->request->getVar('nik'),
-                    'nis' => $generateNis,
+					'nis' => $generateNis,
 					'nama_awal' => $this->request->getVar('nama_awal'),
 					'nama_akhir' => $this->request->getVar('nama_akhir'),
-                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+					'tempat_lahir' => $this->request->getVar('tempat_lahir'),
 					'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
 					'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
 					'user_id' => session()->get('user_id'),
@@ -246,26 +253,25 @@ class Register extends BaseController
 			}
 
 			echo json_encode($pesan);
-        }else {
+		} else {
+		}
+	}
 
-        }
-    }
-
-	public function getDataDiri($userId) 
-    {
+	public function getDataDiri($userId)
+	{
 		// CEK DATA
 		$modelSiswa = new Siswa();
 		$data['data_siswa'] = $modelSiswa->getDataJoin($userId);
-        return view('back_content/register/identitas_utama', $data);
-    }
+		return view('back_content/register/identitas_utama', $data);
+	}
 
 
 	// --------------------------------------------
 
-    public function simpanOrangTuaWali() 
-    {
-        if($this->request->isAJAX()) {
-            $validasi = Services::validation();
+	public function simpanOrangTuaWali()
+	{
+		if ($this->request->isAJAX()) {
+			$validasi = Services::validation();
 
 			$valid = $this->validate([
 				'nik_ortu' => [
@@ -277,8 +283,8 @@ class Register extends BaseController
 						'max_length' => '{field} terlalu banyak, harus 16 karakter',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-                ],
-                'nama_awal_ortu' => [
+				],
+				'nama_awal_ortu' => [
 					'label' => 'Nama awal orang tua',
 					'rules' => 'required',
 					'errors' => [
@@ -329,7 +335,7 @@ class Register extends BaseController
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nik_ortu' => $validasi->getError('nik_ortu'),
@@ -341,69 +347,91 @@ class Register extends BaseController
 						'agama_ortu' => $validasi->getError('agama_ortu'),
 						'jenis_kelamin_ortu' => $validasi->getError('jenis_kelamin_ortu')
 					]
-				];	
-			}else {
-
-                $modelSiswa = new Siswa();
-
-                $getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
-
-				$simpanData =[
-					'nik' => $this->request->getVar('nik_ortu'),
-					'nama_awal' => $this->request->getVar('nama_awal_ortu'),
-					'nama_akhir' => $this->request->getVar('nama_akhir_ortu'),
-                    'alamat' => $this->request->getVar('alamat_ortu'),
-					'jenis_kelamin' => $this->request->getVar('jenis_kelamin_ortu'),
-					'siswa_id' => $getDataSiswa['id'],
-					'agama_id' => $this->request->getVar('agama_ortu'),
-					'pendidikan_id' => $this->request->getVar('pendidikan_ortu'),
-					'pekerjaan_id' => $this->request->getVar('pekerjaan_ortu'),
-					'status' => $this->request->getVar('status_ortu')
 				];
+			} else {
 
-				$data = new OrangTua();
+				$modelSiswa = new Siswa();
 
-				$data->insert($simpanData);
+				$getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
 
-				$pesan = [
-					'berhasil' => 'Data berhasil disimpan',
-					'siswa_id' => $getDataSiswa['id']
-				];
+				if (isset($getDataSiswa['id'])) {
+					$simpanData = [
+						'nik' => $this->request->getVar('nik_ortu'),
+						'nama_awal' => $this->request->getVar('nama_awal_ortu'),
+						'nama_akhir' => $this->request->getVar('nama_akhir_ortu'),
+						'alamat' => $this->request->getVar('alamat_ortu'),
+						'jenis_kelamin' => $this->request->getVar('jenis_kelamin_ortu'),
+						'siswa_id' => $getDataSiswa['id'],
+						'agama_id' => $this->request->getVar('agama_ortu'),
+						'pendidikan_id' => $this->request->getVar('pendidikan_ortu'),
+						'pekerjaan_id' => $this->request->getVar('pekerjaan_ortu'),
+						'status' => $this->request->getVar('status_ortu')
+					];
+
+					$data = new OrangTua();
+
+					$data->insert($simpanData);
+
+					$pesan = [
+						'berhasil' => 'Data berhasil disimpan',
+						'siswa_id' => $getDataSiswa['id']
+					];
+				} else {
+					$pesan = [
+						'error' => [
+							'data_siswa' => 'Mohon isi terlebih dahulu point pertama'
+						]
+					];
+				}
 			}
 
 			echo json_encode($pesan);
-        }else {
-            
-        }
-    }
+		} else {
+		}
+	}
 
 	public function getDataOrtu($siswaId, $addData = null)
-    {
-		$modeOrangTua = new OrangTua();
-		$data['data_orang_tua'] = $modeOrangTua->where('siswa_id', $siswaId)->findAll();
+	{
+		$modelOrangTua = new OrangTua();
+		$dataOrangTua = $modelOrangTua->where('siswa_id', $siswaId)->findAll();
+
+		// Ambil Data application User
+		$applicationUser = new ApplicationUser();
+		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+
+		$data['data_orang_tua'] = $dataOrangTua;
 		$data['siswaId'] = $siswaId;
 		$data['addData'] = $addData;
-		$data['status'] = $modeOrangTua->status;
+		$data['status'] = $modelOrangTua->status;
+		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
 
-		if($addData == 2) {
+		if ($addData == 2) {
 			// LOAD DATA MASTER
 			$dataAgama = new MasterAgama();
 			$dataPekerjaan = new MasterPekerjaan();
 			$dataPendidikan = new MasterPendidikan();
-	
+
 			// PARSING DATA MASTER KE ARRAY
-			$data['master_agama'] = $dataAgama->findAll();    
+			$data['master_agama'] = $dataAgama->findAll();
 			$data['master_pekerjaan'] = $dataPekerjaan->findAll();
 			$data['master_pendidikan'] = $dataPendidikan->findAll();
+
+			// Foreach data disini
+			$arrOrtu = [];
+			foreach ($dataOrangTua as $ortuTerpilih) {
+				$arrOrtu[] = $ortuTerpilih['status'];
+			}
+
+			$data['ortu_terpilih'] = $arrOrtu;
 		}
-        return view('back_content/register/identitas_orang_tua', $data);
-    }
+		return view('back_content/register/identitas_orang_tua', $data);
+	}
 
 	// ---------------------------------
 
-    public function simpanDataSekolah()
-    {
-        if($this->request->isAJAX()) {
+	public function simpanDataSekolah()
+	{
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -414,66 +442,73 @@ class Register extends BaseController
 						'required' => '{field} tidak boleh kosong',
 						'is_unique' => '{field} tidak boleh sama'
 					]
-                ],
-                'nama_sekolah_asal' => [
+				],
+				'nama_sekolah_asal' => [
 					'label' => 'Nama sekolah',
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ]
-                
+				]
+
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'no_ijazah' => $validasi->getError('no_ijazah_asal'),
 						'nama_sekolah' => $validasi->getError('nama_sekolah_asal')
 					]
-				];	
-			}else {
-
-                $modelSiswa = new Siswa();
-
-                $getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
-
-				$simpanData =[
-					'no_ijazah' => $this->request->getVar('no_ijazah_asal'),
-					'nama_sekolah' => $this->request->getVar('nama_sekolah_asal'),
-					'alamat_sekolah' => $this->request->getVar('alamat_sekolah_asal'),
-					'siswa_id' => $getDataSiswa['id']
 				];
+			} else {
 
-				$data = new SekolahAsal();
+				$modelSiswa = new Siswa();
 
-				$data->insert($simpanData);
+				$getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
 
-				$pesan = [
-					'berhasil' => 'Data berhasil disimpan',
-					'siswa_id' => $getDataSiswa['id']
-				];
+				if (isset($getDataSiswa)) {
+					$simpanData = [
+						'no_ijazah' => $this->request->getVar('no_ijazah_asal'),
+						'nama_sekolah' => $this->request->getVar('nama_sekolah_asal'),
+						'alamat_sekolah' => $this->request->getVar('alamat_sekolah_asal'),
+						'siswa_id' => $getDataSiswa['id']
+					];
+
+					$data = new SekolahAsal();
+
+					$data->insert($simpanData);
+
+					$pesan = [
+						'berhasil' => 'Data berhasil disimpan',
+						'siswa_id' => $getDataSiswa['id']
+					];
+				} else {
+					$pesan = [
+						'error' => [
+							'data_siswa' => 'Mohon isi terlebih dahulu point pertama'
+						]
+					];
+				}
 			}
 
 			echo json_encode($pesan);
-        }else {
-            
-        }
-    }
+		} else {
+		}
+	}
 
-	public function getDataSekolahAsal($siswaId) 
-    {
+	public function getDataSekolahAsal($siswaId)
+	{
 		$modeSekolahAsal = new SekolahAsal();
 		$data['sekolah_asal'] = $modeSekolahAsal->where('siswa_id', $siswaId)->findAll();
 
-        return view('back_content/register/data_sekolah_asal', $data);
-    }
+		return view('back_content/register/data_sekolah_asal', $data);
+	}
 
 	// ----------------------------------------
 
-    public function simpanBerkasNilai()
-    {
-        if($this->request->isAJAX()) {
+	public function simpanBerkasNilai()
+	{
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
 			$valid = $this->validate([
@@ -483,137 +518,195 @@ class Register extends BaseController
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ],
-                'nilai_mapel' => [
+				],
+				'nilai_mapel' => [
 					'label' => 'Nilai UN',
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ]
-                
+				]
+
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'mata_pelajaran' => $validasi->getError('nama_mata_pelajaran'),
 						'nilai' => $validasi->getError('nilai_mapel')
 					]
-				];	
-			}else {
-
-                $modelSiswa = new Siswa();
-
-                $getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
-
-				$simpanData =[
-					'mata_pelajaran' => $this->request->getVar('nama_mata_pelajaran'),
-					'nilai' => $this->request->getVar('nilai_mapel'),
-					'siswa_id' => $getDataSiswa['id']
 				];
+			} else {
 
-				$data = new BerkasNilai();
+				$modelSiswa = new Siswa();
 
-				$data->insert($simpanData);
+				$getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
 
-				$pesan = [
-					'berhasil' => 'Data berhasil disimpan',
-					'siswa_id' => $getDataSiswa['id']
-				];
+				if (isset($getDataSiswa)) {
+					$simpanData = [
+						'mata_pelajaran' => $this->request->getVar('nama_mata_pelajaran'),
+						'nilai' => $this->request->getVar('nilai_mapel'),
+						'siswa_id' => $getDataSiswa['id']
+					];
+
+					$data = new BerkasNilai();
+
+					$data->insert($simpanData);
+
+					$pesan = [
+						'berhasil' => 'Data berhasil disimpan',
+						'siswa_id' => $getDataSiswa['id']
+					];
+				} else {
+					$pesan = [
+						'error' => [
+							'data_siswa' => 'Mohon isi terlebih dahulu point pertama'
+						]
+					];
+				}
 			}
 
 			echo json_encode($pesan);
-        }else {
-            
-        }
-    }
+		} else {
+		}
+	}
 
-	public function getDataNilai($siswaId, $addData = null) 
-    {
-		$modeBerkasNilai = new BerkasNilai();
-		$data['berkas_nilai'] = $modeBerkasNilai->where('siswa_id', $siswaId)->findAll();
+	public function getDataNilai($siswaId, $addData = null)
+	{
+		$modelBerkasNilai = new BerkasNilai();
+		$berkasMapel = $modelBerkasNilai->where('siswa_id', $siswaId)->findAll();
+
+		// Ambil Data application User
+		$applicationUser = new ApplicationUser();
+		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+
+		$data['berkas_nilai'] = $berkasMapel;
 		$data['addData'] = $addData;
 		$data['siswaId'] = $siswaId;
-        return view('back_content/register/data_nilai', $data);
-    }
+		$data['mapel'] = $modelBerkasNilai->mapel;
+		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
+
+		// Foreach data disini
+		$arrMapel = [];
+		foreach ($berkasMapel as $mapel_terpilih) {
+			$arrMapel[] = $mapel_terpilih['mata_pelajaran'];
+		}
+
+		$data['mapel_terpilih'] = $arrMapel;
+
+		return view('back_content/register/data_nilai', $data);
+	}
 	// ----------------------------------
 
-    public function simpanDataPendukung()
-    {
-        if($this->request->isAJAX()) {
+	public function simpanDataPendukung()
+	{
+		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 			$valid = $this->validate([
-                'nama_berkas' => [
+				'nama_berkas' => [
 					'label' => 'Nama berkas',
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} tidak boleh kosong'
 					]
-                ],
+				],
 				"upload_berkas" => [
 					"rules" => "uploaded[upload_berkas]|max_size[upload_berkas,5024]|mime_in[upload_berkas,application/pdf]",
 					"label" => "Dokumen upload",
 				]
 			]);
 
-			if(!$valid) {
+			if (!$valid) {
 				$pesan = [
 					'error' => [
 						'nama_berkas' => $validasi->getError('nama_berkas'),
 						'upload_berkas' => $validasi->getError('upload_berkas'),
 					]
-				];	
-			}else {
-				$file = $this->request->getFile('upload_berkas');
-
-				$profile_image = $file->getName();
-
-				if($profile_image != "") {
-					// Renaming file before upload
-					$temp = explode(".",$profile_image);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$file->move("uploads/file/", $newfilename);
-
-					$imageWithDir = "uploads/file/" . $newfilename;
-				}else {
-					$imageWithDir = null;
-				}
+				];
+			} else {
 
 				$modelSiswa = new Siswa();
 
-                $getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
+				$getDataSiswa = $modelSiswa->where('user_id', session()->get('user_id'))->first();
 
-				$simpanData =[
-					'nama' => $this->request->getVar('nama_berkas'),
-					'path' => $imageWithDir,
-					'siswa_id' => $getDataSiswa['id']
-				];
+				if (isset($getDataSiswa)) {
+					$file = $this->request->getFile('upload_berkas');
 
-				$data = new BerkasUpload();
+					$profile_image = $file->getName();
 
-				$data->insert($simpanData);
+					if ($profile_image != "") {
+						// Renaming file before upload
+						$temp = explode(".", $profile_image);
+						$newfilename = round(microtime(true)) . '.' . end($temp);
 
-				$pesan = [
-					'berhasil' => 'Data berhasil disimpan',
-					'siswa_id' => $getDataSiswa['id']
-				];
+						$file->move("uploads/file/", $newfilename);
+
+						$imageWithDir = "uploads/file/" . $newfilename;
+					} else {
+						$imageWithDir = null;
+					}
+
+					$simpanData = [
+						'nama' => $this->request->getVar('nama_berkas'),
+						'path' => $imageWithDir,
+						'siswa_id' => $getDataSiswa['id']
+					];
+
+					$data = new BerkasUpload();
+
+					$data->insert($simpanData);
+
+					$pesan = [
+						'berhasil' => 'Data berhasil disimpan',
+						'siswa_id' => $getDataSiswa['id']
+					];
+				} else {
+					$pesan = [
+						'error' => [
+							'data_siswa' => 'Mohon isi terlebih dahulu point pertama'
+						]
+					];
+				}
 			}
 
 			echo json_encode($pesan);
-        }else {
-            
-        }
-    }
+		} else {
+		}
+	}
 
-	public function getDataPendukung($siswaId, $addData = null) 
-    {
+	public function getDataPendukung($siswaId, $addData = null)
+	{
 		$modeBerkasPendukung = new BerkasUpload();
+
+		// Ambil Data application User
+		$applicationUser = new ApplicationUser();
+		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+
 		$data['siswaId'] = $siswaId;
 		$data['addData'] = $addData;
+		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
 		$data['berkas_pendukung'] = $modeBerkasPendukung->where('siswa_id', $siswaId)->findAll();
 
-        return view('back_content/register/data_pendukung', $data);
-    }
+		return view('back_content/register/data_pendukung', $data);
+	}
+
+	public function konfirmasiPendaftaran() {
+		if($this->request->isAJAX()) {
+			$userId = $this->request->getVar('user_id');
+
+			$applicationUser = new ApplicationUser();
+
+			$update = [
+				'is_lengkap' => true
+			];
+
+			$applicationUser->update($userId, $update);
+
+			$pesan = [
+				'berhasil' => 'Terimakasih telah mengirimkan formulir dan berkas pendaftaran anda, semoga beruntung'
+			];
+
+			echo json_encode($pesan);
+		}
+	}
 }

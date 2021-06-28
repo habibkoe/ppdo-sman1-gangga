@@ -1,9 +1,4 @@
-<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_nilai_mapel">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span id="isi_pesan_nilai_mapel"></span>
-</div>
+
 <?php if ((count($berkas_nilai) > 0 && (isset($addData) && $addData == 2)) || count($berkas_nilai) == 0) : ?>
     <?= form_open('rahasia/simpan-berkas-nilai', ['id' => 'berkas_nilai']) ?>
     <?= csrf_field() ?>
@@ -12,10 +7,15 @@
         <div class="col-sm-9">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" name="nama_mata_pelajaran" id="nama_mata_pelajaran">
                 <option value="">-- Pilih Mata Pelajaran --</option>
-                <option value="Matematika">Matematika</option>
-                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                <option value="Bahasa Inggris">Bahasa Inggris</option>
-                <option value="IPA">IPA</option>
+                <?php foreach($mapel as $map): ?>
+                    <?php if(count($berkas_nilai) > 0): ?>
+                        <?php if(!in_array($map, $mapel_terpilih)): ?>
+                            <option value="<?= $map ?>"><?= $map ?></option>
+                        <?php endif ?>
+                    <?php else: ?>
+                        <option value="<?= $map ?>"><?= $map ?></option>
+                    <?php endif; ?>
+                <?php endforeach ?>
             </select>
             <div class="invalid-feedback" id="errorMapel"></div>
         </div>
@@ -30,7 +30,7 @@
     <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_berkas">Simpan</button>
     <?= form_close() ?>
 <?php else : ?>
-    <button class="btn btn-primary btn-sm" onclick="tambahDataNilai(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+    <button id="tambah_data_nilai" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataNilai(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
     <hr>
     <div class="table-responsive">
         <table class="table table-bordered">

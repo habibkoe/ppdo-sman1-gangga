@@ -1,10 +1,3 @@
-<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_diri">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span id="isi_pesan_berhasil"></span>
-</div>
-
 <?php if (count($data_siswa) > 0) : ?>
     <br>
     <div class="table-responsive">
@@ -35,18 +28,10 @@
             </tr>
             <tr>
                 <td>
-                    Nama awal
+                    Nama
                 </td>
                 <td>
-                    <?= $data_siswa['nama_awal'] ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Nama akhir
-                </td>
-                <td>
-                    <?= $data_siswa['nama_akhir'] ?>
+                    <?= $data_siswa['nama_awal'] ?> <?= $data_siswa['nama_akhir'] ?>
                 </td>
             </tr>
             <tr>
@@ -113,7 +98,10 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="nik" class="col-sm-3 col-form-label">Nik</label>
+        <label for="nik" class="col-sm-3 col-form-label">
+            Nik
+            <small>Nik berdasarkan KK, sebanyak 16 digit</small>
+        </label>
         <div class="col-sm-5">
             <input class="form-control" type="text" id="nik" name="nik">
             <div class="invalid-feedback" id="errorNik"></div>
@@ -141,7 +129,7 @@
     </div>
     <div class="form-group row">
         <label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="jenis_kelamin" name="jenis_kelamin">
                 <option value="">-- Pilih Jenis Kelamin --</option>
                 <option value="1">Laki - Laki</option>
@@ -152,7 +140,7 @@
     </div>
     <div class="form-group row">
         <label for="agama" class="col-sm-3 col-form-label">Agama</label>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <select class="form-control select2 custom-select" style="width: 100%; height:36px !important;" id="agama" name="agama">
                 <option value="">-- Pilih Agama --</option>
                 <?php foreach ($master_agama as $agama) : ?>

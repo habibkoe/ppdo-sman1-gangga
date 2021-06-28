@@ -46,4 +46,20 @@ class Siswa extends Model
 		return $data;
 	}
 
+	public function getDataJoinAll() : array
+	{
+		$data = [];
+		$builder = $this->table('siswa');
+		$builder->select('siswa.*, master_jurusan.nama as nama_jurusan, master_agama.nama as nama_agama');
+		$builder->join('master_jurusan', 'master_jurusan.id = siswa.jurusan_id');
+		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
+		$query = $builder->findAll();
+
+		if(isset($query)) {
+			$data = $query;
+		}
+
+		return $data;
+	}
+
 }

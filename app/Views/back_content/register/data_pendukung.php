@@ -1,9 +1,4 @@
-<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_pendukung">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <span id="isi_pesan_nilai_data_pendukung"></span>
-</div>
+
 <?php if ((count($berkas_pendukung) > 0 && (isset($addData) && $addData == 2)) || count($berkas_pendukung) == 0) : ?>
   <?= form_open('rahasia/simpan-data-pendukung', ['id' => 'data_pendukung', 'enctype' => 'multipart/form-data']) ?>
   <?= csrf_field() ?>
@@ -24,7 +19,7 @@
   <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_data_pendukung">Simpan</button>
   <?= form_close() ?>
 <?php else : ?>
-  <button class="btn btn-primary btn-sm" onclick="tambahDataPendukung(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+  <button id="tambah_data_pendukung" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataPendukung(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
   <div class="table-responsive">
     <hr>
     <table class="table table-bordered">

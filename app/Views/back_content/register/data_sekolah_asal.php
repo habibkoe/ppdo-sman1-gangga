@@ -1,9 +1,4 @@
-<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="notifikasi_data_sekolah">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span id="isi_pesan_data_sekolah"></span>
-</div>
+
 <?php if (count($sekolah_asal) > 0) : ?>
     <div class="table-responsive">
         <table class="table table-bordered">

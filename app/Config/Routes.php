@@ -62,6 +62,8 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->get('get-element-data-nilai/(:num)/(:num)', 'Register::getDataNilai/$1/$2');
 	$routes->get('get-element-data-pendukung/(:num)/(:num)', 'Register::getDataPendukung/$1/$2');
 
+	$routes->post('konfirmasi-pendaftaran', 'Register::konfirmasiPendaftaran');
+
 	// --------------------------------------------------------------
 
 	// Route master
