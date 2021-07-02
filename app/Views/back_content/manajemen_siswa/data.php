@@ -8,6 +8,7 @@
             <th>Jenis Kelamin</th>
             <th>Jurusan Pilihan</th>
             <th>Agama</th>
+            <th>Status Berkas</th>
             <th style="width: 15%;">Action</th>
         </tr>
     </thead>
@@ -18,9 +19,10 @@
             <td><img src="<?= base_url($data['pas_poto']) ?>" width="50"></td>
             <td><?= $data['nik'] ?></td>
             <td><?= $data['nama_awal'] ?> <?= $data['nama_akhir'] ?></td>
-            <td><?= $data['jenis_kelamin'] == 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
+            <td><?= $data['jenis_kelamin'] == 1 ? '<span class="badge badge-pill badge-primary">Laki - Laki</span>' : '<span class="badge badge-pill badge-secondary">Perempuan</span>' ?></td>
             <td><?= $data['nama_jurusan'] ?></td>
             <td><?= $data['nama_agama'] ?></td>
+            <td><?= $data['is_lengkap'] ? "Lengkap" : "Belum Lengkap" ?></td>
             <td>
                 <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tolak</button>
                 <button class="btn btn-sm btn-secondary">Detail</button>

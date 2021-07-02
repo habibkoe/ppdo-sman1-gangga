@@ -50,9 +50,10 @@ class Siswa extends Model
 	{
 		$data = [];
 		$builder = $this->table('siswa');
-		$builder->select('siswa.*, master_jurusan.nama as nama_jurusan, master_agama.nama as nama_agama');
+		$builder->select('siswa.*, master_jurusan.nama as nama_jurusan, master_agama.nama as nama_agama, application_user.is_lengkap');
 		$builder->join('master_jurusan', 'master_jurusan.id = siswa.jurusan_id');
 		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
+		$builder->join('application_user', 'application_user.id = siswa.user_id');
 		$query = $builder->findAll();
 
 		if(isset($query)) {
