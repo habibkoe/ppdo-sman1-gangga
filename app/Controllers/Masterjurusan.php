@@ -130,50 +130,19 @@ class Masterjurusan extends BaseController
 	public function updateData()
 	{
 		if ($this->request->isAJAX()) {
-			$validasi = Services::validation();
+			$id = $this->request->getVar('id');
+			$simpanData = [
+				'nama' => $this->request->getVar('nama'),
+				'singkatan' => $this->request->getVar('singkatan'),
+			];
 
-			$valid = $this->validate([
-				'nama' => [
-					'label' => 'Nama',
-					'rules' => 'required|is_unique[master_jurusan.nama]',
-					'errors' => [
-						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
-					]
-				],
+			$data = new ModelsMasterJurusan();
 
-				'singkatan' => [
-					'label' => 'Singkatan',
-					'rules' => 'required|is_unique[master_jurusan.singkatan]',
-					'errors' => [
-						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama'
-					]
-				],
-			]);
+			$data->update($id, $simpanData);
 
-			if (!$valid) {
-				$pesan = [
-					'error' => [
-						'nama' => $validasi->getError('nama'),
-						'singkatan' => $validasi->getError('singkatan'),
-					]
-				];
-			} else {
-				$id = $this->request->getVar('id');
-				$simpanData = [
-					'nama' => $this->request->getVar('nama'),
-					'singkatan' => $this->request->getVar('singkatan'),
-				];
-
-				$data = new ModelsMasterJurusan();
-
-				$data->update($id, $simpanData);
-
-				$pesan = [
-					'berhasil' => 'Data berhasil diupdate'
-				];
-			}
+			$pesan = [
+				'berhasil' => 'Data berhasil diupdate'
+			];
 
 			echo json_encode($pesan);
 		} else {

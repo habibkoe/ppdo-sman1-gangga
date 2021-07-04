@@ -135,7 +135,7 @@
                         <div class="form-group row">
                             <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                             <div class="col-md-5">
-                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control select2">
                                     <option value="">-- pilih jenis kelamin --</option>
                                     <option value="1">Laki - Laki</option>
                                     <option value="2">Perempuan</option>

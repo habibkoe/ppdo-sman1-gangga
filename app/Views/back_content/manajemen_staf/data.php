@@ -3,6 +3,7 @@
         <tr class="align-middle text-center">
             <th>NIP</th>
             <th>NIK</th>
+            <th>Poto</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
             <th>Jabatan</th>
@@ -16,6 +17,7 @@
         <tr class="align-middle text-center">
             <td><?= $data['nip'] ? $data['nip'] : 'Tanpa NIP' ?></td>
             <td><?= $data['nik'] ?></td>
+            <td><img src="<?= base_url($data['pas_poto']) ?>" width="50"></td>
             <td><?= $data['nama_awal'] ?> <?= $data['nama_akhir'] ?></td>
             <td><?= $data['jenis_kelamin'] == 1 ? 'Laki - Laki' : 'Perempuan' ?></td>
             <td><?= $data['nama_jabatan'] ?></td>

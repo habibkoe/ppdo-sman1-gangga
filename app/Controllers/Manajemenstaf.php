@@ -146,12 +146,12 @@ class Manajemenstaf extends BaseController
 				$file = $this->request->getFile('pas_poto');
 
 				$profile_image = $file->getName();
-				$nama_siswa = strtolower(str_replace(" ", "-", $this->request->getVar('nama_awal')));
+				$nama_staf = strtolower(str_replace(" ", "-", $this->request->getVar('nama_awal')));
 
 				if ($profile_image != "") {
 					// Renaming file before upload
 					$temp = explode(".", $profile_image);
-					$newfilename = $nama_siswa . round(microtime(true)) . '.' . end($temp);
+					$newfilename = $nama_staf . round(microtime(true)) . '.' . end($temp);
 
 					$file->move("uploads/staf/", $newfilename);
 
