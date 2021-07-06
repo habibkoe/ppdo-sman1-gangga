@@ -24,7 +24,7 @@
             <td><?= $data['nama_agama'] ?></td>
             <td><?= $data['is_lengkap'] ? "Lengkap" : "Belum Lengkap" ?></td>
             <td>
-                <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tolak</button>
+                <button class="btn btn-sm btn-danger" onclick="hapusData(<?= $data['id'] ?>)">Tidak diterima</button>
                 <button class="btn btn-sm btn-secondary">Detail</button>
             </td>
         </tr>

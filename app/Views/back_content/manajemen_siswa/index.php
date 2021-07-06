@@ -34,6 +34,8 @@
     <div class="col-12">
         <div class="card m-b-30">
             <div class="card-body">
+                <a href="http://" class="btn btn-success btn-sm">Data siswa ditolak</a>
+                <br>
                 <span>Table dibawah merupakan daftar calon siswa baru, jika siswa tidak sesuai dengan kriteria, klik tolak untuk mendiskualifikasi siswa</span>
                 <div id="tampildata"></div>
             </div>
