@@ -101,19 +101,7 @@ class Register extends BaseController
 			$modeSekolahAsal = new SekolahAsal();
 			$modeBerkasUpload = new BerkasUpload();
 
-			$dataOrangTua = $modelOrangTua->where('siswa_id', $dataSiswa['id'])->findAll();
-			$dataSekolah = $modeSekolahAsal->where('siswa_id', $dataSiswa['id'])->findAll();
-			$dataNilai = $modeBerkasNilai->where('siswa_id', $dataSiswa['id'])->findAll();
-			$dataBerkasPendukung = $modeBerkasUpload->where('siswa_id', $dataSiswa['id'])->findAll();
 		}
-
-		$data['status'] = $modelOrangTua->status;
-		$data['mapel'] = $modeBerkasNilai->mapel;
-		$data['data_siswa'] = $dataSiswa;
-		$data['data_orang_tua'] = $dataOrangTua;
-		$data['sekolah_asal'] = $dataSekolah;
-		$data['berkas_nilai'] = $dataNilai;
-		$data['berkas_pendukung'] = $dataBerkasPendukung;
 
 		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
 
@@ -257,11 +245,20 @@ class Register extends BaseController
 		}
 	}
 
-	public function getDataDiri($userId)
+	public function getDataDiri($userId = null)
 	{
-		// CEK DATA
-		$modelSiswa = new Siswa();
-		$data['data_siswa'] = $modelSiswa->getDataJoin($userId);
+		if ($userId == 0) {
+			$dataJurusan = new MasterJurusan();
+			$dataAgama = new MasterAgama();
+
+			$data['data_siswa'] = [];
+			$data['master_jurusan'] = $dataJurusan->findAll();
+			$data['master_agama'] = $dataAgama->findAll();
+		} else {
+			$modelSiswa = new Siswa();
+			$data['data_siswa'] = $modelSiswa->getDataJoin($userId);
+		}
+
 		return view('back_content/register/identitas_utama', $data);
 	}
 
@@ -392,38 +389,54 @@ class Register extends BaseController
 
 	public function getDataOrtu($siswaId, $addData = null)
 	{
-		$modelOrangTua = new OrangTua();
-		$dataOrangTua = $modelOrangTua->where('siswa_id', $siswaId)->findAll();
 
-		// Ambil Data application User
-		$applicationUser = new ApplicationUser();
-		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
-
-		$data['data_orang_tua'] = $dataOrangTua;
-		$data['siswaId'] = $siswaId;
-		$data['addData'] = $addData;
-		$data['status'] = $modelOrangTua->status;
-		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
-
-		if ($addData == 2) {
-			// LOAD DATA MASTER
+		if ($siswaId == 0) {
 			$dataAgama = new MasterAgama();
 			$dataPekerjaan = new MasterPekerjaan();
 			$dataPendidikan = new MasterPendidikan();
+			$modelOrangTua = new OrangTua();
 
 			// PARSING DATA MASTER KE ARRAY
 			$data['master_agama'] = $dataAgama->findAll();
 			$data['master_pekerjaan'] = $dataPekerjaan->findAll();
 			$data['master_pendidikan'] = $dataPendidikan->findAll();
+			$data['data_orang_tua'] = [];
+			$data['status'] = $modelOrangTua->status;
+		} else {
+			$modelOrangTua = new OrangTua();
+			$dataOrangTua = $modelOrangTua->where('siswa_id', $siswaId)->findAll();
 
-			// Foreach data disini
-			$arrOrtu = [];
-			foreach ($dataOrangTua as $ortuTerpilih) {
-				$arrOrtu[] = $ortuTerpilih['status'];
+			// Ambil Data application User
+			$applicationUser = new ApplicationUser();
+			$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+
+			$data['data_orang_tua'] = $dataOrangTua;
+			$data['siswaId'] = $siswaId;
+			$data['addData'] = $addData;
+			$data['status'] = $modelOrangTua->status;
+			$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
+
+			if ($addData == 2) {
+				// LOAD DATA MASTER
+				$dataAgama = new MasterAgama();
+				$dataPekerjaan = new MasterPekerjaan();
+				$dataPendidikan = new MasterPendidikan();
+
+				// PARSING DATA MASTER KE ARRAY
+				$data['master_agama'] = $dataAgama->findAll();
+				$data['master_pekerjaan'] = $dataPekerjaan->findAll();
+				$data['master_pendidikan'] = $dataPendidikan->findAll();
+
+				// Foreach data disini
+				$arrOrtu = [];
+				foreach ($dataOrangTua as $ortuTerpilih) {
+					$arrOrtu[] = $ortuTerpilih['status'];
+				}
+
+				$data['ortu_terpilih'] = $arrOrtu;
 			}
-
-			$data['ortu_terpilih'] = $arrOrtu;
 		}
+
 		return view('back_content/register/identitas_orang_tua', $data);
 	}
 
@@ -498,8 +511,13 @@ class Register extends BaseController
 
 	public function getDataSekolahAsal($siswaId)
 	{
-		$modeSekolahAsal = new SekolahAsal();
-		$data['sekolah_asal'] = $modeSekolahAsal->where('siswa_id', $siswaId)->findAll();
+		if($siswaId > 0) {
+			$modeSekolahAsal = new SekolahAsal();
+			$data['sekolah_asal'] = $modeSekolahAsal->where('siswa_id', $siswaId)->findAll();
+		}else {
+			$data['sekolah_asal'] = [];
+		}
+		
 
 		return view('back_content/register/data_sekolah_asal', $data);
 	}
@@ -573,26 +591,34 @@ class Register extends BaseController
 
 	public function getDataNilai($siswaId, $addData = null)
 	{
-		$modelBerkasNilai = new BerkasNilai();
-		$berkasMapel = $modelBerkasNilai->where('siswa_id', $siswaId)->findAll();
 
-		// Ambil Data application User
-		$applicationUser = new ApplicationUser();
-		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
-
-		$data['berkas_nilai'] = $berkasMapel;
-		$data['addData'] = $addData;
-		$data['siswaId'] = $siswaId;
-		$data['mapel'] = $modelBerkasNilai->mapel;
-		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
-
-		// Foreach data disini
-		$arrMapel = [];
-		foreach ($berkasMapel as $mapel_terpilih) {
-			$arrMapel[] = $mapel_terpilih['mata_pelajaran'];
+		if($siswaId > 0) {
+			$modelBerkasNilai = new BerkasNilai();
+			$data['mapel'] = $modelBerkasNilai->mapel;
+			$data['berkas_nilai'] = [];
+		}else {
+			$modelBerkasNilai = new BerkasNilai();
+			$berkasMapel = $modelBerkasNilai->where('siswa_id', $siswaId)->findAll();
+	
+			// Ambil Data application User
+			$applicationUser = new ApplicationUser();
+			$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+	
+			$data['berkas_nilai'] = $berkasMapel;
+			$data['addData'] = $addData;
+			$data['siswaId'] = $siswaId;
+			$data['mapel'] = $modelBerkasNilai->mapel;
+			$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
+	
+			// Foreach data disini
+			$arrMapel = [];
+			foreach ($berkasMapel as $mapel_terpilih) {
+				$arrMapel[] = $mapel_terpilih['mata_pelajaran'];
+			}
+	
+			$data['mapel_terpilih'] = $arrMapel;
 		}
-
-		$data['mapel_terpilih'] = $arrMapel;
+		
 
 		return view('back_content/register/data_nilai', $data);
 	}
@@ -676,16 +702,22 @@ class Register extends BaseController
 
 	public function getDataPendukung($siswaId, $addData = null)
 	{
-		$modeBerkasPendukung = new BerkasUpload();
 
-		// Ambil Data application User
-		$applicationUser = new ApplicationUser();
-		$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+		if($siswaId > 0) {
+			$data['berkas_pendukung'] = [];
+		}else {
+			$modeBerkasPendukung = new BerkasUpload();
 
-		$data['siswaId'] = $siswaId;
-		$data['addData'] = $addData;
-		$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
-		$data['berkas_pendukung'] = $modeBerkasPendukung->where('siswa_id', $siswaId)->findAll();
+			// Ambil Data application User
+			$applicationUser = new ApplicationUser();
+			$dataUserSiswa = $applicationUser->find(session()->get('user_id'));
+	
+			$data['siswaId'] = $siswaId;
+			$data['addData'] = $addData;
+			$data['is_lengkap'] = $dataUserSiswa['is_lengkap'];
+			$data['berkas_pendukung'] = $modeBerkasPendukung->where('siswa_id', $siswaId)->findAll();
+		}
+		
 
 		return view('back_content/register/data_pendukung', $data);
 	}
