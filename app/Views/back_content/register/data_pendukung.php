@@ -19,7 +19,7 @@
   <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_data_pendukung">Simpan</button>
   <?= form_close() ?>
 <?php else : ?>
-  <button id="tambah_data_pendukung" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataPendukung(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+  <button id="tambah_data_pendukung" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataPendukung(2)">Tambah data</button>
   <div class="table-responsive">
     <hr>
     <table class="table table-bordered">
@@ -87,6 +87,7 @@
           // Fungsi tambil data diambil dari dalam file index.php
           // tampilData();
           $('#notifikasi_data_pendukung').removeClass('d-none');
+          $('#notifikasi_data_pendukung').addClass('alert-success');
           $('#isi_pesan_nilai_data_pendukung').html(response.berhasil);
 
           let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + response.siswa_id + "/1";

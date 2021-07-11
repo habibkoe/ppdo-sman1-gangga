@@ -168,6 +168,10 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
   // Ajax Load Data secara dinamis tanpa refresh
   function ajaxLoad(_url, content) {
     content = typeof content !== 'undefined' ? content : 'content';
+
+    // Loading
+    $("#" + content).html('<img src="<?= base_url('theme/back/assets/images/loading.gif') ?>">');
+
     $.ajax({
       type: "GET",
       url: _url,
@@ -194,18 +198,18 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     }
   }
 
-  function tambahDataOrangTua(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + siswaId + '/' + addData;
+  function tambahDataOrangTua(addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + addData;
     ajaxLoad(urlLoad, "content_identitas_ortu");
   }
 
-  function tambahDataNilai(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + siswaId + '/' + addData;
+  function tambahDataNilai(addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + addData;
     ajaxLoad(urlLoad, "content_data_nilai");
   }
 
-  function tambahDataPendukung(siswaId, addData) {
-    let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + siswaId + '/' + addData;
+  function tambahDataPendukung(addData) {
+    let urlLoad = "<?= site_url('rahasia/get-element-data-pendukung/') ?>" + addData;
     ajaxLoad(urlLoad, "content_data_berkas");
   }
 
@@ -254,11 +258,11 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
   $(document).ready(function() {
 
     // Load data diri / data utama
-    let urlLoadDataDiri = "<?= site_url('rahasia/get-element-data-diri/0') ?>";
+    let urlLoadDataDiri = "<?= site_url('rahasia/get-element-data-diri') ?>";
     ajaxLoad(urlLoadDataDiri, "content_identitas_utama");
 
     // Load data orang tua
-    let urlLoadOrtu = "<?= site_url('rahasia/get-element-data-ortu/0/0') ?>";
+    let urlLoadOrtu = "<?= site_url('rahasia/get-element-data-ortu/0') ?>";
     ajaxLoad(urlLoadOrtu, "content_identitas_ortu");
 
     // Load asal sekolah
@@ -266,12 +270,12 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
     ajaxLoad(urlLoadAsalSekolah, "content_sekolah_asal");
 
     // Load data nilai
-    let urlLoadNilai = "<?= site_url('rahasia/get-element-data-nilai/0/0') ?>";
+    let urlLoadNilai = "<?= site_url('rahasia/get-element-data-nilai/0') ?>";
     ajaxLoad(urlLoadNilai, "content_data_nilai");
 
     // Load data pendukung
-    let urlLoadNilai = "<?= site_url('rahasia/get-element-data-pendukung/0/0') ?>";
-    ajaxLoad(urlLoadNilai, "content_data_berkas");
+    let urlLoadDataPendukung = "<?= site_url('rahasia/get-element-data-pendukung/0') ?>";
+    ajaxLoad(urlLoadDataPendukung, "content_data_berkas");
     
     $(".select2").select2({
       width: '100%'

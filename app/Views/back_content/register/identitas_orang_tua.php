@@ -101,7 +101,7 @@
     <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_ortu">Simpan</button>
     <?= form_close() ?>
 <?php else : ?>
-    <button id="tambah_data_ortu" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataOrangTua(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+    <button id="tambah_data_ortu" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataOrangTua(2)">Tambah data</button>
     <hr>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -208,9 +208,10 @@
                     // Fungsi tambil data diambil dari dalam file index.php
                     // tampilData();
                     $('#notifikasi_ortu').removeClass('d-none');
+                    $('#notifikasi_ortu').addClass('alert-success');
                     $('#isi_pesan_berhasil_ortu').html(response.berhasil);
 
-                    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/') ?>" + response.siswa_id + '/1';
+                    let urlLoad = "<?= site_url('rahasia/get-element-data-ortu/1') ?>";
 
                     // Load element lokal
                     ajaxLoad(urlLoad, "content_identitas_ortu");

@@ -97,6 +97,7 @@
                     // Fungsi tambil data diambil dari dalam file index.php
                     // tampilData();
                     $('#notifikasi_data_sekolah').removeClass('d-none');
+                    $('#notifikasi_data_sekolah').addClass('alert-success');
                     $('#isi_pesan_data_sekolah').html(response.berhasil);
 
                     let urlLoad = "<?= site_url('rahasia/get-element-data-sekolah-asal/') ?>" + response.siswa_id;

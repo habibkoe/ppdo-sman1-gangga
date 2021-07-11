@@ -30,7 +30,7 @@
     <button class="btn btn-outline-primary btn-sm" id="tombol_simpan_berkas">Simpan</button>
     <?= form_close() ?>
 <?php else : ?>
-    <button id="tambah_data_nilai" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataNilai(<?= isset($siswaId) ? $siswaId : $data_siswa['id'] ?>, 2)">Tambah data</button>
+    <button id="tambah_data_nilai" class="btn btn-primary btn-sm <?= $is_lengkap ? 'd-none' : '' ?>" onclick="tambahDataNilai(2)">Tambah data</button>
     <hr>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -95,6 +95,7 @@
                     // Fungsi tambil data diambil dari dalam file index.php
                     // tampilData();
                     $('#notifikasi_nilai_mapel').removeClass('d-none');
+                    $('#notifikasi_nilai_mapel').addClass('alert-success');
                     $('#isi_pesan_nilai_mapel').html(response.berhasil);
 
                     let urlLoad = "<?= site_url('rahasia/get-element-data-nilai/') ?>" + response.siswa_id + "/1";

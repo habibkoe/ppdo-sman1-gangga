@@ -56,11 +56,11 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	$routes->post('simpan-data-pendukung', 'Register::simpanDataPendukung');
 
 	// API Load Element
-	$routes->get('get-element-data-diri/(:any)', 'Register::getDataDiri/$1');
-	$routes->get('get-element-data-ortu/(:num)/(:num)', 'Register::getDataOrtu/$1/$2');
-	$routes->get('get-element-data-sekolah-asal/(:num)', 'Register::getDataSekolahAsal/$1');
-	$routes->get('get-element-data-nilai/(:num)/(:num)', 'Register::getDataNilai/$1/$2');
-	$routes->get('get-element-data-pendukung/(:num)/(:num)', 'Register::getDataPendukung/$1/$2');
+	$routes->get('get-element-data-diri', 'Register::getDataDiri');
+	$routes->get('get-element-data-ortu/(:any)', 'Register::getDataOrtu/$1');
+	$routes->get('get-element-data-sekolah-asal/(:any)', 'Register::getDataSekolahAsal/$1');
+	$routes->get('get-element-data-nilai/(:any)', 'Register::getDataNilai/$1');
+	$routes->get('get-element-data-pendukung/(:any)', 'Register::getDataPendukung/$1');
 
 	$routes->post('konfirmasi-pendaftaran', 'Register::konfirmasiPendaftaran');
 

@@ -285,8 +285,7 @@
                     $('#notifikasi_data_diri').removeClass('d-none');
                     $('#isi_pesan_berhasil').html(response.berhasil);
 
-                    let urlLoad = "<?= site_url('rahasia/get-element-data-diri/') ?>" + response
-                        .user_id;
+                    let urlLoad = "<?= site_url('rahasia/get-element-data-diri') ?>";
 
                     // Load element lokal
                     ajaxLoad(urlLoad, "content_identitas_utama");
