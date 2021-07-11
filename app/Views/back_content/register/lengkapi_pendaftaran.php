@@ -180,7 +180,7 @@ Lengkapi Data Pendaftaran SMAN 1 Gangga
         $("#" + content).html(data);
       },
       error: function(xhr, status, error) {
-        bootbox.alert(xhr.responseText);
+        alert(xhr.responseText);
       }
     });
   }

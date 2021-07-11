@@ -38,4 +38,24 @@ class Manajemensiswa extends BaseController
 			exit('Maaf tidak dapat di proses');
 		}
 	}
+
+	public function getDataDitolak()
+	{
+		if($this->request->isAJAX()) {
+			$dataModel = new Siswa();
+
+			$datas = [
+				'datas' => $dataModel->getDataDitolakJoinAll()
+			];
+
+			$pesan  = [
+				'data' => view('back_content/manajemen_siswa/data', $datas)
+			];
+
+			echo json_encode($pesan);
+
+		}else {
+			exit('Maaf tidak dapat di proses');
+		}
+	}
 }
