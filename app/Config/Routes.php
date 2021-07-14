@@ -155,6 +155,8 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 
 	// API
 	$routes->get('get-data-siswa', 'Manajemensiswa::getData');
+	$routes->get('get-data-siswa-ditolak', 'Manajemensiswa::getDataDitolak');
+	$routes->post('tolak-siswa', 'Manajemensiswa::tolakSiswa');
 
 	// -------------------------------------------
 	$routes->get('manajemen-kelas', 'Manajemenkelas::index');

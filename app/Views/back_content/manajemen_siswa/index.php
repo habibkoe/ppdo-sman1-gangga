@@ -6,13 +6,17 @@
 
 <?= $this->section('css') ?>
 <!-- DataTables -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
-<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/buttons.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet"
-    type="text/css" />
+<link href="<?= base_url('theme/back/assets/plugins/datatables/responsive.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+
+<style>
+    .modal-lg,
+    .modal-xl {
+        max-width: 1200px;
+    }
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -34,9 +38,6 @@
     <div class="col-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <a href="http://" class="btn btn-success btn-sm">Data siswa ditolak</a>
-                <br>
-                <span>Table dibawah merupakan daftar calon siswa baru, jika siswa tidak sesuai dengan kriteria, klik tolak untuk mendiskualifikasi siswa</span>
                 <div id="tampildata"></div>
             </div>
         </div>
@@ -57,37 +58,63 @@
 
 <!-- Datatable init js -->
 <script>
-function tampilData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-data-siswa') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampildata').html(response.data);
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
+    function tampilData() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-data-siswa') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampildata').html(response.data);
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function detailData(id) {
+        $.ajax({
+            type: "get",
+            url: "<?= site_url('rahasia/get-detail-data/') ?>" + id,
+            dataType: "json",
+            success: function(response) {
+                $('#tampilmodal').html(response.data).removeClass('d-none');
+                $('#modalShow').modal('show');
+            }
+        });
+    }
+
+    function tolakDataSiswa(id, keputusan) {
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('rahasia/tolak-terima-siswa') ?>",
+            data: {
+                siswa_id: id,
+                keputusan:keputusan
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.berhasil) {
+                    tampilData();
+                }
+            }
+        });
+    }
+
+    function tampilDataDitolak() {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-data-siswa-ditolak') ?>",
+            dataType: "json",
+            success: function(response) {
+                $('#tampildata').html(response.data);
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        tampilData();
     });
-}
-
-function tambahData() {
-    $.ajax({
-        url: "<?= site_url('rahasia/get-form-pekerjaan') ?>",
-        dataType: "json",
-        success: function(response) {
-            $('#tampilmodal').html(response.data).removeClass('d-none');
-            $('#modaltambah').modal('show');
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            aler(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-        }
-
-    });
-    
-}
-
-$(document).ready(function() {
-    tampilData();
-});
 </script>
 <?= $this->endSection() ?>

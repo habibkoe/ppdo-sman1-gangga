@@ -14,7 +14,7 @@ class Siswa extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id','nis','nik','pas_poto','nama_awal','nama_akhir','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','user_id','agama_id','jurusan_id'];
+	protected $allowedFields        = ['id','nis','nik','pas_poto','nama_awal','nama_akhir','tempat_lahir','tanggal_lahir','alamat','jenis_kelamin','user_id','agama_id','jurusan_id','deleted_at'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -65,7 +65,7 @@ class Siswa extends Model
 	}
 
 
-	public function getDataDitolakJoinAll() : array
+	public function getDataDitolakJoinAll() : object
 	{
 		$data = [];
 		$builder = $this->table('siswa');
@@ -73,8 +73,8 @@ class Siswa extends Model
 		$builder->join('master_jurusan', 'master_jurusan.id = siswa.jurusan_id');
 		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
 		$builder->join('application_user', 'application_user.id = siswa.user_id');
-		$builder->where('siswa.deleted_at !=', null);
-		$query = $builder->findAll();
+		$builder->where('siswa.deleted_at !=', null, false);
+		$query = $builder->get();
 
 		if(isset($query)) {
 			$data = $query;
