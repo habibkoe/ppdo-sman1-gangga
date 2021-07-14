@@ -60,6 +60,7 @@
 <script>
     function tampilData() {
         $.ajax({
+            type: "GET",
             url: "<?= site_url('rahasia/get-data-siswa') ?>",
             dataType: "json",
             success: function(response) {
@@ -73,7 +74,7 @@
 
     function detailData(id) {
         $.ajax({
-            type: "get",
+            type: "GET",
             url: "<?= site_url('rahasia/get-detail-data/') ?>" + id,
             dataType: "json",
             success: function(response) {
@@ -102,6 +103,7 @@
 
     function tampilDataDitolak() {
         $.ajax({
+            type: "GET",
             url: "<?= site_url('rahasia/get-data-siswa-ditolak') ?>",
             dataType: "json",
             success: function(response) {

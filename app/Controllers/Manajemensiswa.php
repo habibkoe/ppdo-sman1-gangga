@@ -43,11 +43,6 @@ class Manajemensiswa extends BaseController
 	{
 		if($this->request->isAJAX()) {
 			$dataModel = new Siswa();
-
-			var_dump($dataModel->getDataDitolakJoinAll());
-
-			exit();
-
 			$datas = [
 				'datas' => $dataModel->getDataDitolakJoinAll()
 			];

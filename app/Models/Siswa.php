@@ -65,7 +65,7 @@ class Siswa extends Model
 	}
 
 
-	public function getDataDitolakJoinAll() : object
+	public function getDataDitolakJoinAll() : array
 	{
 		$data = [];
 		$builder = $this->table('siswa');
@@ -73,8 +73,8 @@ class Siswa extends Model
 		$builder->join('master_jurusan', 'master_jurusan.id = siswa.jurusan_id');
 		$builder->join('master_agama', 'master_agama.id = siswa.agama_id');
 		$builder->join('application_user', 'application_user.id = siswa.user_id');
-		$builder->where('siswa.deleted_at !=', null, false);
-		$query = $builder->get();
+		$builder->onlyDeleted();
+		$query = $builder->findAll();
 
 		if(isset($query)) {
 			$data = $query;
