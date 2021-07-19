@@ -1,4 +1,4 @@
-<a class="btn btn-success btn-sm" onclick="tampilData()">Data siswa diterima</a>
+<a class="btn btn-success btn-sm" onclick="tampilData()" style="cursor: pointer;">Data siswa diterima</a>
 <br>
 <span>Table dibawah merupakan daftar calon siswa baru yang tidak lolos seleksi, jika anda berubah pikiran, klik batal tolak untuk menerima siswa</span>
 <table id="datatable" class="table table-hover">

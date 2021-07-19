@@ -1,4 +1,4 @@
-<a class="btn btn-success btn-sm" onclick="tampilDataDitolak()">Data siswa ditolak</a>
+<a class="btn btn-warning btn-sm" onclick="tampilDataDitolak()" style="cursor: pointer;">Data siswa ditolak</a>
 <br>
 <span>Table dibawah merupakan daftar calon siswa baru, jika siswa tidak sesuai dengan kriteria, klik tolak untuk mendiskualifikasi siswa</span>
 <table id="datatable" class="table table-hover">

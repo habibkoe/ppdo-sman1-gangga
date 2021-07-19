@@ -71,8 +71,6 @@ class Manajemenstaf extends BaseController
 		if ($this->request->isAJAX()) {
 			$validasi = Services::validation();
 
-
-
 			$valid = $this->validate([
 				'nik' => [
 					'label' => 'Nik',
@@ -173,7 +171,7 @@ class Manajemenstaf extends BaseController
 					'pendidikan_id' => $this->request->getVar('pendidikan_id'),
 					'jabatan_id' => $this->request->getVar('jabatan_id'),
 					'user_id' => session()->get('user_id_daftar'),
-					'pas_Poto' => $imageWithDir
+					'pas_poto' => $imageWithDir
 				];
 
 				$data = new Staf();
