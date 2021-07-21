@@ -20,6 +20,7 @@ class Manajemenkelas extends BaseController
 		$data['session'] = $session;
 		$data['nama_halaman'] = $this->nama_halaman;
 		$data['master_kelas'] = $dataMasterKelas->findAll();
+		$data['jml_siswa_pada_kelas'] = $dataMasterKelas->getKelasPembagian();
 
 		return view('back_content/manajemen_kelas/index', $data);
 	}
@@ -68,6 +69,27 @@ class Manajemenkelas extends BaseController
 
 			echo json_encode($pesan);
 		} else {
+		}
+	}
+
+
+	public function getShowSiswa($idKelas)
+	{
+		if ($this->request->isAJAX()) {
+
+			$masterKelas = new Kelas();
+			$ambilData = $masterKelas->getKelasSiswaPembagian($idKelas);
+			$ambilDataKelas = $masterKelas->find($idKelas);
+
+			$data['master_kelas'] = $ambilDataKelas;
+			$data['siswa'] = $ambilData;
+			$element = [
+				'data' => view('back_content/manajemen_kelas/show', $data)
+			];
+
+			echo json_encode($element);
+		} else {
+			exit('Maaf tidak dapa di proses');
 		}
 	}
 }

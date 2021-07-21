@@ -58,6 +58,7 @@
 
 <!-- Datatable init js -->
 <script>
+
     function tampilData() {
         $.ajax({
             type: "GET",
@@ -84,10 +85,10 @@
         });
     }
 
-    function tolakDataSiswa(id, keputusan) {
+    function tolakOrTerimaDataSiswa(id, keputusan) {
         $.ajax({
             type: "POST",
-            url: "<?= site_url('rahasia/tolak-terima-siswa') ?>",
+            url: "<?= site_url('rahasia/tolak-or-terima-siswa') ?>",
             data: {
                 siswa_id: id,
                 keputusan:keputusan

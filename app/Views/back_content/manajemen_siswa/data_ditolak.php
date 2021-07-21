@@ -27,7 +27,7 @@
             <td><?= $data['nama_agama'] ?></td>
             <td><?= $data['is_lengkap'] ? "Lengkap" : "Belum Lengkap" ?></td>
             <td>
-                <button class="btn btn-sm btn-danger" onclick="terimaDataSiswa(<?= $data['id'] ?>, 1)">Batal tolak</button>
+                <button class="btn btn-sm btn-success" onclick="tolakOrTerimaDataSiswa(<?= $data['id'] ?>, 1)">Batal tolak</button>
                 <button class="btn btn-sm btn-secondary" onclick="detailData(<?= $data['id'] ?>)">Detail</button>
             </td>
         </tr>

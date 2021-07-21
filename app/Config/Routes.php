@@ -156,11 +156,12 @@ $routes->group('rahasia', ['filter' => 'auth'], function($routes) {
 	// API
 	$routes->get('get-data-siswa', 'Manajemensiswa::getData');
 	$routes->get('get-data-siswa-ditolak', 'Manajemensiswa::getDataDitolak');
-	$routes->post('tolak-siswa', 'Manajemensiswa::tolakSiswa');
+	$routes->post('tolak-or-terima-siswa', 'Manajemensiswa::tolakOrTerimaSiswa');
 
 	// -------------------------------------------
 	$routes->get('manajemen-kelas', 'Manajemenkelas::index');
 	$routes->get('get-form-tambah-siswa/(:num)', 'Manajemenkelas::getForm/$1');
+	$routes->get('get-show-siswa/(:num)', 'Manajemenkelas::getShowSiswa/$1');
 	$routes->post('simpan-data-siswa-kelas', 'Manajemenkelas::simpanData');
 
 	// API

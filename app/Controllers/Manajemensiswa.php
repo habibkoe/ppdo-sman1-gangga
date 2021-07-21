@@ -58,7 +58,7 @@ class Manajemensiswa extends BaseController
 		}
 	}
 
-	public function tolakSiswa()
+	public function tolakOrTerimaSiswa()
 	{
 		if ($this->request->isAJAX()) {
 			$id = $this->request->getVar('siswa_id');

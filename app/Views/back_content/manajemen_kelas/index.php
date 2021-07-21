@@ -66,5 +66,21 @@
         });
 
     }
+
+    function showSiswa(idKelas) {
+        $.ajax({
+            url: "<?= site_url('rahasia/get-show-siswa/') ?>" + idKelas,
+            dataType: "json",
+            success: function (response) {
+                $('#tambahsiswa').html(response.data).removeClass('d-none');
+                $('#modalshowsiswa').modal('show');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+
+        });
+
+    }
 </script>
 <?= $this->endSection() ?>

@@ -23,12 +23,6 @@ class Kelas extends Model
 	protected $updatedField         = 'updated_at';
 	protected $deletedField         = 'deleted_at';
 
-	// Validation
-	protected $validationRules      = [];
-	protected $validationMessages   = [];
-	protected $skipValidation       = false;
-	protected $cleanValidationRules = true;
-
 	public function getKelasWithJoin() : array
 	{
 		$data = [];
@@ -44,5 +38,41 @@ class Kelas extends Model
 
 		return $data;
 
+	}
+
+	public function getKelasPembagian() : array 
+	{
+		$data = [];
+		$builder = $this->table('pembagian_kelas');
+		$kelas = $builder->findAll();
+
+		foreach($kelas as $k) {
+
+			$pembagianKelas = new PembagianKelas();
+			$pembagianKelas->where('kelas_id', $k['id']);
+			$jmlSiswa = $pembagianKelas->countAllResults();
+
+			$data[$k['id']] = $jmlSiswa;
+		}
+
+		return $data;
+	}
+
+	public function getKelasSiswaPembagian(int $kelasId) : array
+	{
+		$data = [];
+
+		$builder = $this->table('kelas');
+		$builder->join('pembagian_kelas', 'pembagian_kelas.kelas_id=kelas.id', 'left');
+		$builder->join('siswa', 'siswa.id=pembagian_kelas.siswa_id');
+		$builder->where('kelas.id', $kelasId);
+		$builder->select('kelas.id as kelas_id, kelas.nama as nama_kelas, siswa.nis, siswa.nik, siswa.pas_poto, siswa.nama_awal, siswa.nama_akhir');
+		$query = $builder->findAll();
+
+		if(isset($query)) {
+			$data = $query;
+		}
+
+		return $data;
 	}
 }
