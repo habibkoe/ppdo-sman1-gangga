@@ -46,7 +46,7 @@
     <script src="<?= base_url('theme/front/assets/vendor/jquery.easing/jquery.easing.min.js'); ?>"></script>
     <script src="<?= base_url('theme/front/assets/vendor/php-email-form/validate.js'); ?>"></script>
     <script src="<?= base_url('theme/front/assets/vendor/wow/wow.min.js'); ?>"></script>
-    <script src="<?= base_url('theme/front/assets/vendor/venobox/venobox.min.js'); ?>"></script>
+    <script src="<?= base_url('theme/front/assets/vendor/venobox/venobox.js'); ?>"></script>
     <script src="<?= base_url('theme/front/assets/vendor/owl.carousel/owl.carousel.min.js'); ?>"></script>
     <script src="<?= base_url('theme/front/assets/vendor/jquery-sticky/jquery.sticky.js'); ?>"></script>
     <script src="<?= base_url('theme/front/assets/vendor/superfish/superfish.min.js'); ?>"></script>

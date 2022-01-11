@@ -5,7 +5,7 @@
             &copy; Copyright <strong>SMAN 1 Gangga</strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by ANNA
+            Designed by Habib Koe
         </div>
     </div>
 </footer><!-- End Footer -->

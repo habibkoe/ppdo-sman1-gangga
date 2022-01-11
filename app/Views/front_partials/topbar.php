@@ -3,7 +3,7 @@
     <div class="container clearfix">
         <div class="contact-info float-left">
             <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contact@sman1gangga.sch.id</a>
-            <i class="fa fa-phone"></i> +62 000 1111 2222
+            <i class="fa fa-phone" aria-hidden="true"></i> +62 000 1111 2222
         </div>
         <div class="social-links float-right">
             <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
